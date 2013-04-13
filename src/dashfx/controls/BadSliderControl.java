@@ -41,9 +41,9 @@ import javafx.scene.control.Slider;
 	"The minimum value",
 	"The maximum value"
 })
-public class BadSliderControl extends Slider implements Registerable, ChangeListener<SmartValue>
+public class BadSliderControl extends Slider implements Registerable, ChangeListener<Object>
 {
-	StringProperty name = new SimpleStringProperty();
+	StringProperty name = new SimpleStringProperty("sin");
 
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()
@@ -65,6 +65,9 @@ public class BadSliderControl extends Slider implements Registerable, ChangeList
 	@Override
 	public void registered(final DataCoreProvider provider)
 	{
+		this.setMax(1.0);
+		this.setMin(-1.0);
+		this.setValue(0.5);
 		//TODO: add better getObservable Overrides
 		if (getName() != null)
 		{
@@ -82,8 +85,8 @@ public class BadSliderControl extends Slider implements Registerable, ChangeList
 	}
 
 	@Override
-	public void changed(ObservableValue<? extends SmartValue> ov, SmartValue t, SmartValue t1)
+	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
-		setValue(t1.asNumber(0));
+		setValue(((SmartValue)ov).asNumber(0));
 	}
 }

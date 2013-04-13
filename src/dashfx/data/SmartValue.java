@@ -5,43 +5,43 @@
 package dashfx.data;
 
 import java.util.HashMap;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableMap;
 
 /**
  * This class provides a single way to represent all possible data
  */
-public class SmartValue
+public class SmartValue extends SimpleObjectProperty<Object>
 {
-	Object data;
 	private String name;
 	private String groupName = "";
 	private SmartValueTypes type;
 
 	public SmartValue(Object data, SmartValueTypes type, String name)
 	{
-		this.data = data;
+		super(data);
 		this.name = name;
 		this.type = type;
 	}
 
 	public SmartValue(Object data, SmartValueTypes type, String name, String groupName)
 	{
+		super(data);
 		this.groupName = groupName;
-		this.data = data;
 		this.name = name;
 		this.type = type;
 	}
 
 	public SmartValue()
 	{
-		data = null;
+		super(null);
 		name = "";
 		type = SmartValueTypes.Unknown;
 	}
 
 	public boolean isEmpty()
 	{
-		return data == null;
+		return getValue() == null;
 	}
 
 	public double asNumber()
@@ -53,8 +53,8 @@ public class SmartValue
 	{
 		if (isEmpty())
 			return defaultValue;
-		if (data instanceof Double || data instanceof Float || data instanceof Integer)
-			return (double) data;
+		if (getValue() instanceof Double || getValue() instanceof Float || getValue() instanceof Integer)
+			return (double) getValue();
 		// TODO: shoud we try parsing strings?
 		return defaultValue;
 	}
@@ -66,14 +66,14 @@ public class SmartValue
 
 	public String asString()
 	{
-		if (data == null)
+		if (getValue() == null)
 			return null;
-		return data.toString();
+		return getValue().toString();
 	}
 
 	public boolean isString()
 	{
-		return (data instanceof String);
+		return (getValue() instanceof String);
 	}
 
 	// TODO: shoudld the hash's be quiet about if they are observable or not and coalase?
@@ -84,8 +84,8 @@ public class SmartValue
 
 	public ObservableMap<String, SmartValue> asHash(ObservableMap<String, SmartValue> defaultValue)
 	{
-		if (data instanceof ObservableMap)
-			return (ObservableMap<String, SmartValue>) data;
+		if (getValue() instanceof ObservableMap)
+			return (ObservableMap<String, SmartValue>) getValue();
 		return defaultValue;
 	}
 
@@ -101,8 +101,8 @@ public class SmartValue
 
 	public HashMap<String, SmartValue> asRawHash(HashMap<String, SmartValue> defaulltValue)
 	{
-		if (data instanceof HashMap)
-			return (HashMap<String, SmartValue>) data;
+		if (getValue() instanceof HashMap)
+			return (HashMap<String, SmartValue>) getValue();
 		return defaulltValue;
 	}
 
@@ -123,16 +123,22 @@ public class SmartValue
 			return hm.get(name);
 		ObservableMap<String, SmartValue> om = asHash();
 		if (om != null)
-			return hm.get(name);
+			return om.get(name);
 		if (quiet)
 			return null;
 		//TODO: what should we do?
 		throw new RuntimeException("Not a hashmap you dimwit!");
 	}
 
+	public void setData(Object o)
+	{
+		super.setValue(o);
+	}
+
 	/**
 	 * @return the name
 	 */
+	@Override
 	public String getName()
 	{
 		return name;

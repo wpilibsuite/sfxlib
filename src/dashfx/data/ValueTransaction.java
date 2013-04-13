@@ -20,7 +20,9 @@ package dashfx.data;
  *
  * @author patrick
  */
-class ValueTransaction
+public interface ValueTransaction
 {
-//TODO: do
+	String[] getDeletedNames();
+
+	SmartValue[] getValues();
 }

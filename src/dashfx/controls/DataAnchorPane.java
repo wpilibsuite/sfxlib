@@ -57,7 +57,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	}
 
 	@Override
-	public ObservableValue<SmartValue> getObservable(String name)
+	public SmartValue getObservable(String name)
 	{
 		return superprovider.getObservable(name);
 	}

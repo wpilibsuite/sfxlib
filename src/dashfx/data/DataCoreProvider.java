@@ -27,5 +27,5 @@ public interface DataCoreProvider
 	void addControl(Registerable r);
 	void addDataEndpoint(DataEndpoint r);
 	void addDataFilter(DataProcessor r);
-	ObservableValue<SmartValue> getObservable(String name);
+	SmartValue getObservable(String name);
 }
