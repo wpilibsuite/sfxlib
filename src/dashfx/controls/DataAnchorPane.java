@@ -71,4 +71,16 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 			r.registered(this);
 		}
 	}
+
+	@Override
+	public void pause()
+	{
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void resume()
+	{
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 }

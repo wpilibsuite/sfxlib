@@ -17,8 +17,9 @@ import javafx.collections.FXCollections;
  */
 public class DataCore implements DataCoreProvider, DataProcessor
 {
-	SmartValue dataTree = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, "");
-	ArrayList<DataEndpoint> endpoints = new ArrayList<>();
+	private SmartValue dataTree = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, "");
+	private ArrayList<DataEndpoint> endpoints = new ArrayList<>();
+	private boolean running = false;
 
 	@Override
 	public void addControl(Registerable r)
@@ -40,7 +41,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	}
 
 	@Override
-	public SmartValue getObservable(String name)
+	public synchronized SmartValue getObservable(String name)
 	{
 		if (name.equals("/") || name.equals(""))
 		{
@@ -68,8 +69,10 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	}
 
 	@Override
-	public void processData(DataProcessor source, ValueTransaction data)
+	public synchronized void processData(DataProcessor source, ValueTransaction data)
 	{
+		if (!running)
+			return;
 		//TODO: delete data
 		for (SmartValue smartValue : data.getValues())
 		{
@@ -78,4 +81,15 @@ public class DataCore implements DataCoreProvider, DataProcessor
 		}
 	}
 
+	@Override
+	public void pause()
+	{
+		running = false;
+	}
+
+	@Override
+	public void resume()
+	{
+		running = true;
+	}
 }
