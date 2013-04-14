@@ -19,6 +19,8 @@ package dashfx.controls;
 import dashfx.data.DataCoreProvider;
 import dashfx.data.Registerable;
 import dashfx.data.SmartValue;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
