@@ -49,16 +49,10 @@ public class TestDataSource implements DataSource, Runnable
 
 			trans.addValue(new SmartValue(Math.sin(t), SmartValueTypes.Double, "sin"));
 			trans.addValue(new SmartValue(Math.cos(t), SmartValueTypes.Double, "cos"));
-			trans.addValue(new SmartValue(Math.sin(t)*0.5 + Math.cos(t*0.989), SmartValueTypes.Double, "complex"));
+			trans.addValue(new SmartValue(Math.sin(t) + Math.cos(t * 0.989), SmartValueTypes.Double, "complex"));
 			trans.addValue(new SmartValue(String.valueOf(Math.sin(t)), SmartValueTypes.String, "sins"));
-			Platform.runLater(new Runnable() {
 
-				@Override
-				public void run()
-				{
-					proc.processData(null, trans);
-				}
-			});
+			proc.processData(null, trans);
 			try
 			{
 				Thread.sleep(50);

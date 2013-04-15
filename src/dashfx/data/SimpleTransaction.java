@@ -6,6 +6,9 @@ package dashfx.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  *
@@ -46,6 +49,12 @@ public class SimpleTransaction implements ValueTransaction
 		this.deleted.addAll(Arrays.asList(deleted));
 	}
 
+	public SimpleTransaction(ValueTransaction vt)
+	{
+		this.values.addAll(Arrays.asList(vt.getValues()));
+		this.deleted.addAll(Arrays.asList(vt.getDeletedNames()));
+	}
+
 	public void addValue(SmartValue value)
 	{
 		this.values.add(value);
@@ -70,5 +79,27 @@ public class SimpleTransaction implements ValueTransaction
 		return values.toArray(new SmartValue[]
 		{
 		});
+	}
+
+	public static SimpleTransaction merge(ValueTransaction st, ValueTransaction get)
+	{
+		//TOOD: deleted items!
+		SimpleTransaction qt = new SimpleTransaction(st);
+		//TODO: non-optimal
+		HashMap<String, Integer> allTheNames =  new HashMap<>(st.getValues().length + get.getValues().length);
+		for (int i = 0; i < qt.values.size(); i++)
+		{
+			allTheNames.put(qt.values.get(i).getName(), i);
+		}
+		for (SmartValue smartValue : get.getValues())
+		{
+			if (allTheNames.containsKey(smartValue.getName()))
+			{
+				qt.values.set(allTheNames.get(smartValue.getName()), smartValue);
+			}
+			else
+				qt.addValue(smartValue);
+		}
+		return qt;
 	}
 }

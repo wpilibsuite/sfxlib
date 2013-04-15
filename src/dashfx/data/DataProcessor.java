@@ -23,4 +23,5 @@ package dashfx.data;
 public interface DataProcessor
 {
 	void processData(DataProcessor source, ValueTransaction data);
+	void setProcessor(DataProcessor proc);
 }
