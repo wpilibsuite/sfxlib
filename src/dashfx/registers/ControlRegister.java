@@ -16,6 +16,9 @@
  */
 package dashfx.registers;
 
+import dashfx.controls.Designable;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,5 +46,13 @@ public class ControlRegister
 			knownClasses = new ArrayList<>(Arrays.asList(DesignableControlIntRes.KNOWN));
 		}
 		return knownClasses.toArray(new Class[]{});
+	}
+
+	public static InputStream getDesignableImage(Class clz)
+	{
+		String imgRel = ((Designable)clz.getAnnotation(Designable.class)).image();
+		if (imgRel.isEmpty())
+			return null;
+		return ControlRegister.class.getResourceAsStream(imgRel);
 	}
 }

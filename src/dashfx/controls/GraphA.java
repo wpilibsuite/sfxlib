@@ -26,7 +26,7 @@ import javafx.scene.chart.*;
  *
  * @author patrick
  */
-@Designable(value = "First attempt at a graph", description = "Uses built-in graph and manual list storting. Horrible")
+@Designable(value = "Graph (A)", image = "/dashfx/controls/GraphA.png", description = "Uses built-in graph and manual list storting. Horrible")
 public class GraphA extends LineChart<Number, Number> implements Registerable, ChangeListener<Object>
 {
 	StringProperty name = new SimpleStringProperty("complex");

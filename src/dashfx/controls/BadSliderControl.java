@@ -31,7 +31,7 @@ import javafx.scene.control.Slider;
  *
  * @author patrick
  */
-@Designable(value = "Bad Slider Control", description = "Uses built-in slider. Horrible")
+@Designable(value = "Bad Slider", image="/dashfx/controls/BadSlider.png",  description = "Uses built-in slider. Horrible")
 @DesignableProperty(value =
 {
 	"value",
