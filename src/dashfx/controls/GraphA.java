@@ -34,7 +34,6 @@ public class GraphA extends LineChart<Number, Number> implements Registerable, C
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()
 	{
-
 		return name;
 	}
 
