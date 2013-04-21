@@ -194,4 +194,12 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	{
 		return EnumSet.copyOf(Arrays.asList(ResizeDirections.values()));
 	}
+
+	@Override
+	public void addChildAt(Node child, double x, double y)
+	{
+		child.setLayoutX(x);
+		child.setLayoutY(y);
+		getChildren().add(child);
+	}
 }

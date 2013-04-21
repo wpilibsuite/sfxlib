@@ -38,4 +38,5 @@ public interface DesignablePane
 	void FinishDragging();
 	void setDesigning(boolean designing);
 	boolean getDesigning();
+	void addChildAt(Node child, double x, double y);
 }

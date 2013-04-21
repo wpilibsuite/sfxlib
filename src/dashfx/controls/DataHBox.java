@@ -227,4 +227,22 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 	{
 		return EnumSet.of(ResizeDirections.Move, ResizeDirections.LeftRight);
 	}
+
+	@Override
+	public void addChildAt(Node child, double x, double y)
+	{
+		if (getChildren().size() == 0 || x <= 0)
+			getChildren().add(child);
+		else
+		{
+			int idx = 0;
+			double width = 0;
+			while (x > width)
+			{
+				// TODO: halfwidth
+			width += ((Region)getChildren().get(idx++)).getWidth();
+			}
+			getChildren().add(idx, child);
+		}
+	}
 }
