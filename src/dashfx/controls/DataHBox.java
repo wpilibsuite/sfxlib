@@ -26,15 +26,15 @@ import javafx.scene.layout.*;
  *
  * @author patrick
  */
-@Designable(value = "Canvas", description = "Cartesian coordinate based panel")
-public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Registerable, DesignablePane
+@Designable(value = "HStack Panel", description = "Fitting horizontal stacking panel")
+public class DataHBox extends HBox implements DataCoreProvider, Registerable, DesignablePane
 {
 	private DataCoreProvider superprovider = null;
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
 	private ArrayList<Registerable> registered = new ArrayList<>();
 	private boolean designing;
 
-	public DataAnchorPane()
+	public DataHBox()
 	{
 		getChildren().addListener(new ListChangeListener<Node>()
 		{
@@ -51,6 +51,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 				}
 				catch (IllegalStateException ex)
 				{
+
 					// this always happens
 					for (Node ctrls : getChildren())
 					{
@@ -62,7 +63,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 							}
 							else
 							{
-								addControl((Registerable)ctrls);
+								addControl((Registerable) ctrls);
 							}
 						}
 					}
@@ -131,8 +132,9 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	}
 	private Node[] overlays;
 	private Region[] childs;
-	private double[] layoutX, layoutY, lastSizeX, lastSizeY;
-	private double sizeX, sizeY, posX, posY;
+	private int[] indexes;
+	private double[] lastSizeX;
+	private double sizeX, sizeY, posX, posY, dxDiff;
 
 	@Override
 	public void BeginDragging(Node[] overlays, Region[] childs, double x, double y, double sizeX, double sizeY, double posX, double posY)
@@ -144,29 +146,60 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 		this.sizeY = sizeY;
 		this.posX = posX;
 		this.posY = posY;
-		layoutX = new double[childs.length];
-		layoutY = new double[childs.length];
+		indexes = new int[childs.length];
 		lastSizeX = new double[childs.length];
-		lastSizeY = new double[childs.length];
 		for (int i = 0; i < childs.length; i++)
 		{
-			layoutX[i] = overlays[i].getLayoutX();
-			layoutY[i] = overlays[i].getLayoutY();
+			indexes[i] = getChildren().indexOf(overlays[i]);
 			lastSizeX[i] = childs[i].getWidth();
-			lastSizeY[i] = childs[i].getHeight();
 		}
 	}
 
 	@Override
 	public void ContinueDragging(double dx, double dy)
 	{
+		//TODO: support multi-dragging
 		for (int i = 0; i < overlays.length; i++)
 		{
 			Node overlay = overlays[i];
 			Region childContainer = childs[i];
-			overlay.setLayoutX(layoutX[i] + dx * posX);
-			overlay.setLayoutY(layoutY[i] + dy * posY);
-			childContainer.setPrefSize(lastSizeX[i] + dx * sizeX, lastSizeY[i] + dy * sizeY);
+			if (sizeX != 0)
+				childContainer.setPrefWidth(lastSizeX[i] + dx * sizeX);
+			else
+			{
+				//if the dx > width of next/previous, move it
+				if ((dx - dxDiff) > 0 )
+				{
+					//move to the right. only bother if we can
+					if(indexes[0] < getChildren().size() - 1)
+					{
+						while ((dx - dxDiff) > ((Region)getChildren().get(indexes[0] + 1)).getWidth())
+						{
+							dxDiff += ((Region)getChildren().get(indexes[0] + 1)).getWidth();
+							Node oc = getChildren().get(indexes[0]);
+							getChildren().remove(oc);
+							getChildren().add(indexes[0] + 1, oc);
+							indexes[0]++;
+						}
+					}
+				}
+				else if ((dx - dxDiff) < 0 )
+				{
+					//move to the left. only bother if we can
+					if(indexes[0] > 0)
+					{
+						while ((dx - dxDiff) < -((Region)getChildren().get(indexes[0] - 1)).getWidth())
+						{
+							dxDiff -= ((Region)getChildren().get(indexes[0] - 1)).getWidth();
+							Node oc = getChildren().get(indexes[0]);
+							getChildren().remove(oc);
+							getChildren().add(indexes[0] - 1, oc);
+							indexes[0]--;
+						}
+					}
+				}
+			}
+
 		}
 	}
 
@@ -192,6 +225,6 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	@Override
 	public EnumSet<ResizeDirections> getSupportedOps()
 	{
-		return EnumSet.copyOf(Arrays.asList(ResizeDirections.values()));
+		return EnumSet.of(ResizeDirections.Move, ResizeDirections.LeftRight);
 	}
 }
