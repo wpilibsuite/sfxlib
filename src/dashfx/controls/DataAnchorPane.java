@@ -18,8 +18,10 @@ package dashfx.controls;
 
 import dashfx.data.*;
 import java.util.*;
-import javafx.collections.ListChangeListener;
+import javafx.collections.*;
+import javafx.event.*;
 import javafx.scene.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 /**
@@ -33,6 +35,9 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
 	private ArrayList<Registerable> registered = new ArrayList<>();
 	private boolean designing;
+	private int originalIndex = -1;
+	private Pane slurpee = new Pane();
+	private Runnable exitRequest = null;
 
 	public DataAnchorPane()
 	{
@@ -65,6 +70,28 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 								addControl((Registerable)ctrls);
 							}
 						}
+					}
+				}
+			}
+		});
+
+		slurpee.setLayoutX(0);
+		slurpee.setLayoutY(0);
+		slurpee.prefWidthProperty().bind(widthProperty());
+		slurpee.prefHeightProperty().bind(heightProperty());
+		slurpee.addEventFilter(EventType.ROOT, new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event t)
+			{
+				// schluuurp!
+				t.consume();
+				if (t.getEventType() == MouseEvent.MOUSE_CLICKED)
+				{
+					if (((MouseEvent)t).getClickCount() > 1)
+					{
+						//exit
+						exitRequest.run();
 					}
 				}
 			}
@@ -160,6 +187,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	@Override
 	public void ContinueDragging(double dx, double dy)
 	{
+		// TODO: asert that its valid to continue
 		for (int i = 0; i < overlays.length; i++)
 		{
 			Node overlay = overlays[i];
@@ -201,5 +229,31 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 		child.setLayoutX(x);
 		child.setLayoutY(y);
 		getChildren().add(child);
+	}
+
+	@Override
+	public void editNested(Node overlay, Runnable onExitRequested)
+	{
+		if (originalIndex == -1)
+		{
+			exitRequest = onExitRequested;
+			getChildren().add(slurpee);
+			originalIndex = getChildren().indexOf(overlay);
+			getChildren().remove(overlay);
+			getChildren().add(overlay);
+		}
+	}
+
+	@Override
+	public void exitNested()
+	{
+		if (originalIndex != -1)
+		{
+			getChildren().remove(slurpee);
+			Node itm = getChildren().remove(getChildren().size() - 1);
+			getChildren().add(originalIndex, itm);
+			originalIndex = -1;
+			exitRequest = null;
+		}
 	}
 }

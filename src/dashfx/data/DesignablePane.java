@@ -39,4 +39,6 @@ public interface DesignablePane
 	void setDesigning(boolean designing);
 	boolean getDesigning();
 	void addChildAt(Node child, double x, double y);
+	void editNested(Node overlay, Runnable onExitRequest);
+	void exitNested();
 }

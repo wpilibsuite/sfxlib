@@ -18,7 +18,8 @@ package dashfx.controls;
 
 import dashfx.data.*;
 import java.util.*;
-import javafx.collections.ListChangeListener;
+import javafx.collections.*;
+import javafx.event.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 
@@ -27,12 +28,13 @@ import javafx.scene.layout.*;
  * @author patrick
  */
 @Designable(value = "HStack Panel", description = "Fitting horizontal stacking panel")
-public class DataHBox extends HBox implements DataCoreProvider, Registerable, DesignablePane
+public class DataHBox extends HBox implements DataCoreProvider, Registerable, DesignablePane, EventHandler<Event>
 {
 	private DataCoreProvider superprovider = null;
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
 	private ArrayList<Registerable> registered = new ArrayList<>();
 	private boolean designing;
+	private boolean nested = false;
 
 	public DataHBox()
 	{
@@ -70,6 +72,13 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 				}
 			}
 		});
+	}
+
+	@Override
+	public void handle(Event t)
+	{
+		// schluuurp!
+		t.consume();
 	}
 
 	@Override
@@ -168,14 +177,14 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 			else
 			{
 				//if the dx > width of next/previous, move it
-				if ((dx - dxDiff) > 0 )
+				if ((dx - dxDiff) > 0)
 				{
 					//move to the right. only bother if we can
-					if(indexes[0] < getChildren().size() - 1)
+					if (indexes[0] < getChildren().size() - 1)
 					{
-						while ((dx - dxDiff) > ((Region)getChildren().get(indexes[0] + 1)).getWidth())
+						while ((dx - dxDiff) > ((Region) getChildren().get(indexes[0] + 1)).getWidth())
 						{
-							dxDiff += ((Region)getChildren().get(indexes[0] + 1)).getWidth();
+							dxDiff += ((Region) getChildren().get(indexes[0] + 1)).getWidth();
 							Node oc = getChildren().get(indexes[0]);
 							getChildren().remove(oc);
 							getChildren().add(indexes[0] + 1, oc);
@@ -183,14 +192,14 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 						}
 					}
 				}
-				else if ((dx - dxDiff) < 0 )
+				else if ((dx - dxDiff) < 0)
 				{
 					//move to the left. only bother if we can
-					if(indexes[0] > 0)
+					if (indexes[0] > 0)
 					{
-						while ((dx - dxDiff) < -((Region)getChildren().get(indexes[0] - 1)).getWidth())
+						while ((dx - dxDiff) < -((Region) getChildren().get(indexes[0] - 1)).getWidth())
 						{
-							dxDiff -= ((Region)getChildren().get(indexes[0] - 1)).getWidth();
+							dxDiff -= ((Region) getChildren().get(indexes[0] - 1)).getWidth();
 							Node oc = getChildren().get(indexes[0]);
 							getChildren().remove(oc);
 							getChildren().add(indexes[0] - 1, oc);
@@ -240,9 +249,30 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 			while (x > width)
 			{
 				// TODO: halfwidth
-			width += ((Region)getChildren().get(idx++)).getWidth();
+				width += ((Region) getChildren().get(idx++)).getWidth();
 			}
 			getChildren().add(idx, child);
+		}
+	}
+
+	@Override
+	public void editNested(Node overlay, Runnable onExitRequest)
+	{
+		if (!nested)
+		{
+			//TODO: check the overlay BUG! FIXME!
+			this.addEventFilter(EventType.ROOT, this);
+			nested = true;
+		}
+	}
+
+	@Override
+	public void exitNested()
+	{
+		if (nested)
+		{
+			this.removeEventFilter(EventType.ROOT, this);
+			nested = false;
 		}
 	}
 }
