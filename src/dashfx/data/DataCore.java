@@ -4,14 +4,10 @@
  */
 package dashfx.data;
 
-import com.sun.scenario.effect.impl.prism.PrCropPeer;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleMapProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
+import java.util.*;
+import javafx.application.*;
+import javafx.beans.property.*;
+import javafx.collections.*;
 
 /**
  *
@@ -23,6 +19,12 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	private ArrayList<DataEndpoint> endpoints = new ArrayList<>();
 	private LinkedList<DataProcessor> filters = new LinkedList<>();
 	private boolean running = false;
+	private ReadOnlyListWrapper<String> knownNames;
+
+	public DataCore()
+	{
+		this.knownNames = new ReadOnlyListWrapper<>(FXCollections.observableArrayList(new TreeSet<String>()));
+	}
 
 	@Override
 	public void addControl(Registerable r)
@@ -47,7 +49,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	@Override
 	public synchronized SmartValue getObservable(String name)
 	{
-		if (name.equals("/") || name.equals(""))
+		if (name.equals("/") || name.isEmpty())
 		{
 			return dataTree;
 		}
@@ -134,10 +136,17 @@ public class DataCore implements DataCoreProvider, DataProcessor
 				//TODO: delete data
 				for (SmartValue smartValue : data.getValues())
 				{
+					if (!knownNames.contains(smartValue.getName()))
+						knownNames.add(smartValue.getName());
 					getObservable(smartValue.getName()).setType(smartValue.getType());
 					getObservable(smartValue.getName()).setValue(smartValue.getValue());
 				}
 			}
 		});
+	}
+
+	public ObservableList<String> getKnownNames()
+	{
+		return knownNames.getReadOnlyProperty();
 	}
 }
