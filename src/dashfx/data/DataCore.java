@@ -78,7 +78,10 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	public synchronized void processData(DataProcessor source, ValueTransaction data)
 	{
 		if (!running)
-			return;//TODO: whats the best plan of action?
+		{
+			learnNames(data);
+			return;
+		}
 		if (source != null) // normal data source
 		{
 			int idx = filters.indexOf(source);
@@ -124,6 +127,24 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	public void setProcessor(DataProcessor proc)
 	{
 		throw new UnsupportedOperationException("Not supported yet. Only one core is permitted");
+	}
+
+	private void learnNames(final ValueTransaction data)
+	{
+		Platform.runLater(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				//TODO: delete data
+				for (SmartValue smartValue : data.getValues())
+				{
+					if (!knownNames.contains(smartValue.getName()))
+						knownNames.add(smartValue.getName());
+					getObservable(smartValue.getName());
+				}
+			}
+		});
 	}
 
 	private void mergeToTree(final ValueTransaction data)
