@@ -4,14 +4,21 @@
  */
 package dashfx.data.endpoints;
 
+import dashfx.controls.DataProcessorType;
+import dashfx.controls.DesignableData;
 import dashfx.data.*;
 
 /**
  *
  * @author patrick
  */
+@DesignableData(name = "Test Data", types =
+{
+	DataProcessorType.DataSender
+}, description = "Simple sin/cosine wave generator")
 public class TestDataSource implements DataSource, Runnable
 {
+
 	private DataProcessor proc;
 	private Thread nNeedles;
 
@@ -31,7 +38,9 @@ public class TestDataSource implements DataSource, Runnable
 			nNeedles.setDaemon(true);
 		}
 		if (!nNeedles.isAlive())
+		{
 			nNeedles.start();
+		}
 	}
 
 	@Override
