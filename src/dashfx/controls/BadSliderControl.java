@@ -16,22 +16,19 @@
  */
 package dashfx.controls;
 
-import dashfx.data.DataCoreProvider;
-import dashfx.data.Registerable;
-import dashfx.data.SmartValue;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Slider;
+import dashfx.data.*;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.*;
 
 /**
  *
  * @author patrick
  */
-@Designable(value = "Bad Slider", image="/dashfx/controls/BadSlider.png",  description = "Uses built-in slider. Horrible")
+@Designable(value = "Bad Slider", image = "/dashfx/controls/BadSlider.png", description = "Uses built-in slider. Horrible")
 @DesignableProperty(value =
 {
 	"value",
@@ -45,12 +42,12 @@ import javafx.scene.control.Slider;
 })
 public class BadSliderControl extends Slider implements Registerable, ChangeListener<Object>
 {
+
 	StringProperty name = new SimpleStringProperty("sin");
 
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()
 	{
-
 		return name;
 	}
 
@@ -89,6 +86,6 @@ public class BadSliderControl extends Slider implements Registerable, ChangeList
 	@Override
 	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
-		setValue(((SmartValue)ov).asNumber(0));
+		setValue(((SmartValue) ov).asNumber(0));
 	}
 }

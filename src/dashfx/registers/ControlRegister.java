@@ -18,9 +18,7 @@ package dashfx.registers;
 
 import dashfx.controls.Designable;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  *

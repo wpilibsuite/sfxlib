@@ -7,8 +7,7 @@ package dashfx.data.endpoints;
 import dashfx.data.*;
 import java.util.*;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.value.*;
 
 /**
  *

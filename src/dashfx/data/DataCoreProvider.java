@@ -16,8 +16,6 @@
  */
 package dashfx.data;
 
-import javafx.beans.value.ObservableValue;
-
 /**
  *
  * @author patrick
