@@ -23,6 +23,13 @@ public class TestDataSource implements DataSource, Runnable
 	private Thread nNeedles;
 
 	@Override
+	public boolean init(InitInfo info)
+	{
+		// nothing we need :)
+		return true;
+	}
+
+	@Override
 	public boolean isConnected()
 	{
 		return true;

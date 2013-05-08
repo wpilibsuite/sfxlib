@@ -24,5 +24,5 @@ public interface DataEndpoint
 {
 	boolean isConnected();
 	void setProcessor(DataProcessor proc);
-
+	boolean init(InitInfo info);
 }
