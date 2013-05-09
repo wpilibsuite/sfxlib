@@ -106,6 +106,24 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 	}
 
 	@Override
+	public void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r)
+	{
+		superprovider.mountDataEndpoint(r);
+	}
+
+	@Override
+	public DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints()
+	{
+		return superprovider.getAllDataEndpoints();
+	}
+
+	@Override
+	public DataProcessor[] getAllDataFilters()
+	{
+		return superprovider.getAllDataFilters();
+	}
+
+	@Override
 	public SmartValue getObservable(String name)
 	{
 		return superprovider.getObservable(name);

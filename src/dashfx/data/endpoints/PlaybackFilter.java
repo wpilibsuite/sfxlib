@@ -207,4 +207,11 @@ public class PlaybackFilter implements DataProcessor
 			running = false;
 		}
 	}
+
+	@Override
+	public boolean init(InitInfo info)
+	{
+		// we need nothing :-)
+		return true;
+	}
 }

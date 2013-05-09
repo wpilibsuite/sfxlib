@@ -16,7 +16,7 @@ import javafx.collections.*;
 public class DataCore implements DataCoreProvider, DataProcessor
 {
 	private SmartValue dataTree = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, "");
-	private ArrayList<DataEndpoint> endpoints = new ArrayList<>();
+	private ArrayList<DataInitDescriptor<DataEndpoint>> endpoints = new ArrayList<>();
 	private LinkedList<DataProcessor> filters = new LinkedList<>();
 	private boolean running = false;
 	private ReadOnlyListWrapper<String> knownNames;
@@ -35,8 +35,16 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	@Override
 	public void addDataEndpoint(DataEndpoint r)
 	{
+		mountDataEndpoint(new DataInitDescriptor<>(r, "Unknown", new InitInfo(), "/"));
+	}
+
+	@Override
+	public void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r)
+	{
+		// TODO: namespace filtering
 		endpoints.add(r);
-		r.setProcessor(this);
+		r.getObject().init(r.getInitInfo());
+		r.getObject().setProcessor(this);
 	}
 
 	@Override
@@ -169,5 +177,24 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	public ObservableList<String> getKnownNames()
 	{
 		return knownNames.getReadOnlyProperty();
+	}
+
+	@Override
+	public DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints()
+	{
+		return endpoints.toArray(new DataInitDescriptor[]{});
+	}
+
+	@Override
+	public DataProcessor[] getAllDataFilters()
+	{
+		return filters.toArray(new DataProcessor[]{});
+	}
+
+	@Override
+	public boolean init(InitInfo info)
+	{
+		// Data cores dont need init info :)
+		return true;
 	}
 }

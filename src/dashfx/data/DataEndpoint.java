@@ -20,9 +20,8 @@ package dashfx.data;
  *
  * @author patrick
  */
-public interface DataEndpoint
+public interface DataEndpoint extends Initable
 {
 	boolean isConnected();
 	void setProcessor(DataProcessor proc);
-	boolean init(InitInfo info);
 }

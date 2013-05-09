@@ -20,17 +20,7 @@ package dashfx.data;
  *
  * @author patrick
  */
-public interface DataCoreProvider
+public interface Initable
 {
-	void addControl(Registerable r);
-	void addDataEndpoint(DataEndpoint r);
-	void addDataFilter(DataProcessor r);
-	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
-	SmartValue getObservable(String name);
-
-	void pause();
-	void resume();
-	
-	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-	DataProcessor[] getAllDataFilters();
+	boolean init(InitInfo info);
 }

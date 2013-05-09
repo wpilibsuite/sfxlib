@@ -31,6 +31,7 @@ import javafx.scene.layout.*;
 @Designable(value = "Canvas", description = "Cartesian coordinate based panel")
 public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Registerable, DesignablePane
 {
+
 	private DataCoreProvider superprovider = null;
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
 	private ArrayList<Registerable> registered = new ArrayList<>();
@@ -51,7 +52,9 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 					for (Node n : change.getAddedSubList())
 					{
 						if (n instanceof Registerable)
+						{
 							addControl((Registerable) n);
+						}
 					}
 				}
 				catch (IllegalStateException ex)
@@ -67,7 +70,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 							}
 							else
 							{
-								addControl((Registerable)ctrls);
+								addControl((Registerable) ctrls);
 							}
 						}
 					}
@@ -79,8 +82,8 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 		slurpee.setLayoutY(0);
 		slurpee.prefWidthProperty().bind(widthProperty());
 		slurpee.prefHeightProperty().bind(heightProperty());
-		slurpee.addEventFilter(EventType.ROOT, new EventHandler<Event>() {
-
+		slurpee.addEventFilter(EventType.ROOT, new EventHandler<Event>()
+		{
 			@Override
 			public void handle(Event t)
 			{
@@ -88,7 +91,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 				t.consume();
 				if (t.getEventType() == MouseEvent.MOUSE_CLICKED)
 				{
-					if (((MouseEvent)t).getClickCount() > 1)
+					if (((MouseEvent) t).getClickCount() > 1)
 					{
 						//exit
 						exitRequest.run();
@@ -107,7 +110,9 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 			registered.add(r);
 		}
 		else
+		{
 			unregistered.add(r);
+		}
 	}
 
 	@Override
@@ -122,6 +127,24 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 		superprovider.addDataFilter(r);
 	}
 
+	@Override
+	public void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r)
+	{
+		superprovider.mountDataEndpoint(r);
+	}
+
+	@Override
+	public DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints()
+	{
+		return superprovider.getAllDataEndpoints();
+	}
+
+	@Override
+	public DataProcessor[] getAllDataFilters()
+	{
+		return superprovider.getAllDataFilters();
+	}
+	
 	@Override
 	public SmartValue getObservable(String name)
 	{

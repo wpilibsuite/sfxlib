@@ -20,7 +20,7 @@ package dashfx.data;
  *
  * @author patrick
  */
-public interface DataProcessor
+public interface DataProcessor extends Initable
 {
 	void processData(DataProcessor source, ValueTransaction data);
 	void setProcessor(DataProcessor proc);
