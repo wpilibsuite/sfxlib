@@ -197,4 +197,16 @@ public class DataCore implements DataCoreProvider, DataProcessor
 		// Data cores dont need init info :)
 		return true;
 	}
+
+	@Override
+	public void clearAllDataEndpoints()
+	{
+		for (DataInitDescriptor<DataEndpoint> dataInitDescriptor : endpoints)
+		{
+			dataInitDescriptor.getObject().setProcessor(null);
+			dataInitDescriptor.setObject(null);
+			
+		}
+		endpoints.clear();
+	}
 }

@@ -33,4 +33,5 @@ public interface DataCoreProvider
 	
 	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
 	DataProcessor[] getAllDataFilters();
+	void clearAllDataEndpoints();
 }

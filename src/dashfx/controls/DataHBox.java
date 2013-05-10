@@ -106,6 +106,12 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 	}
 
 	@Override
+	public void clearAllDataEndpoints()
+	{
+		superprovider.clearAllDataEndpoints();
+	}
+
+	@Override
 	public void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r)
 	{
 		superprovider.mountDataEndpoint(r);

@@ -16,6 +16,8 @@
  */
 package dashfx.data;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author patrick
@@ -23,24 +25,33 @@ package dashfx.data;
 public class DataInitDescriptor<T extends Initable>
 {
 	private T object;
-	private String name;
+	private SimpleStringProperty name;
 	private InitInfo initInfo;
-	private String mountPoint;
+	private SimpleStringProperty mountPoint;
 
 	public DataInitDescriptor()
 	{
-		name = "";
-		mountPoint = "/";
+		name = new SimpleStringProperty("");
+		mountPoint = new SimpleStringProperty("/");
 	}
 
 	public DataInitDescriptor(T object, String name, InitInfo initInfo, String mountPoint)
 	{
 		this.object = object;
-		this.name = name;
+		this.name = new SimpleStringProperty(name);
 		this.initInfo = initInfo;
-		this.mountPoint = mountPoint;
+		this.mountPoint = new SimpleStringProperty(mountPoint);
 	}
 	
+	public SimpleStringProperty nameProperty()
+	{
+		return name;
+	}
+	
+	public SimpleStringProperty mountPointProperty()
+	{
+		return mountPoint;
+	}
 
 	/**
 	 * Try to re-initialize the object
@@ -71,7 +82,7 @@ public class DataInitDescriptor<T extends Initable>
 	 */
 	public String getName()
 	{
-		return name;
+		return name.get();
 	}
 
 	/**
@@ -79,7 +90,7 @@ public class DataInitDescriptor<T extends Initable>
 	 */
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name.set(name);
 	}
 
 	/**
@@ -103,7 +114,7 @@ public class DataInitDescriptor<T extends Initable>
 	 */
 	public String getMountPoint()
 	{
-		return mountPoint;
+		return mountPoint.get();
 	}
 
 	/**
@@ -111,6 +122,12 @@ public class DataInitDescriptor<T extends Initable>
 	 */
 	public void setMountPoint(String mountPoint)
 	{
-		this.mountPoint = mountPoint;
+		this.mountPoint.set(mountPoint);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "DataInitDescriptor(" + object.toString()+ ", name = \"" + getName()+"\", mount = \"" + getMountPoint() +"\" )";
 	}
 }

@@ -21,6 +21,7 @@ public class TestDataSource implements DataSource, Runnable
 
 	private DataProcessor proc;
 	private Thread nNeedles;
+	private boolean shouldBeRunning = true;
 
 	@Override
 	public boolean init(InitInfo info)
@@ -39,39 +40,52 @@ public class TestDataSource implements DataSource, Runnable
 	public void setProcessor(DataProcessor proc)
 	{
 		this.proc = proc;
-		if (nNeedles == null)
+		if (nNeedles == null && proc != null)
 		{
 			nNeedles = new Thread(this);
 			nNeedles.setDaemon(true);
 		}
-		if (!nNeedles.isAlive())
+		if (proc == null && nNeedles != null)
 		{
-			nNeedles.start();
+			shouldBeRunning = false;
+		}
+		else
+		{
+			if (!nNeedles.isAlive())
+			{
+				nNeedles.start();
+			}
 		}
 	}
 
 	@Override
 	public void run()
 	{
-		double t = 0;
-		while (true)
+		try
 		{
-			final SimpleTransaction trans = new SimpleTransaction();
-
-			trans.addValue(new SmartValue(Math.sin(t), SmartValueTypes.Double, "sin"));
-			trans.addValue(new SmartValue(Math.cos(t), SmartValueTypes.Double, "cos"));
-			trans.addValue(new SmartValue(Math.sin(t) + Math.cos(t * 0.989), SmartValueTypes.Double, "complex"));
-			trans.addValue(new SmartValue(String.valueOf(Math.sin(t)), SmartValueTypes.String, "sins"));
-
-			proc.processData(null, trans);
-			try
+			double t = 0;
+			while (shouldBeRunning)
 			{
-				Thread.sleep(50);
+				final SimpleTransaction trans = new SimpleTransaction();
+
+				trans.addValue(new SmartValue(Math.sin(t), SmartValueTypes.Double, "sin"));
+				trans.addValue(new SmartValue(Math.cos(t), SmartValueTypes.Double, "cos"));
+				trans.addValue(new SmartValue(Math.sin(t) + Math.cos(t * 0.989), SmartValueTypes.Double, "complex"));
+				trans.addValue(new SmartValue(String.valueOf(Math.sin(t)), SmartValueTypes.String, "sins"));
+
+				proc.processData(null, trans);
+				try
+				{
+					Thread.sleep(50);
+				}
+				catch (InterruptedException ex)
+				{
+				}
+				t += 0.02;
 			}
-			catch (InterruptedException ex)
-			{
-			}
-			t += 0.02;
+		}
+		catch (NullPointerException n)
+		{
 		}
 	}
 }

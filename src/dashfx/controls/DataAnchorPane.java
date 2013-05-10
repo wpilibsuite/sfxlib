@@ -134,6 +134,12 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	}
 
 	@Override
+	public void clearAllDataEndpoints()
+	{
+		superprovider.clearAllDataEndpoints();
+	}
+
+	@Override
 	public DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints()
 	{
 		return superprovider.getAllDataEndpoints();
@@ -144,7 +150,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	{
 		return superprovider.getAllDataFilters();
 	}
-	
+
 	@Override
 	public SmartValue getObservable(String name)
 	{
