@@ -19,10 +19,7 @@ package dashfx.controls;
 import dashfx.data.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.*;
 
 /**
  *
