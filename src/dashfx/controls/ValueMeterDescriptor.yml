@@ -1,0 +1,11 @@
+## YAML Template.
+---
+-
+  Name: Value Meter
+  Description: Excellent Slider-like control
+  Image: /dashfx/controls/ValueMeter.png
+  Source: /dashfx/controls/ValueMeter.fxml
+  Defaults:
+    min: -1.0
+    max: 1.0
+    value: 0.0
