@@ -16,13 +16,9 @@
  */
 package dashfx.controls;
 
-import dashfx.data.DataCoreProvider;
-import dashfx.data.SmartValue;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import dashfx.data.*;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 
@@ -35,25 +31,24 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	@FXML
 	public SimpleObjectProperty<Node> ui = new SimpleObjectProperty<>();
 
-
-
 	@Override
 	@FXML
 	public Node getUi()
 	{
 		return ui.get();
 	}
+
 	@FXML
 	public void setUi(Node ui)
 	{
 		this.ui.set(ui);
 	}
+
 	@FXML
 	public SimpleObjectProperty<Node> uiProperty()
 	{
 		return this.ui;
 	}
-
 	StringProperty name = new SimpleStringProperty(this, "name");
 
 	@Designable(value = "Name", description = "The name the control binds to")
@@ -97,6 +92,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	@Override
 	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
+		stringValue.set(t1.toString());
 		changed(t1);
 	}
 
@@ -106,6 +102,20 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		return smrtVal;
 	}
-
 	private SmartValue smrtVal;
+
+
+	StringProperty stringValue = new SimpleStringProperty(this, "stringValue");
+
+	@Designable(value = "String Value", description = "Value.toString()")
+	public StringProperty stringValueProperty()
+	{
+		return stringValue;
+	}
+
+	public String getStringValue()
+	{
+		return stringValueProperty().getValue();
+	}
+
 }
