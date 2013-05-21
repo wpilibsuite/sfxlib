@@ -17,20 +17,20 @@
 package dashfx.data.video;
 
 /**
- * 
+ *
  * @author patrick
  */
 public class VideoCore //TODO: interface this?
 {
-	void addDataEndpoint(DataEndpoint r);
-	void addDataFilter(DataProcessor r);
-	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
-	SmartValue getObservable(String name);
-
-	void pause();
-	void resume();
-	
-	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-	DataProcessor[] getAllDataFilters();
-	void clearAllDataEndpoints();
+//	void addDataEndpoint(DataEndpoint r);
+//	void addDataFilter(DataProcessor r);
+//	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
+//	SmartValue getObservable(String name);
+//
+//	void pause();
+//	void resume();
+//
+//	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
+//	DataProcessor[] getAllDataFilters();
+//	void clearAllDataEndpoints();
 }

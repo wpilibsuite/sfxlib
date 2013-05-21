@@ -149,7 +149,9 @@ public class DataCore implements DataCoreProvider, DataProcessor
 				{
 					if (!knownNames.contains(smartValue.getName()))
 						knownNames.add(smartValue.getName());
-					getObservable(smartValue.getName());
+					SmartValue obs = getObservable(smartValue.getName());
+					obs.setType(smartValue.getType());
+					obs.setGroupName(smartValue.getGroupName());
 				}
 			}
 		});
@@ -167,8 +169,10 @@ public class DataCore implements DataCoreProvider, DataProcessor
 				{
 					if (!knownNames.contains(smartValue.getName()))
 						knownNames.add(smartValue.getName());
-					getObservable(smartValue.getName()).setType(smartValue.getType());
-					getObservable(smartValue.getName()).setValue(smartValue.getValue());
+					SmartValue obs = getObservable(smartValue.getName());
+					obs.setType(smartValue.getType());
+					obs.setData(smartValue.getValue());
+					obs.setGroupName(smartValue.getGroupName());
 				}
 			}
 		});
@@ -205,7 +209,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 		{
 			dataInitDescriptor.getObject().setProcessor(null);
 			dataInitDescriptor.setObject(null);
-			
+
 		}
 		endpoints.clear();
 	}
