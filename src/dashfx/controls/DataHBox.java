@@ -299,4 +299,10 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 			nested = false;
 		}
 	}
+
+	@Override
+	public void zEdit(Node child, ZPositions diff)
+	{
+		// Does not compute
+	}
 }

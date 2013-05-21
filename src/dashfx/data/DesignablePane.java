@@ -41,4 +41,5 @@ public interface DesignablePane
 	void addChildAt(Node child, double x, double y);
 	void editNested(Node overlay, Runnable onExitRequest);
 	void exitNested();
+	void zEdit(Node child, ZPositions diff);
 }

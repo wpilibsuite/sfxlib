@@ -285,4 +285,38 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 			exitRequest = null;
 		}
 	}
+
+	@Override
+	public void zEdit(Node child, ZPositions diff)
+	{
+		switch(diff)
+		{
+			case Bottom:
+			{
+				getChildren().remove(child);
+				getChildren().add(0, child);
+				break;
+			}
+			case Top:
+			{
+				getChildren().remove(child);
+				getChildren().add(child);
+				break;
+			}
+			case Up:
+			{
+				int oidx = getChildren().indexOf(child);
+				getChildren().remove(child);
+				getChildren().add(oidx+1, child);
+				break;
+			}
+			case Down:
+			{
+				int oidx = getChildren().indexOf(child);
+				getChildren().remove(child);
+				getChildren().add(oidx-1, child);
+				break;
+			}
+		}
+	}
 }
