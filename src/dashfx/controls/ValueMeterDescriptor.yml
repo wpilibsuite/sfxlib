@@ -9,10 +9,3 @@
     min: -1.0
     max: 1.0
     value: 0.0
--
-  Name: Bad Boolean
-  Description: Horriffic non-scalable boolean from built-ins
-  Image: /dashfx/controls/ValueMeter.png
-  Source: /dashfx/controls/BadBool.fxml
-  Defaults:
-    value: false
