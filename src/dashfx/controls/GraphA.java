@@ -20,6 +20,7 @@ import dashfx.data.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
+import javafx.scene.Node;
 import javafx.scene.chart.*;
 
 /**
@@ -27,7 +28,7 @@ import javafx.scene.chart.*;
  * @author patrick
  */
 @Designable(value = "Graph (A)", image = "/dashfx/controls/GraphA.png", description = "Uses built-in graph and manual list storting. Horrible")
-public class GraphA extends LineChart<Number, Number> implements Registerable, ChangeListener<Object>
+public class GraphA extends LineChart<Number, Number> implements Control, ChangeListener<Object>
 {
 	StringProperty name = new SimpleStringProperty("complex");
 
@@ -111,5 +112,11 @@ public class GraphA extends LineChart<Number, Number> implements Registerable, C
 		{
 			series.getData().remove(0);
 		}
+	}
+
+	@Override
+	public Node getUi()
+	{
+		return this;
 	}
 }

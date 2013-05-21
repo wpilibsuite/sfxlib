@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<fx:root type="dashfx.controls.ValueMeter" xmlns:fx="http://javafx.com/fxml">
+	<ui>
+		<StackPane fx:id="stackers" minHeight="40.0" minWidth="150.0" maxHeight="200.0" maxWidth="300.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color:#ff3333">
+			<children>
+				<Pane style="-fx-background-color: #33ff54" maxWidth="${((controller.value - controller.min)/(controller.max - controller.min) * -(stackers.width)) + stackers.width}" StackPane.alignment="CENTER_RIGHT" />
+				<Pane translateX="${((controller.value - controller.min) / (controller.max - controller.min) * stackers.width)+ -(stackers.width / 2)}" maxWidth="5" style="-fx-background-color:black;" StackPane.alignment="CENTER" />
+			</children>
+		</StackPane>
+	</ui>
+</fx:root>

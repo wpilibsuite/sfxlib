@@ -16,32 +16,45 @@
  */
 package dashfx.controls;
 
-import dashfx.data.*;
-import javafx.beans.property.*;
-import javafx.beans.value.*;
+import dashfx.data.DataCoreProvider;
+import dashfx.data.SmartValue;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
 
 /**
  *
  * @author patrick
  */
-@Designable(value = "Bad Slider", image = "/dashfx/controls/BadSlider.png", description = "Uses built-in slider. Horrible")
-@DesignableProperty(value =
+public abstract class ControlBase implements Control, ChangeListener<Object>
 {
-	"value",
-	"min",
-	"max"
-}, descriptions =
-{
-	"The value of it, duh",
-	"The minimum value",
-	"The maximum value"
-})
-public class BadSliderControl extends Slider implements Control, ChangeListener<Object>
-{
+	@FXML
+	public SimpleObjectProperty<Node> ui = new SimpleObjectProperty<>();
 
-	StringProperty name = new SimpleStringProperty("sin");
+
+
+	@Override
+	@FXML
+	public Node getUi()
+	{
+		return ui.get();
+	}
+	@FXML
+	public void setUi(Node ui)
+	{
+		this.ui.set(ui);
+	}
+	@FXML
+	public SimpleObjectProperty<Node> uiProperty()
+	{
+		return this.ui;
+	}
+
+	StringProperty name = new SimpleStringProperty(this, "name");
 
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()
@@ -51,32 +64,32 @@ public class BadSliderControl extends Slider implements Control, ChangeListener<
 
 	public String getName()
 	{
-		return name.getValue();
+		return nameProperty().getValue();
 	}
 
 	public void setName(String value)
 	{
-		name.setValue(value);
+		nameProperty().setValue(value);
 	}
 
 	@Override
 	public void registered(final DataCoreProvider provider)
 	{
-		this.setMax(1.0);
-		this.setMin(-1.0);
-		this.setValue(0.5);
 		//TODO: add better getObservable Overrides
 		if (getName() != null)
 		{
-			provider.getObservable(getName()).addListener(this);
+			smrtVal = provider.getObservable(getName());
+			smrtVal.addListener(this);
 		}
-		name.addListener(new ChangeListener<String>()
+		nameProperty().addListener(new ChangeListener<String>()
 		{
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
 			{
-				provider.getObservable(t).removeListener(BadSliderControl.this);
-				provider.getObservable(t1).addListener(BadSliderControl.this);
+				if (smrtVal != null)
+					smrtVal.removeListener(ControlBase.this);
+				smrtVal = provider.getObservable(t1);
+				smrtVal.addListener(ControlBase.this);
 			}
 		});
 	}
@@ -84,12 +97,15 @@ public class BadSliderControl extends Slider implements Control, ChangeListener<
 	@Override
 	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
-		setValue(((SmartValue) ov).asNumber(0));
+		changed(t1);
 	}
 
-	@Override
-	public Node getUi()
+	protected abstract void changed(Object newValue);
+
+	public SmartValue getSmartValue()
 	{
-		return this;
+		return smrtVal;
 	}
+
+	private SmartValue smrtVal;
 }
