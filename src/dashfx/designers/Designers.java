@@ -24,6 +24,7 @@ public class Designers
 		all.put(Integer.class, NumberDesigner.class);
 		all.put(Float.class, NumberDesigner.class);
 		all.put(Number.class, NumberDesigner.class);
+		all.put(Boolean.class, BoolDesigner.class);
 	}
 
 	public static void addDesigner(Class type, Class designer)
@@ -58,6 +59,10 @@ public class Designers
 		else if (p instanceof StringProperty)
 		{
 			it = String.class;
+		}
+		else if (p instanceof BooleanProperty)
+		{
+			it = Boolean.class;
 		}
 		PropertyDesigner pd = getDesignerForClass(it);
 		pd.design(p);
