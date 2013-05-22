@@ -32,11 +32,10 @@ import java.io.IOException;
 {
 	DataProcessorType.DataSender
 }, description = "Full NetworkTables 2.0 Client for bidirection Robot communication")
-public class NetworkTables implements DataSource, Runnable, ITableListener
+public class NetworkTables implements DataSource, ITableListener
 {
 	NetworkTableClient nwt;
 	private DataProcessor proc;
-	private Thread worker;
 
 	public NetworkTables()
 	{
@@ -52,19 +51,25 @@ public class NetworkTables implements DataSource, Runnable, ITableListener
 	public void setProcessor(DataProcessor proc)
 	{
 		this.proc = proc;
-		worker = new Thread(this);
-		//worker.start();
 		this.run();
 	}
 
 	@Override
+	@SuppressWarnings("AssignmentToMethodParameter")
 	public boolean init(InitInfo info)
 	{
 		try
 		{
-			//System.out.println(info);
-			nwt = new NetworkTableClient(new SocketStreamFactory("127.0.0.1", 1735));
-			//TODO: info.getHost(), info.getPort()));
+			if (info == null)
+				info = new InitInfo();
+			Integer port = info.getPort();
+			if (port == null)
+				port = 1735;
+			nwt = new NetworkTableClient(new SocketStreamFactory(info.getHost(), port));
+			if (proc != null)
+			{
+				this.run();
+			}
 		}
 		catch (IOException ex)
 		{
@@ -74,13 +79,13 @@ public class NetworkTables implements DataSource, Runnable, ITableListener
 		return nwt.isConnected();
 	}
 
-	@Override
 	public void run()
 	{
 		nwt.addTableListener(this, true);//TODO: check what this boolean means
 	}
 
 	@Override
+	@SuppressWarnings("AssignmentToMethodParameter")
 	public void valueChanged(ITable itable, String string, Object o, boolean bln)
 	{
 		if (string.startsWith("/"))
@@ -118,7 +123,8 @@ public class NetworkTables implements DataSource, Runnable, ITableListener
 		}
 		else
 		{
-			return SmartValueTypes.Unknown;
+			throw new RuntimeException("Hey! fix it! " + value.getClass().getCanonicalName());
+//			return SmartValueTypes.Unknown;
 		}
 	}
 }

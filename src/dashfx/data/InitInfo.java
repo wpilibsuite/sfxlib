@@ -24,6 +24,7 @@ import java.util.HashMap;
  */
 public class InitInfo
 {
+	private static int teamNumber;
 	private String host;
 	private Integer port;
 	private HashMap<String, String> options = new HashMap<>();
@@ -33,7 +34,18 @@ public class InitInfo
 	 */
 	public String getHost()
 	{
+		if (host == null || "".equals(host))
+		{
+			if (teamNumber == 0)
+				return "127.0.0.1";
+			return "10." + teamNumber / 100 + "." + teamNumber % 100 + ".2";
+		}
 		return host;
+	}
+
+	public static void setTeamNumber(int num)
+	{
+		teamNumber = num;
 	}
 
 	/**
