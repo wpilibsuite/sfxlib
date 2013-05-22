@@ -29,9 +29,8 @@ import javafx.scene.layout.*;
  * @author patrick
  */
 @Designable(value = "Canvas", description = "Cartesian coordinate based panel")
-public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Registerable, DesignablePane
+public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Control, DesignablePane
 {
-
 	private DataCoreProvider superprovider = null;
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
 	private ArrayList<Registerable> registered = new ArrayList<>();
@@ -289,7 +288,7 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	@Override
 	public void zEdit(Node child, ZPositions diff)
 	{
-		switch(diff)
+		switch (diff)
 		{
 			case Bottom:
 			{
@@ -307,14 +306,14 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 			{
 				int oidx = getChildren().indexOf(child);
 				getChildren().remove(child);
-				getChildren().add(oidx+1, child);
+				getChildren().add(oidx + 1, child);
 				break;
 			}
 			case Down:
 			{
 				int oidx = getChildren().indexOf(child);
 				getChildren().remove(child);
-				getChildren().add(oidx-1, child);
+				getChildren().add(oidx - 1, child);
 				break;
 			}
 		}
@@ -324,5 +323,11 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 	public void dispose()
 	{
 		superprovider.dispose();
+	}
+
+	@Override
+	public Node getUi()
+	{
+		return this;
 	}
 }

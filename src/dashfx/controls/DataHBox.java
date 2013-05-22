@@ -28,7 +28,7 @@ import javafx.scene.layout.*;
  * @author patrick
  */
 @Designable(value = "HStack Panel", description = "Fitting horizontal stacking panel")
-public class DataHBox extends HBox implements DataCoreProvider, Registerable, DesignablePane, EventHandler<Event>
+public class DataHBox extends HBox implements DataCoreProvider, Control, DesignablePane, EventHandler<Event>
 {
 	private DataCoreProvider superprovider = null;
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
@@ -310,5 +310,11 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 	public void dispose()
 	{
 		superprovider.dispose();
+	}
+
+	@Override
+	public Node getUi()
+	{
+		return this;
 	}
 }
