@@ -319,4 +319,10 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Regi
 			}
 		}
 	}
+
+	@Override
+	public void dispose()
+	{
+		superprovider.dispose();
+	}
 }

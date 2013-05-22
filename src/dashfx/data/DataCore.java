@@ -222,4 +222,10 @@ public class DataCore implements DataCoreProvider, DataProcessor
 		}
 		endpoints.clear();
 	}
+
+	@Override
+	public void dispose()
+	{
+		clearAllDataEndpoints();
+	}
 }

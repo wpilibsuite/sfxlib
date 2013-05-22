@@ -50,8 +50,17 @@ public class NetworkTables implements DataSource, ITableListener
 	@Override
 	public void setProcessor(DataProcessor proc)
 	{
-		this.proc = proc;
-		this.run();
+		if (proc != null)
+		{
+			this.proc = proc;
+			this.run();
+		}
+		else
+		{
+			nwt.stop();
+			nwt = null;
+			this.proc = null;
+		}
 	}
 
 	@Override

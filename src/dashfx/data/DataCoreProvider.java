@@ -30,7 +30,8 @@ public interface DataCoreProvider
 
 	void pause();
 	void resume();
-	
+	void dispose();
+
 	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
 	DataProcessor[] getAllDataFilters();
 	void clearAllDataEndpoints();

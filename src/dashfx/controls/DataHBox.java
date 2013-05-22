@@ -305,4 +305,10 @@ public class DataHBox extends HBox implements DataCoreProvider, Registerable, De
 	{
 		// Does not compute
 	}
+
+	@Override
+	public void dispose()
+	{
+		superprovider.dispose();
+	}
 }
