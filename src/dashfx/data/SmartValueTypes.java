@@ -25,6 +25,8 @@ public enum SmartValueTypes
 	NumberArray(0x23),
 	StringArray(0x24),
 	ObjectArray(0x28),
+	Boolean(0x40),
+	BooleanArray(0x60),
 	Other(0x8000000),
 	Unknown(0xFFFFFFFF);
 	private final int mask;

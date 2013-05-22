@@ -77,7 +77,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 				//TODO: should we set the name to the full path?
 				tmp.asHash().put(string, new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, string));
 			}
-			tmp = tmp.getSubKey(name);
+			tmp = tmp.getSubKey(string);
 		}
 		return tmp;
 	}
@@ -150,8 +150,10 @@ public class DataCore implements DataCoreProvider, DataProcessor
 					if (!knownNames.contains(smartValue.getName()))
 						knownNames.add(smartValue.getName());
 					SmartValue obs = getObservable(smartValue.getName());
-					obs.setType(smartValue.getType());
-					obs.setGroupName(smartValue.getGroupName());
+					if (!(smartValue.getType() == SmartValueTypes.Unknown && obs.getType() != SmartValueTypes.Unknown))
+						obs.setType(smartValue.getType());
+					if (smartValue.getGroupName() != null && !smartValue.getGroupName().isEmpty())
+						obs.setGroupName(smartValue.getGroupName());
 				}
 			}
 		});
@@ -170,9 +172,12 @@ public class DataCore implements DataCoreProvider, DataProcessor
 					if (!knownNames.contains(smartValue.getName()))
 						knownNames.add(smartValue.getName());
 					SmartValue obs = getObservable(smartValue.getName());
-					obs.setType(smartValue.getType());
+					if (!(smartValue.getType() == SmartValueTypes.Unknown && obs.getType() != SmartValueTypes.Unknown))
+						obs.setType(smartValue.getType());
+					if (smartValue.getGroupName() != null && !smartValue.getGroupName().isEmpty())
+						obs.setGroupName(smartValue.getGroupName());
+					if (!(smartValue.getValue() == null && obs.getValue() != null))
 					obs.setData(smartValue.getValue());
-					obs.setGroupName(smartValue.getGroupName());
 				}
 			}
 		});
@@ -186,13 +191,17 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	@Override
 	public DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints()
 	{
-		return endpoints.toArray(new DataInitDescriptor[]{});
+		return endpoints.toArray(new DataInitDescriptor[]
+		{
+		});
 	}
 
 	@Override
 	public DataProcessor[] getAllDataFilters()
 	{
-		return filters.toArray(new DataProcessor[]{});
+		return filters.toArray(new DataProcessor[]
+		{
+		});
 	}
 
 	@Override

@@ -20,6 +20,8 @@ import dashfx.controls.*;
 import dashfx.data.*;
 import edu.wpi.first.wpilibj.networktables2.client.NetworkTableClient;
 import edu.wpi.first.wpilibj.networktables2.stream.SocketStreamFactory;
+import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.tables.ITableListener;
 import java.io.IOException;
 
 /**
@@ -30,45 +32,93 @@ import java.io.IOException;
 {
 	DataProcessorType.DataSender
 }, description = "Full NetworkTables 2.0 Client for bidirection Robot communication")
-public class NetworkTables implements DataSource
+public class NetworkTables implements DataSource, Runnable, ITableListener
 {
-	//NetworkTableClient nwt;
+	NetworkTableClient nwt;
 	private DataProcessor proc;
+	private Thread worker;
 
 	public NetworkTables()
 	{
-		
 	}
-	
 
 	@Override
 	public boolean isConnected()
 	{
-		//return nwt != null && nwt.isConnected();
-		return true;
+		return nwt != null && nwt.isConnected();
 	}
 
 	@Override
 	public void setProcessor(DataProcessor proc)
 	{
 		this.proc = proc;
+		worker = new Thread(this);
+		//worker.start();
+		this.run();
 	}
 
 	@Override
 	public boolean init(InitInfo info)
 	{
-//		try
-//		{
-//			//nwt = new NetworkTableClient(new SocketStreamFactory(info.getHost(), info.getPort()));
-//			nwt = null;
-//		}
-//		catch (IOException ex)
-//		{
-//			ex.printStackTrace();
-//			return false;
-//		}
-//		return nwt.isConnected();
-		return true;
+		try
+		{
+			//System.out.println(info);
+			nwt = new NetworkTableClient(new SocketStreamFactory("127.0.0.1", 1735));
+			//TODO: info.getHost(), info.getPort()));
+		}
+		catch (IOException ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
+		return nwt.isConnected();
 	}
-	
+
+	@Override
+	public void run()
+	{
+		nwt.addTableListener(this, true);//TODO: check what this boolean means
+	}
+
+	@Override
+	public void valueChanged(ITable itable, String string, Object o, boolean bln)
+	{
+		if (string.startsWith("/"))
+			string = string.substring(1);
+		if (string.endsWith("~TYPE~"))
+		{
+			proc.processData(null, new SimpleTransaction(new SmartValue(null, null, string.substring(0, string.lastIndexOf("/~TYPE~")), o.toString())));
+		}
+		else
+			proc.processData(null, new SimpleTransaction(new SmartValue(o, getType(o), string)));
+	}
+
+	public static SmartValueTypes getType(Object value)
+	{
+		//TODO: this is awful
+		if (value == null)
+		{
+			return SmartValueTypes.Unknown;
+		}
+		else if (value instanceof ITable)
+		{
+			return SmartValueTypes.Hash; //TODO: grouped hash?
+		}
+		else if (value instanceof Double)
+		{
+			return SmartValueTypes.Double;
+		}
+		else if (value instanceof Boolean)
+		{
+			return SmartValueTypes.Boolean;
+		}
+		else if (value instanceof String)
+		{
+			return SmartValueTypes.String;
+		}
+		else
+		{
+			return SmartValueTypes.Unknown;
+		}
+	}
 }
