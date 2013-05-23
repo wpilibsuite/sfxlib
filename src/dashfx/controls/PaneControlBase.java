@@ -27,6 +27,7 @@ import javafx.scene.layout.*;
  *
  * @author patrick
  */
+@Category("Grouping")
 public abstract class PaneControlBase<T extends Pane> implements DataCoreProvider, Control, DesignablePane
 {
 	private DataCoreProvider superprovider = null;

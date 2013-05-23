@@ -29,6 +29,7 @@ import javafx.scene.layout.*;
  * @author patrick
  */
 @Designable(value = "Canvas", description = "Cartesian coordinate based panel")
+@Category("Grouping")
 public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Control, DesignablePane
 {
 	private DataCoreProvider superprovider = null;
