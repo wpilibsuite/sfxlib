@@ -38,6 +38,8 @@ import javafx.scene.control.*;
 	"The minimum value",
 	"The maximum value"
 })
+@Category("General")
+@Types({SmartValueTypes.Number})
 public class BadSliderControl extends Slider implements Control, ChangeListener<Object>
 {
 

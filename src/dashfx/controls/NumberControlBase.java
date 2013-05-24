@@ -16,12 +16,15 @@
  */
 package dashfx.controls;
 
+import dashfx.data.SmartValueTypes;
+import dashfx.data.Types;
 import javafx.beans.property.SimpleDoubleProperty;
 
 /**
  *
  * @author patrick
  */
+@Types({SmartValueTypes.Number})
 public class NumberControlBase extends ControlBase
 {
 	private SimpleDoubleProperty value = new SimpleDoubleProperty(this, "value", 0.0);
