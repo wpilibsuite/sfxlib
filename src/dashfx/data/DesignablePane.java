@@ -18,6 +18,7 @@ package dashfx.data;
 
 import dashfx.controls.*;
 import java.util.*;
+import javafx.collections.ObservableList;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 
@@ -42,4 +43,10 @@ public interface DesignablePane
 	void editNested(Node overlay, Runnable onExitRequest);
 	void exitNested();
 	void zEdit(Node child, ZPositions diff);
+
+	/**
+	 * Gets logical children for designing
+	 * @return
+	 */
+	ObservableList<Node> getChildren();
 }

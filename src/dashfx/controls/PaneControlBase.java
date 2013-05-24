@@ -19,7 +19,6 @@ package dashfx.controls;
 import dashfx.data.*;
 import java.util.*;
 import javafx.collections.*;
-import javafx.event.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 
@@ -39,7 +38,7 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 	public PaneControlBase(T pane)
 	{
 		ui = pane;
-		ui.getChildren().addListener(new ListChangeListener<Node>()
+		getChildren().addListener(new ListChangeListener<Node>()
 		{
 			@Override
 			@SuppressWarnings("element-type-mismatch")
@@ -53,6 +52,12 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 				}
 			}
 		});
+	}
+
+	@Override
+	public ObservableList<Node> getChildren()
+	{
+		return ui.getChildren();
 	}
 
 	@Override

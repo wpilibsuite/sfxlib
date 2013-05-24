@@ -39,7 +39,7 @@ public class DataFlowLayoutPane extends PaneControlBase<FlowPane>
 	@Override
 	public EnumSet<ResizeDirections> getSupportedOps()
 	{
-		return EnumSet.copyOf(Arrays.asList(ResizeDirections.values()));
+		return EnumSet.of(ResizeDirections.LeftRight, ResizeDirections.UpDown, ResizeDirections.NorthEastSouthWest, ResizeDirections.SouthEastNorthWest);
 	}
 
 	@Override
