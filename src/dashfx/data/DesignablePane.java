@@ -34,6 +34,7 @@ public interface DesignablePane
 	 * @return will the control jump around at design time when moving between parts?
 	 */
 	boolean isJumps();
+	boolean isAppendable();
 	void BeginDragging(Node[] overlays, Region[] childs, double x, double y, double sizeX, double sizeY, double posX, double posY);
 	void ContinueDragging(double dx, double dy);
 	void FinishDragging();

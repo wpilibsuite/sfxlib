@@ -90,4 +90,10 @@ public class DataFlowLayoutPane extends PaneControlBase<FlowPane>
 	{
 		// dnc
 	}
+
+	@Override
+	public boolean isAppendable()
+	{
+		return true;
+	}
 }

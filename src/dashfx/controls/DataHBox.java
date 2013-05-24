@@ -317,4 +317,10 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	{
 		return this;
 	}
+
+	@Override
+	public boolean isAppendable()
+	{
+		return true;
+	}
 }

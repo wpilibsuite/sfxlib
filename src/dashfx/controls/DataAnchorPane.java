@@ -29,8 +29,7 @@ import javafx.scene.layout.*;
  * @author patrick
  */
 @Designable(value = "Canvas", description = "Cartesian coordinate based panel")
-@Category("Grouping")
-public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Control, DesignablePane
+public class DataAnchorPane extends PaneControlBase<AnchorPane> implements DataCoreProvider, Control, DesignablePane
 {
 	private DataCoreProvider superprovider = null;
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
@@ -42,46 +41,12 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Cont
 
 	public DataAnchorPane()
 	{
-		getChildren().addListener(new ListChangeListener<Node>()
-		{
-			@Override
-			public void onChanged(ListChangeListener.Change<? extends Node> change)
-			{
-				try
-				{
-					for (Node n : change.getAddedSubList())
-					{
-						if (n instanceof Registerable)
-						{
-							addControl((Registerable) n);
-						}
-					}
-				}
-				catch (IllegalStateException ex)
-				{
-					// this always happens
-					for (Node ctrls : getChildren())
-					{
-						if (ctrls instanceof Registerable)
-						{
-							if (unregistered.contains(ctrls) || registered.contains(ctrls))
-							{
-								//TODO: no way to remove items
-							}
-							else
-							{
-								addControl((Registerable) ctrls);
-							}
-						}
-					}
-				}
-			}
-		});
+		super(new AnchorPane());
 
 		slurpee.setLayoutX(0);
 		slurpee.setLayoutY(0);
-		slurpee.prefWidthProperty().bind(widthProperty());
-		slurpee.prefHeightProperty().bind(heightProperty());
+		slurpee.prefWidthProperty().bind(ui.widthProperty());
+		slurpee.prefHeightProperty().bind(ui.heightProperty());
 		slurpee.addEventFilter(EventType.ROOT, new EventHandler<Event>()
 		{
 			@Override
@@ -101,84 +66,6 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Cont
 		});
 	}
 
-	@Override
-	public void addControl(Registerable r)
-	{
-		if (superprovider != null)
-		{
-			r.registered(this);
-			registered.add(r);
-		}
-		else
-		{
-			unregistered.add(r);
-		}
-	}
-
-	@Override
-	public void addDataEndpoint(DataEndpoint r)
-	{
-		superprovider.addDataEndpoint(r);
-	}
-
-	@Override
-	public void addDataFilter(DataProcessor r)
-	{
-		superprovider.addDataFilter(r);
-	}
-
-	@Override
-	public void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r)
-	{
-		superprovider.mountDataEndpoint(r);
-	}
-
-	@Override
-	public void clearAllDataEndpoints()
-	{
-		superprovider.clearAllDataEndpoints();
-	}
-
-	@Override
-	public DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints()
-	{
-		return superprovider.getAllDataEndpoints();
-	}
-
-	@Override
-	public DataProcessor[] getAllDataFilters()
-	{
-		return superprovider.getAllDataFilters();
-	}
-
-	@Override
-	public SmartValue getObservable(String name)
-	{
-		return superprovider.getObservable(name);
-	}
-
-	@Override
-	public void registered(DataCoreProvider provider)
-	{
-		superprovider = provider;
-		for (Registerable r : unregistered)
-		{
-			r.registered(this);
-			registered.add(r);
-		}
-	}
-
-	@Override
-	public void pause()
-	{
-		superprovider.pause();
-	}
-
-	@Override
-	public void resume()
-	{
-		superprovider.resume();
-	}
 
 	@Override
 	public boolean isJumps()
@@ -321,14 +208,8 @@ public class DataAnchorPane extends AnchorPane implements DataCoreProvider, Cont
 	}
 
 	@Override
-	public void dispose()
+	public boolean isAppendable()
 	{
-		superprovider.dispose();
-	}
-
-	@Override
-	public Node getUi()
-	{
-		return this;
+		return false;
 	}
 }
