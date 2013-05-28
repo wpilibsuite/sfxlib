@@ -16,7 +16,10 @@
  */
 package dashfx.controls;
 
-import dashfx.data.*;
+import dashfx.lib.data.SupportedTypes;
+import dashfx.lib.controls.Designable;
+import dashfx.lib.data.*;
+import dashfx.lib.controls.Control;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.scene.Node;
@@ -26,8 +29,8 @@ import javafx.scene.chart.*;
  *
  * @author patrick
  */
-@Designable(value = "Graph (A)", image = "/dashfx/controls/GraphA.png", description = "Uses built-in graph and manual list storting. Horrible")
-@Types({SmartValueTypes.Number})
+@Designable(value = "Graph (A)", image = "/dashfx/controls/res/GraphA.png", description = "Uses built-in graph and manual list storting. Horrible")
+@SupportedTypes({SmartValueTypes.Number})
 public class GraphA extends LineChart<Number, Number> implements Control, ChangeListener<Object>
 {
 	StringProperty name = new SimpleStringProperty("complex");

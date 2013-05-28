@@ -5,9 +5,10 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import dashfx.controls.bases.*?>
 
-<dashfx.controls.StringControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+<StringControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
 	<ui>
 		<Label text="${base.value}" />
 	</ui>
-</dashfx.controls.StringControlBase>
+</StringControlBase>

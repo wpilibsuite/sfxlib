@@ -16,7 +16,10 @@
  */
 package dashfx.controls;
 
-import dashfx.data.*;
+import dashfx.lib.controls.Designable;
+import dashfx.lib.data.*;
+import dashfx.lib.controls.Control;
+import dashfx.lib.controls.*;
 import java.util.*;
 import javafx.collections.*;
 import javafx.event.*;
@@ -47,8 +50,8 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 				{
 					for (Node n : change.getAddedSubList())
 					{
-						if (n instanceof Registerable)
-							addControl((Registerable) n);
+						if (n instanceof Control)
+							addControl((Control) n);
 					}
 				}
 				catch (IllegalStateException ex)
@@ -57,7 +60,7 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 					// this always happens
 					for (Node ctrls : getChildren())
 					{
-						if (ctrls instanceof Registerable)
+						if (ctrls instanceof Control)
 						{
 							if (unregistered.contains(ctrls) || registered.contains(ctrls))
 							{
@@ -65,7 +68,7 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 							}
 							else
 							{
-								addControl((Registerable) ctrls);
+								addControl((Control) ctrls);
 							}
 						}
 					}
@@ -82,7 +85,7 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	}
 
 	@Override
-	public void addControl(Registerable r)
+	public void addControl(Control r)
 	{
 		if (superprovider != null)
 		{

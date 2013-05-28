@@ -16,8 +16,10 @@
  */
 package dashfx.controls;
 
-import dashfx.data.ZPositions;
-import java.util.Arrays;
+import dashfx.lib.controls.Designable;
+import dashfx.controls.bases.*;
+import dashfx.lib.controls.*;
+import dashfx.lib.data.*;
 import java.util.EnumSet;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;

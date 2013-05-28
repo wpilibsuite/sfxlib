@@ -16,9 +16,11 @@
  */
 package dashfx.controls;
 
-import dashfx.data.*;
+import dashfx.lib.controls.Designable;
+import dashfx.lib.data.*;
+import dashfx.controls.bases.*;
+import dashfx.lib.controls.*;
 import java.util.*;
-import javafx.collections.*;
 import javafx.event.*;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;

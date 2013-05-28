@@ -7,8 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
+<?import dashfx.controls.bases.*?>
 
-<dashfx.controls.NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+<NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
 	<ui>
 		<StackPane fx:id="stackers" minHeight="40.0" minWidth="150.0" maxHeight="200.0" maxWidth="300.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color:#ff3333">
 			<children>
@@ -17,4 +18,4 @@
 			</children>
 		</StackPane>
 	</ui>
-</dashfx.controls.NumberControlBase>
+</NumberControlBase>

@@ -4,6 +4,6 @@
 \.rej$
 \.conflict\~$
 syntax: glob
-dist/SDLib.jar
 nbproject/private/
 build/*
+dist/*

@@ -16,17 +16,20 @@
  */
 package dashfx.controls;
 
-import dashfx.data.*;
+import dashfx.lib.data.SupportedTypes;
+import dashfx.lib.controls.Designable;
+import dashfx.lib.data.*;
+import dashfx.lib.controls.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Slider;
 
 /**
  *
  * @author patrick
  */
-@Designable(value = "Bad Slider", image = "/dashfx/controls/BadSlider.png", description = "Uses built-in slider. Horrible")
+@Designable(value = "Bad Slider", image = "/dashfx/controls/res/BadSlider.png", description = "Uses built-in slider. Horrible")
 @DesignableProperty(value =
 {
 	"value",
@@ -39,7 +42,7 @@ import javafx.scene.control.*;
 	"The maximum value"
 })
 @Category("General")
-@Types({SmartValueTypes.Number})
+@SupportedTypes({SmartValueTypes.Number})
 public class BadSliderControl extends Slider implements Control, ChangeListener<Object>
 {
 
