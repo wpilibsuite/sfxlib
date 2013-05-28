@@ -17,10 +17,7 @@
 package dashfx.controls;
 
 import javafx.beans.property.*;
-import javafx.beans.property.adapter.ReadOnlyJavaBeanDoubleProperty;
-import javafx.beans.property.adapter.ReadOnlyJavaBeanDoublePropertyBuilder;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.value.*;
 
 /**
  *
@@ -32,8 +29,8 @@ public class BooleanControlBase extends ControlBase
 
 	public BooleanControlBase()
 	{
-		value.addListener(new ChangeListener<Boolean>() {
-
+		value.addListener(new ChangeListener<Boolean>()
+		{
 			@Override
 			public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
 			{
@@ -41,8 +38,6 @@ public class BooleanControlBase extends ControlBase
 			}
 		});
 	}
-
-
 
 	public boolean getValue()
 	{
@@ -77,7 +72,7 @@ public class BooleanControlBase extends ControlBase
 		if (newValue instanceof Integer)
 			setValue(0 != (Integer) newValue);
 		else if (newValue instanceof Double)
-			setValue(0 !=(Double) newValue);
+			setValue(0 != (Double) newValue);
 		else if (newValue instanceof Float)
 			setValue(0 != (Float) newValue);
 		else if (newValue instanceof Boolean)
