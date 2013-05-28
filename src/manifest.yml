@@ -1,5 +1,9 @@
-## YAML Template.
----
+API: 0.1
+Name: Built-in controls
+Description: Built in -fx:controls from sfxlib.jar
+Version: 0.0.1a1
+Plugin ID: E024E5BF-A155-4048-993F-5BF9F47D5305
+Data:
 -
   Name: Value Meter
   Description: Excellent Slider-like control
