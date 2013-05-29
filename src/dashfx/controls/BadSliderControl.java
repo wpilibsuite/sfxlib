@@ -46,7 +46,7 @@ import javafx.scene.control.Slider;
 public class BadSliderControl extends Slider implements Control, ChangeListener<Object>
 {
 
-	StringProperty name = new SimpleStringProperty("sin");
+	StringProperty name = new SimpleStringProperty();
 
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()

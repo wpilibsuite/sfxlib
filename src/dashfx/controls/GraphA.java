@@ -33,7 +33,7 @@ import javafx.scene.chart.*;
 @SupportedTypes({SmartValueTypes.Number})
 public class GraphA extends LineChart<Number, Number> implements Control, ChangeListener<Object>
 {
-	StringProperty name = new SimpleStringProperty("complex");
+	StringProperty name = new SimpleStringProperty();
 
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()
