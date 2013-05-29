@@ -41,6 +41,7 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 	public PaneControlBase(T pane)
 	{
 		ui = pane;
+		ui.setStyle("-fx-border-color: black;");
 		getChildren().addListener(new ListChangeListener<Node>()
 		{
 			@Override

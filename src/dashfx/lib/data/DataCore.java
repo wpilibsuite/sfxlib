@@ -56,6 +56,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	}
 
 	@Override
+	@SuppressWarnings("AssignmentToMethodParameter")
 	public synchronized SmartValue getObservable(String name)
 	{
 		if (name.equals("/") || name.isEmpty())
