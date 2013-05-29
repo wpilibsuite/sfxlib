@@ -37,7 +37,7 @@ public class NumberControlBase extends ControlBase
 
 	public void setValue(double value)
 	{
-		this.value.set(value);
+		this.value.set(Math.max(getMin(), Math.min(getMax(),value)));
 	}
 
 	@Designable(value = "Value", description = "The value of the control")
