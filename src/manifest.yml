@@ -21,3 +21,5 @@ Data:
   Source: /dashfx/controls/Label.fxml
   Category: General
   Supported Types: [Number, Boolean, String]
+  Defaults:
+    value: text
