@@ -48,6 +48,11 @@ public class InitInfo
 		teamNumber = num;
 	}
 
+	public static int getTeamNumber()
+	{
+		return teamNumber;
+	}
+
 	/**
 	 * @param host the host to set
 	 */

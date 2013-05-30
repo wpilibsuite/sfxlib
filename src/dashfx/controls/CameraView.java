@@ -19,6 +19,7 @@ package dashfx.controls;
 import dashfx.lib.controls.Control;
 import dashfx.lib.controls.Designable;
 import dashfx.lib.data.DataCoreProvider;
+import dashfx.lib.data.InitInfo;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -31,6 +32,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 /**
  *
@@ -49,12 +51,22 @@ public class CameraView implements Control
 	};
 	private boolean urlChanged = true;
 	ImageView ui;
-	SimpleStringProperty urlProperty = new SimpleStringProperty(this, "url", "http://10.xx.yy.11/mjpg/video.mjpg");
+	Pane uil;
+	SimpleStringProperty urlProperty;
 	BGThread bg = new BGThread();
 
 	public CameraView()
 	{
+		urlProperty = new SimpleStringProperty(this, "url", "http://10."+ InitInfo.getTeamNumber()  / 100 + "." + InitInfo.getTeamNumber() % 100 +".11/mjpg/video.mjpg");
+		uil = new Pane();
 		ui = new ImageView();
+		uil.getChildren().add(ui);
+		uil.setPrefHeight(120);
+		uil.setPrefWidth(160);
+		uil.setManaged(false);
+		ui.fitHeightProperty().bind(uil.heightProperty());
+		ui.fitWidthProperty().bind(uil.widthProperty());
+		ui.setPreserveRatio(false);
 		urlProperty.addListener(new ChangeListener<String>()
 		{
 			@Override
@@ -84,7 +96,7 @@ public class CameraView implements Control
 	@Override
 	public Node getUi()
 	{
-		return ui;
+		return uil;
 	}
 
 	@Override
@@ -106,6 +118,7 @@ public class CameraView implements Control
 		public BGThread()
 		{
 			super("Camera Viewer Background");
+			setDaemon(true);
 		}
 
 		@Override
@@ -178,7 +191,11 @@ public class CameraView implements Control
 						}
 					}
 				}
-				catch (Exception e)
+				catch (NullPointerException e)
+				{
+					// must be failing now
+				}
+				catch (Throwable e)
 				{
 					e.printStackTrace();
 				}
