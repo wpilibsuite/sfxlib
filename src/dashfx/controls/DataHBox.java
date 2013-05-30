@@ -41,6 +41,7 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 
 	public DataHBox()
 	{
+		setStyle("-fx-border-color: black;");
 		getChildren().addListener(new ListChangeListener<Node>()
 		{
 			@Override

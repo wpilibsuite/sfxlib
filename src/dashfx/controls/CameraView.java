@@ -53,12 +53,13 @@ public class CameraView implements Control
 	ImageView ui;
 	Pane uil;
 	SimpleStringProperty urlProperty;
-	BGThread bg = new BGThread();
+	BGThread bg;
 
 	public CameraView()
 	{
-		urlProperty = new SimpleStringProperty(this, "url", "http://10."+ InitInfo.getTeamNumber()  / 100 + "." + InitInfo.getTeamNumber() % 100 +".11/mjpg/video.mjpg");
+		urlProperty = new SimpleStringProperty(this, "url", "http://10." + InitInfo.getTeamNumber() / 100 + "." + InitInfo.getTeamNumber() % 100 + ".11/mjpg/video.mjpg");
 		uil = new Pane();
+		uil.setStyle("-fx-border-color: black;");
 		ui = new ImageView();
 		uil.getChildren().add(ui);
 		uil.setPrefHeight(120);
@@ -105,7 +106,11 @@ public class CameraView implements Control
 		// bah, we dont need anything
 		if (provider != null)
 		{
-			bg.start();
+			if (bg == null)
+			{
+				bg = new BGThread();
+				bg.start();
+			}
 		}
 		else
 			bg.destroyed = true;
