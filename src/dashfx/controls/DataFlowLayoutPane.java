@@ -29,7 +29,7 @@ import javafx.scene.layout.Region;
  *
  * @author patrick
  */
-@Designable(value = "Flow", description = "Automatic flowing pane")
+@Designable(value = "Flow", image="/dashfx/controls/res/flow.png",  description = "Automatic flowing pane")
 @DesignableProperty(value = {"hgap", "vgap"}, descriptions = {"Horizontal Spacing", "Vertical spacing"})
 public class DataFlowLayoutPane extends PaneControlBase<FlowPane>
 {

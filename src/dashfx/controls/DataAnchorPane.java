@@ -30,7 +30,7 @@ import javafx.scene.layout.*;
  *
  * @author patrick
  */
-@Designable(value = "Canvas", description = "Cartesian coordinate based panel")
+@Designable(value = "Canvas", image="/dashfx/controls/res/canvas.png", description = "Cartesian coordinate based panel")
 public class DataAnchorPane extends PaneControlBase<AnchorPane> implements DataCoreProvider, Control, DesignablePane
 {
 	private DataCoreProvider superprovider = null;

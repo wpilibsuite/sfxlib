@@ -18,6 +18,7 @@ Data:
 -
   Name: Label
   Description: Control for displaying text
+  Image: /dashfx/controls/res/label.png
   Source: /dashfx/controls/Label.fxml
   Category: General
   Supported Types: [Number, Boolean, String]
