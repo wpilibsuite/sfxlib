@@ -20,6 +20,8 @@ import dashfx.lib.controls.Designable;
 import dashfx.lib.data.SmartValueTypes;
 import dashfx.lib.data.SupportedTypes;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 
 /**
  *
@@ -37,7 +39,9 @@ public class NumberControlBase extends ControlBase
 
 	public void setValue(double value)
 	{
-		this.value.set(Math.max(getMin(), Math.min(getMax(),value)));
+		double tvalue = (Math.max(getMin(), Math.min(getMax(),value)));
+		this.value.set(tvalue);
+		stringValue.set(String.valueOf(Math.round(tvalue*100)/100.0));
 	}
 
 	@Designable(value = "Value", description = "The value of the control")
@@ -80,6 +84,12 @@ public class NumberControlBase extends ControlBase
 	public SimpleDoubleProperty maxProperty()
 	{
 		return max;
+	}
+
+	@Override
+	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
+	{
+		changed(t1);
 	}
 
 	@Override

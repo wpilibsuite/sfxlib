@@ -108,7 +108,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	private SmartValue smrtVal;
 
 
-	ReadOnlyStringWrapper stringValue = new ReadOnlyStringWrapper(this, "stringValue");
+	protected ReadOnlyStringWrapper stringValue = new ReadOnlyStringWrapper(this, "stringValue");
 
 	@Designable(value = "String Value", description = "Value.toString()")
 	public ReadOnlyStringProperty stringValueProperty()

@@ -15,6 +15,7 @@
 			<children>
 				<Pane style="-fx-background-color: #33ff54" maxWidth="${((base.value - base.min)/(base.max - base.min) * -(stackers.width)) + stackers.width}" StackPane.alignment="CENTER_RIGHT" />
 				<Pane translateX="${((base.value - base.min) / (base.max - base.min) * stackers.width)+ -(stackers.width / 2)}" maxWidth="5" style="-fx-background-color:black;" StackPane.alignment="CENTER" />
+				<Label text="${base.stringValue}" StackPane.alignment="CENTER" />
 			</children>
 		</StackPane>
 	</ui>
