@@ -5,7 +5,6 @@
 package dashfx.lib.designers;
 
 import java.util.HashMap;
-import javafx.beans.property.*;
 
 /**
  *
