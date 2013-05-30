@@ -36,7 +36,7 @@ import javafx.scene.image.ImageView;
  *
  * @author patrick
  */
-@Designable(value = "MJPEG Camera", description = "MJPEG ip camera view")
+@Designable(value = "Camera", image = "/dashfx/controls/res/camera.png", description = "MJPEG ip camera view")
 public class CameraView implements Control
 {
 	private static final int[] START_BYTES = new int[]
