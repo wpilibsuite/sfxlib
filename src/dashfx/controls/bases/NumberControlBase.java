@@ -80,7 +80,7 @@ public class NumberControlBase extends ControlBase
 		this.max.set(max);
 	}
 
-	@Designable(value = "Min", description = "The maximum value of the control")
+	@Designable(value = "Max", description = "The maximum value of the control")
 	public SimpleDoubleProperty maxProperty()
 	{
 		return max;
