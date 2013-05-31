@@ -127,10 +127,9 @@ public class CameraView implements Control
 		}
 
 		@Override
+		@SuppressWarnings("SleepWhileInLoop")
 		public void run()
 		{
-			URLConnection connection = null;
-			InputStream stream = null;
 			ByteArrayOutputStream imageBuffer = new ByteArrayOutputStream();
 			while (!destroyed)
 			{ //TODO: THIS is a horrible impl. very inefficient. FIXME: use mime and http
@@ -138,9 +137,9 @@ public class CameraView implements Control
 				{
 					urlChanged = false;
 					URL url = new URL(getUrl());
-					connection = url.openConnection();
+					URLConnection connection = url.openConnection();
 					connection.setReadTimeout(250);
-					stream = connection.getInputStream();
+					InputStream stream = connection.getInputStream();
 					long lastRepaint = 0;
 
 					while (!destroyed && !urlChanged)
