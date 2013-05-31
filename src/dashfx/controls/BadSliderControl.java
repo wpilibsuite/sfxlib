@@ -80,7 +80,8 @@ public class BadSliderControl extends Slider implements Control, ChangeListener<
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
 			{
-				provider.getObservable(t).removeListener(BadSliderControl.this);
+				if (t != null)
+					provider.getObservable(t).removeListener(BadSliderControl.this);
 				provider.getObservable(t1).addListener(BadSliderControl.this);
 			}
 		});
