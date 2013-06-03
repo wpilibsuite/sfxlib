@@ -20,7 +20,6 @@ import dashfx.lib.controls.Designable;
 import dashfx.lib.data.SmartValueTypes;
 import dashfx.lib.data.SupportedTypes;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 
 /**

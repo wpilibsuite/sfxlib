@@ -32,7 +32,7 @@ import javafx.scene.Node;
 public abstract class ControlBase implements Control, ChangeListener<Object>
 {
 	@FXML
-	public SimpleObjectProperty<Node> ui = new SimpleObjectProperty<>();
+	private SimpleObjectProperty<Node> ui = new SimpleObjectProperty<>();
 
 	@Override
 	@FXML
@@ -52,7 +52,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		return this.ui;
 	}
-	StringProperty name = new SimpleStringProperty(this, "name");
+	private StringProperty name = new SimpleStringProperty(this, "name");
 
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()
