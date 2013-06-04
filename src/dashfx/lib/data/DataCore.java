@@ -149,13 +149,13 @@ public class DataCore implements DataCoreProvider, DataProcessor
 				//TODO: delete data
 				for (SmartValue smartValue : data.getValues())
 				{
-					if (!knownNames.contains(smartValue.getName()))
-						knownNames.add(smartValue.getName());
 					SmartValue obs = getObservable(smartValue.getName());
 					if (!(smartValue.getType() == SmartValueTypes.Unknown && obs.getType() != SmartValueTypes.Unknown))
 						obs.setType(smartValue.getType());
 					if (smartValue.getGroupName() != null && !smartValue.getGroupName().isEmpty())
 						obs.setGroupName(smartValue.getGroupName());
+					if (!knownNames.contains(smartValue.getName()))
+						knownNames.add(smartValue.getName());
 				}
 			}
 		});
@@ -171,15 +171,15 @@ public class DataCore implements DataCoreProvider, DataProcessor
 				//TODO: delete data
 				for (SmartValue smartValue : data.getValues())
 				{
-					if (!knownNames.contains(smartValue.getName()))
-						knownNames.add(smartValue.getName());
 					SmartValue obs = getObservable(smartValue.getName());
 					if (!(smartValue.getType() == SmartValueTypes.Unknown && obs.getType() != SmartValueTypes.Unknown))
 						obs.setType(smartValue.getType());
 					if (smartValue.getGroupName() != null && !smartValue.getGroupName().isEmpty())
 						obs.setGroupName(smartValue.getGroupName());
 					if (!(smartValue.getValue() == null && obs.getValue() != null))
-					obs.setData(smartValue.getValue());
+						obs.setData(smartValue.getValue());
+					if (!knownNames.contains(smartValue.getName()))
+						knownNames.add(smartValue.getName());
 				}
 			}
 		});
