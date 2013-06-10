@@ -195,6 +195,8 @@ public class DataAnchorPane extends PaneControlBase<AnchorPane> implements DataC
 			case Up:
 			{
 				int oidx = getChildren().indexOf(child);
+				if (oidx + 1 == getChildren().size())
+					break;
 				getChildren().remove(child);
 				getChildren().add(oidx + 1, child);
 				break;
@@ -202,6 +204,8 @@ public class DataAnchorPane extends PaneControlBase<AnchorPane> implements DataC
 			case Down:
 			{
 				int oidx = getChildren().indexOf(child);
+				if (oidx == 0)
+					break;
 				getChildren().remove(child);
 				getChildren().add(oidx - 1, child);
 				break;
