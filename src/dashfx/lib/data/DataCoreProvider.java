@@ -30,8 +30,6 @@ public interface DataCoreProvider
 	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
 	SmartValue getObservable(String name);
 
-	void pause();
-	void resume();
 	void dispose();
 
 	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();

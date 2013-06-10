@@ -19,7 +19,6 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	private SmartValue dataTree = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, "");
 	private ArrayList<DataInitDescriptor<DataEndpoint>> endpoints = new ArrayList<>();
 	private LinkedList<DataProcessor> filters = new LinkedList<>();
-	private boolean running = false;
 	private ReadOnlyListWrapper<String> knownNames;
 
 	public DataCore()
@@ -87,11 +86,6 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	@Override
 	public synchronized void processData(DataProcessor source, ValueTransaction data)
 	{
-		if (!running)
-		{
-			learnNames(data);
-			return;
-		}
 		if (source != null) // normal data source
 		{
 			int idx = filters.indexOf(source);
@@ -122,43 +116,9 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	}
 
 	@Override
-	public void pause()
-	{
-		running = false;
-	}
-
-	@Override
-	public void resume()
-	{
-		running = true;
-	}
-
-	@Override
 	public void setProcessor(DataProcessor proc)
 	{
 		throw new UnsupportedOperationException("Not supported yet. Only one core is permitted");
-	}
-
-	private void learnNames(final ValueTransaction data)
-	{
-		Platform.runLater(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				//TODO: delete data
-				for (SmartValue smartValue : data.getValues())
-				{
-					SmartValue obs = getObservable(smartValue.getName());
-					if (!(smartValue.getType() == SmartValueTypes.Unknown && obs.getType() != SmartValueTypes.Unknown))
-						obs.setType(smartValue.getType());
-					if (smartValue.getGroupName() != null && !smartValue.getGroupName().isEmpty())
-						obs.setGroupName(smartValue.getGroupName());
-					if (!knownNames.contains(smartValue.getName()))
-						knownNames.add(smartValue.getName());
-				}
-			}
-		});
 	}
 
 	private void mergeToTree(final ValueTransaction data)

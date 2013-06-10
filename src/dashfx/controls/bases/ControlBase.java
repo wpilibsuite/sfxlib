@@ -78,6 +78,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 		{
 			smrtVal = provider.getObservable(getName());
 			smrtVal.addListener(this);
+			changed(smrtVal, null, smrtVal.getValue());
 		}
 		nameProperty().addListener(new ChangeListener<String>()
 		{
@@ -88,6 +89,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 					smrtVal.removeListener(ControlBase.this);
 				smrtVal = provider.getObservable(t1);
 				smrtVal.addListener(ControlBase.this);
+				ControlBase.this.changed(smrtVal, null, smrtVal.getValue());
 			}
 		});
 	}

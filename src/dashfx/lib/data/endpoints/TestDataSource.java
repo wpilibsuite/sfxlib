@@ -63,6 +63,7 @@ public class TestDataSource implements DataSource, Runnable
 		try
 		{
 			double t = 0;
+			proc.processData(null, new SimpleTransaction(new SmartValue("Clever Gollumn", SmartValueTypes.String, "invisible")));
 			while (shouldBeRunning)
 			{
 				final SimpleTransaction trans = new SimpleTransaction();

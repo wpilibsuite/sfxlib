@@ -152,18 +152,6 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	}
 
 	@Override
-	public void pause()
-	{
-		superprovider.pause();
-	}
-
-	@Override
-	public void resume()
-	{
-		superprovider.resume();
-	}
-
-	@Override
 	public boolean isJumps()
 	{
 		return false;

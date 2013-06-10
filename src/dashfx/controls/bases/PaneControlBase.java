@@ -130,18 +130,6 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 	}
 
 	@Override
-	public void pause()
-	{
-		superprovider.pause();
-	}
-
-	@Override
-	public void resume()
-	{
-		superprovider.resume();
-	}
-
-	@Override
 	public void setDesigning(boolean designing)
 	{
 		this.designing = designing;
