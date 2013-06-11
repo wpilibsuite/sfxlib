@@ -96,7 +96,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 		{
 			smrtVal = provider.getObservable(getName());
 			smrtVal.addListener(this);
-			if (smrtVal.getValue() != null && !smrtVal.getValue().toString().equals("{}"))
+			if (smrtVal.getValue() != null && !smrtVal.isHash())
 				changed(smrtVal, null, smrtVal.getValue());
 		}
 		nameProperty().addListener(new ChangeListener<String>()
@@ -108,7 +108,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 					smrtVal.removeListener(ControlBase.this);
 				smrtVal = provider.getObservable(t1);
 				smrtVal.addListener(ControlBase.this);
-				if (smrtVal.getValue() != null && !smrtVal.getValue().toString().equals("{}"))
+				if (smrtVal.getValue() != null && !smrtVal.isHash())
 					ControlBase.this.changed(smrtVal, null, smrtVal.getValue());
 			}
 		});

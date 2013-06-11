@@ -41,7 +41,6 @@ public class CollapsableHBox extends HBox
 			{
 				while (change.next())
 				{
-					System.out.println("Loopist collapse");
 					for (final Node node : change.getAddedSubList())
 					{
 						if (!knownNodes.contains(node))
