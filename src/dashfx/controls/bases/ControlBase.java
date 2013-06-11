@@ -70,6 +70,24 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 		nameProperty().setValue(value);
 	}
 
+	private BooleanProperty showLabel = new SimpleBooleanProperty(this, "showLabel", true);
+
+	@Designable(value = "Label", description = "Show a label with which name this control is bound to")
+	public BooleanProperty showLabelProperty()
+	{
+		return showLabel;
+	}
+
+	public boolean getShowLabel()
+	{
+		return showLabelProperty().get();
+	}
+
+	public void setShowLabel(boolean value)
+	{
+		showLabelProperty().set(value);
+	}
+
 	@Override
 	public void registered(final DataCoreProvider provider)
 	{
@@ -78,7 +96,8 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 		{
 			smrtVal = provider.getObservable(getName());
 			smrtVal.addListener(this);
-			changed(smrtVal, null, smrtVal.getValue());
+			if (smrtVal.getValue() != null && !smrtVal.getValue().toString().equals("{}"))
+				changed(smrtVal, null, smrtVal.getValue());
 		}
 		nameProperty().addListener(new ChangeListener<String>()
 		{
@@ -89,7 +108,8 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 					smrtVal.removeListener(ControlBase.this);
 				smrtVal = provider.getObservable(t1);
 				smrtVal.addListener(ControlBase.this);
-				ControlBase.this.changed(smrtVal, null, smrtVal.getValue());
+				if (smrtVal.getValue() != null && !smrtVal.getValue().toString().equals("{}"))
+					ControlBase.this.changed(smrtVal, null, smrtVal.getValue());
 			}
 		});
 	}
@@ -108,8 +128,6 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 		return smrtVal;
 	}
 	private SmartValue smrtVal;
-
-
 	protected ReadOnlyStringWrapper stringValue = new ReadOnlyStringWrapper(this, "stringValue");
 
 	@Designable(value = "String Value", description = "Value.toString()")
@@ -122,5 +140,4 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		return stringValueProperty().getValue();
 	}
-
 }
