@@ -197,35 +197,28 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 				if ((dx - dxDiff) > 0)
 				{
 					//move to the right. only bother if we can
-					if (indexes[0] < getChildren().size() - 1)
+					while (indexes[0] < getChildren().size() - 1 && (dx - dxDiff) > ((Region) getChildren().get(indexes[0] + 1)).getWidth())
 					{
-						while ((dx - dxDiff) > ((Region) getChildren().get(indexes[0] + 1)).getWidth())
-						{
-							dxDiff += ((Region) getChildren().get(indexes[0] + 1)).getWidth();
-							Node oc = getChildren().get(indexes[0]);
-							getChildren().remove(oc);
-							getChildren().add(indexes[0] + 1, oc);
-							indexes[0]++;
-						}
+						dxDiff += ((Region) getChildren().get(indexes[0] + 1)).getWidth();
+						Node oc = getChildren().get(indexes[0]);
+						getChildren().remove(oc);
+						getChildren().add(indexes[0] + 1, oc);
+						indexes[0]++;
 					}
 				}
 				else if ((dx - dxDiff) < 0)
 				{
 					//move to the left. only bother if we can
-					if (indexes[0] > 0)
+					while (indexes[0] > 0 && (dx - dxDiff) < -((Region) getChildren().get(indexes[0] - 1)).getWidth())
 					{
-						while ((dx - dxDiff) < -((Region) getChildren().get(indexes[0] - 1)).getWidth())
-						{
-							dxDiff -= ((Region) getChildren().get(indexes[0] - 1)).getWidth();
-							Node oc = getChildren().get(indexes[0]);
-							getChildren().remove(oc);
-							getChildren().add(indexes[0] - 1, oc);
-							indexes[0]--;
-						}
+						dxDiff -= ((Region) getChildren().get(indexes[0] - 1)).getWidth();
+						Node oc = getChildren().get(indexes[0]);
+						getChildren().remove(oc);
+						getChildren().add(indexes[0] - 1, oc);
+						indexes[0]--;
 					}
 				}
 			}
-
 		}
 	}
 
@@ -263,12 +256,15 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 		{
 			int idx = 0;
 			double width = 0;
-			while (x > width)
+			while (x > width && idx < getChildren().size())
 			{
 				// TODO: halfwidth
 				width += ((Region) getChildren().get(idx++)).getWidth();
 			}
-			getChildren().add(idx, child);
+			if (getChildren().size() <= idx)
+				getChildren().add(child);
+			else
+				getChildren().add(idx, child);
 		}
 	}
 
