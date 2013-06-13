@@ -32,6 +32,7 @@ import javafx.scene.layout.*;
  */
 @Designable(value = "HStack Panel", image = "/dashfx/controls/res/hbox.png", description = "Fitting horizontal stacking panel")
 @Category("Grouping")
+@DesignableChildProperty(property = {"Hgrow"}, name = {"HGrow"}, description = {"Horizontal Growth"})
 public class DataHBox extends HBox implements DataCoreProvider, Control, DesignablePane, EventHandler<Event>
 {
 	private DataCoreProvider superprovider = null;
