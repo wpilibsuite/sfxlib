@@ -21,6 +21,8 @@ import dashfx.lib.data.*;
 import dashfx.lib.controls.Control;
 import java.util.*;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -54,6 +56,31 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 				{
 					if (n instanceof Control && !unregistered.contains(n) && !registered.contains(n))
 						addControl((Control) n);
+				}
+			}
+		});
+		dataMode.addListener(new ChangeListener<DataPaneMode>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends DataPaneMode> ov, DataPaneMode t, DataPaneMode t1)
+			{
+				for (Registerable registerable : registered)
+				{
+					registerable.registered(PaneControlBase.this);
+				}
+			}
+		});
+		name.addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends String> ov, String t, String t1)
+			{
+				if (dataMode.get() == DataPaneMode.Passthrough)
+					return;
+
+				for (Registerable registerable : registered)
+				{
+					registerable.registered(PaneControlBase.this);
 				}
 			}
 		});
