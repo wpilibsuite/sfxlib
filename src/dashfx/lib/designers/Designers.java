@@ -30,6 +30,7 @@ public class Designers
 		all.put(short.class, NumberDesigner.class);
 		all.put(Boolean.class, BoolDesigner.class);
 		all.put(boolean.class, BoolDesigner.class);
+		all.put(Enum.class, EnumDesigner.class);
 	}
 
 	public static void addDesigner(Class type, Class designer)
@@ -41,11 +42,16 @@ public class Designers
 	{
 		//TODO: if not found, search entire classpath
 		Class dznrClz = all.get(type);
+		if (type.isEnum())
+			dznrClz = all.get(Enum.class);
 		if (dznrClz == null)
 			return null;
 		try
 		{
-			return (PropertyDesigner) dznrClz.newInstance();
+			PropertyDesigner pd = (PropertyDesigner) dznrClz.newInstance();
+			if (type.isEnum())
+				((EnumDesigner)pd).setEnum(type);
+			return pd;
 		}
 		catch (InstantiationException | IllegalAccessException ex)
 		{
