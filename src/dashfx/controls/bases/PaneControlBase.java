@@ -16,11 +16,11 @@
  */
 package dashfx.controls.bases;
 
-import dashfx.lib.controls.DesignablePane;
+import dashfx.lib.controls.*;
 import dashfx.lib.data.*;
-import dashfx.lib.controls.Category;
 import dashfx.lib.controls.Control;
 import java.util.*;
+import javafx.beans.property.*;
 import javafx.collections.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -36,7 +36,8 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 	private ArrayList<Registerable> unregistered = new ArrayList<>();
 	private ArrayList<Registerable> registered = new ArrayList<>();
 	private boolean designing;
-	private boolean nested = false;
+	private SimpleObjectProperty<DataPaneMode> dataMode = new SimpleObjectProperty<>(this, "dataMode", DataPaneMode.Passthrough);
+	private SimpleStringProperty name = new SimpleStringProperty(this, "name");
 
 	public PaneControlBase(T pane)
 	{
@@ -56,6 +57,38 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 				}
 			}
 		});
+	}
+
+	@Designable(value = "Data Mode", description = "Determines how much this node proxies name requests when resolving")
+	public ObjectProperty<DataPaneMode> dataModeProperty()
+	{
+		return dataMode;
+	}
+
+	public DataPaneMode getDataMode()
+	{
+		return dataMode.get();
+	}
+
+	public void setDataMode(DataPaneMode dataMode)
+	{
+		this.dataMode.set(dataMode);
+	}
+
+	@Designable(value = "Name", description = "Proxy Resolving Name prefix")
+	public StringProperty nameProperty()
+	{
+		return name;
+	}
+
+	public String getName()
+	{
+		return name.get();
+	}
+
+	public void setName(String dataMode)
+	{
+		this.name.set(dataMode);
 	}
 
 	@Override
@@ -113,8 +146,11 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 	}
 
 	@Override
+	@SuppressWarnings("AssignmentToMethodParameter")
 	public SmartValue getObservable(String name)
 	{
+		if (getDataMode() == DataPaneMode.ForceNested || (getDataMode() == DataPaneMode.Nested && !name.startsWith("/")))
+			name = getName() + name;
 		return superprovider.getObservable(name);
 	}
 
