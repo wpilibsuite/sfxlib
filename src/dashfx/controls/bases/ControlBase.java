@@ -69,7 +69,6 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		nameProperty().setValue(value);
 	}
-
 	private BooleanProperty showLabel = new SimpleBooleanProperty(this, "showLabel", true);
 
 	@Designable(value = "Label", description = "Show a label with which name this control is bound to")
@@ -92,13 +91,19 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	public void registered(final DataCoreProvider provider)
 	{
 		//TODO: add better getObservable Overrides
-		if (getName() != null)
+		if (provider == null)
+		{
+			if (smrtVal != null)
+				smrtVal.removeListener(this);
+		}
+		else if (getName() != null)
 		{
 			smrtVal = provider.getObservable(getName());
 			smrtVal.addListener(this);
 			if (smrtVal.getValue() != null && !smrtVal.isHash())
 				changed(smrtVal, null, smrtVal.getValue());
 		}
+		// TODO: don't leak on multiple calls
 		nameProperty().addListener(new ChangeListener<String>()
 		{
 			@Override

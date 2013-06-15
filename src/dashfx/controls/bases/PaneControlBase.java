@@ -176,7 +176,7 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 	@SuppressWarnings("AssignmentToMethodParameter")
 	public SmartValue getObservable(String name)
 	{
-		if (getDataMode() == DataPaneMode.ForceNested || (getDataMode() == DataPaneMode.Nested && !name.startsWith("/")))
+		if (getName() != null && (getDataMode() == DataPaneMode.ForceNested || (getDataMode() == DataPaneMode.Nested && !name.startsWith("/"))))
 			name = getName() + (getName().endsWith("/") || name.startsWith("/") ? "" : "/") + name;
 		return superprovider.getObservable(name);
 	}
