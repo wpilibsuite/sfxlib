@@ -3,6 +3,7 @@ Name: Built-in controls
 Description: Built in -fx:controls from sfxlib.jar
 Version: 0.0.1a1
 Plugin ID: E024E5BF-A155-4048-993F-5BF9F47D5305
+Icon: /dashfx/controls/res/32-fxicon.png
 Controls:
 -
   Name: Value Meter
@@ -24,3 +25,5 @@ Controls:
   Supported Types: [Number, Boolean, String]
   Defaults:
     value: text
+-
+  List Class: dashfx.lib.registers.ControlRegister
