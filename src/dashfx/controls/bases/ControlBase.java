@@ -33,6 +33,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 {
 	@FXML
 	private SimpleObjectProperty<Node> ui = new SimpleObjectProperty<>();
+	protected boolean ignore;
 
 	@Override
 	@FXML
@@ -122,8 +123,12 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	@Override
 	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
+		if (ignore)
+			return;
+		ignore = true;
 		stringValue.set(t1.toString());
 		changed(t1);
+		ignore = false;
 	}
 
 	protected abstract void changed(Object newValue);

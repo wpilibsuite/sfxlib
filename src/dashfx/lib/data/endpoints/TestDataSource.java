@@ -13,9 +13,10 @@ import dashfx.lib.controls.DesignableData;
  */
 @DesignableData(name = "Test Data", types =
 {
-	DataProcessorType.DataSender
+	DataProcessorType.DataSender,
+	DataProcessorType.DataSource,
 }, description = "Simple sin/cosine wave generator")
-public class TestDataSource implements DataSource, Runnable
+public class TestDataSource implements DataSource, Runnable, DataSender
 {
 
 	private DataProcessor proc;
@@ -87,5 +88,11 @@ public class TestDataSource implements DataSource, Runnable
 		catch (NullPointerException n)
 		{
 		}
+	}
+
+	@Override
+	public void send(SmartValue data)
+	{
+		System.out.printf("We got an update for '%s' => \t %s (%s)\n", data.getName(), data.getValue().toString(), data.getType().toString());
 	}
 }

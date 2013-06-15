@@ -20,16 +20,40 @@ import dashfx.lib.controls.Designable;
 import dashfx.lib.data.SmartValueTypes;
 import dashfx.lib.data.SupportedTypes;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**
  *
  * @author patrick
  */
-@SupportedTypes({SmartValueTypes.Number})
+@SupportedTypes(
+{
+	SmartValueTypes.Number
+})
 public class NumberControlBase extends ControlBase
 {
 	private SimpleDoubleProperty value = new SimpleDoubleProperty(this, "value", 0.0);
+
+	public NumberControlBase()
+	{
+		value.addListener(new ChangeListener<Number>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Number> ov, Number t, Number t1)
+			{
+				if (!ignore)
+				{
+					ignore = true;
+					getSmartValue().setType(SmartValueTypes.Double);
+					getSmartValue().setData(t1.doubleValue());
+					double tvalue = (Math.max(getMin(), Math.min(getMax(), t1.doubleValue())));
+					stringValue.set(String.valueOf(Math.round(tvalue * 100) / 100.0));
+					ignore = false;
+				}
+			}
+		});
+	}
 
 	public double getValue()
 	{
@@ -38,9 +62,9 @@ public class NumberControlBase extends ControlBase
 
 	public void setValue(double value)
 	{
-		double tvalue = (Math.max(getMin(), Math.min(getMax(),value)));
+		double tvalue = (Math.max(getMin(), Math.min(getMax(), value)));
 		this.value.set(tvalue);
-		stringValue.set(String.valueOf(Math.round(tvalue*100)/100.0));
+		stringValue.set(String.valueOf(Math.round(tvalue * 100) / 100.0));
 	}
 
 	@Designable(value = "Value", description = "The value of the control")
@@ -48,8 +72,6 @@ public class NumberControlBase extends ControlBase
 	{
 		return value;
 	}
-
-
 	private SimpleDoubleProperty min = new SimpleDoubleProperty(this, "min");
 
 	public double getMin()

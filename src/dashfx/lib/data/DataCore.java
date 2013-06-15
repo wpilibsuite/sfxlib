@@ -8,6 +8,7 @@ import dashfx.lib.controls.Control;
 import java.util.*;
 import javafx.application.*;
 import javafx.beans.property.*;
+import javafx.beans.value.*;
 import javafx.collections.*;
 
 /**
@@ -20,10 +21,29 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	private ArrayList<DataInitDescriptor<DataEndpoint>> endpoints = new ArrayList<>();
 	private LinkedList<DataProcessor> filters = new LinkedList<>();
 	private ReadOnlyListWrapper<String> knownNames;
+	private boolean recving = false;
+	private ChangeListener changer = new ChangeListener<Object>()
+	{
+		@Override
+		public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
+		{
+			if (!recving)
+			{
+				send((SmartValue) ov);
+			}
+		}
+	};
 
 	public DataCore()
 	{
+		dataTree.addListener(changer);
 		this.knownNames = new ReadOnlyListWrapper<>(FXCollections.observableArrayList(new TreeSet<String>()));
+	}
+
+	private void send(SmartValue data)
+	{
+		//TODO: proper mount points
+		((DataSender) endpoints.get(0).getObject()).send(data);
 	}
 
 	@Override
@@ -42,6 +62,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	public void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r)
 	{
 		// TODO: namespace filtering
+		// TODO: sendable filtering
 		endpoints.add(r);
 		r.getObject().init(r.getInitInfo());
 		r.getObject().setProcessor(this);
@@ -76,7 +97,9 @@ public class DataCore implements DataCoreProvider, DataProcessor
 			if (tmp.getSubKey(string, true) == null)
 			{
 				//TODO: should we set the name to the full path?
-				tmp.asHash().put(string, new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, string));
+				SmartValue nsv = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, string);
+				nsv.addListener(changer);
+				tmp.asHash().put(string, nsv);
 			}
 			tmp = tmp.getSubKey(string);
 		}
@@ -128,6 +151,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 			@Override
 			public void run()
 			{
+				recving = true;
 				//TODO: delete data
 				for (SmartValue smartValue : data.getValues())
 				{
@@ -141,6 +165,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 					if (!knownNames.contains(smartValue.getName()))
 						knownNames.add(smartValue.getName());
 				}
+				recving = false;
 			}
 		});
 	}
