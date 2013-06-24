@@ -183,4 +183,10 @@ public class SmartValue extends SimpleObjectProperty<Object>
 	{
 		this.type = type;
 	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("SmartValue [Name: %s, Group Name: %s, Type: %s, Value: %s]", getName(), getGroupName(), getType(), getValue());
+	}
 }
