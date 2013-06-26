@@ -17,6 +17,7 @@
 package dashfx.controls.bases;
 
 import dashfx.lib.controls.Designable;
+import dashfx.lib.data.SmartValueTypes;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 
@@ -35,7 +36,14 @@ public class BooleanControlBase extends ControlBase
 			@Override
 			public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
 			{
-				dblvalue.set(t1 ? 1.0 : 0.0);
+				if (!ignore && getSmartValue() != null)
+				{
+					ignore = true;
+					getSmartValue().setType(SmartValueTypes.Boolean);
+					getSmartValue().setData(t1);
+					dblvalue.set(t1 ? 1.0 : 0.0);
+					ignore = false;
+				}
 			}
 		});
 	}

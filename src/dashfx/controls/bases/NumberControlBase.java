@@ -42,7 +42,7 @@ public class NumberControlBase extends ControlBase
 			@Override
 			public void changed(ObservableValue<? extends Number> ov, Number t, Number t1)
 			{
-				if (!ignore)
+				if (!ignore && getSmartValue() != null)
 				{
 					ignore = true;
 					getSmartValue().setType(SmartValueTypes.Double);
