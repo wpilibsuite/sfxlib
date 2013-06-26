@@ -31,7 +31,7 @@ import java.io.IOException;
 {
 	DataProcessorType.DataSender
 }, description = "Full NetworkTables 2.0 Client for bidirection Robot communication")
-public class NetworkTables implements DataSource, ITableListener
+public class NetworkTables implements DataSource, ITableListener, DataSender
 {
 	NetworkTableClient nwt;
 	private DataProcessor proc;
@@ -133,6 +133,15 @@ public class NetworkTables implements DataSource, ITableListener
 		{
 			throw new RuntimeException("Hey! fix it! " + value.getClass().getCanonicalName());
 //			return SmartValueTypes.Unknown;
+		}
+	}
+
+	@Override
+	public void send(SmartValue data)
+	{
+		if (isConnected())
+		{
+			nwt.putValue(data.getName(), data.getValue());
 		}
 	}
 }
