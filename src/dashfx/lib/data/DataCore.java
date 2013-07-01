@@ -86,9 +86,11 @@ public class DataCore implements DataCoreProvider, DataProcessor
 		if (name.startsWith("/"))
 			name = name.substring(1);
 		String[] bits = name.split("/");
+		String partialName = "";
 		SmartValue tmp = dataTree;
 		for (String string : bits)
 		{
+			partialName += "/" + string;
 			if (tmp.asHash() == null)
 			{
 				tmp.setData(FXCollections.observableHashMap());
@@ -96,8 +98,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 			}
 			if (tmp.getSubKey(string, true) == null)
 			{
-				//TODO: should we set the name to the full path?
-				SmartValue nsv = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, string);
+				SmartValue nsv = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, partialName);
 				nsv.addListener(changer);
 				tmp.asHash().put(string, nsv);
 			}
