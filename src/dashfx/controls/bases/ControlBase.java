@@ -34,6 +34,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	@FXML
 	private SimpleObjectProperty<Node> ui = new SimpleObjectProperty<>();
 	protected boolean ignore;
+	private Object customPropObj = null;
 
 	@Override
 	@FXML
@@ -150,4 +151,15 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		return stringValueProperty().getValue();
 	}
+
+	public void setCustomPropObject(Object obj)
+	{
+		customPropObj = obj;
+	}
+
+	public Object getCustom()
+	{
+		return customPropObj;
+	}
 }
+
