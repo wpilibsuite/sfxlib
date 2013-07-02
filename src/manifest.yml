@@ -27,3 +27,14 @@ Controls:
     value: text
 -
   List Class: dashfx.lib.registers.ControlRegister
+-
+  Name: Compass
+  Description: Compass for displaying data from Gyros and Compasses
+  Source: /dashfx/controls/Compass.fxml
+  Types: Number
+  Defaults:
+    value: 0
+    min: -1
+    max: 1
+
+

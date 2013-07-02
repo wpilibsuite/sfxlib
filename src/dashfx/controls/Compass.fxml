@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.transform.*?>
+
+<dashfx.controls.bases.NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+    <ui>
+        <AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <!--Name and value-->
+                <Label text="${base.name}" visible="${base.showLabel}" layoutY="-20"/>
+                <Label text="${base.stringValue}" visible="${base.showLabel}" layoutX="180" layoutY="-20"/>
+                
+                <!--Meter-->
+                <Circle fill="RED" stroke="BLACK" layoutX="100" layoutY="100" radius="100" />
+                <SVGPath content="m 28.582201,170.0036 7.071067,-7.0711 1.414214,1.4142 -7.071068,7.0711 -1.414213,-1.4142 z m 0,-140.00713 1.414213,-1.4143 7.071068,7.0711 -1.414214,1.4142 -7.071067,-7.071 z m 134.350289,134.35023 1.41421,-1.4142 7.07107,7.0711 -1.41421,1.4142 -7.07107,-7.0711 z m 0,-128.69343 7.07107,-7.0711 1.41421,1.4142 -7.07107,7.0711 -1.41421,-1.4142 z M 99,200 l 0,-10 2,0 0,10 -2,0 z m -99,-99 0,-2 10,0 0,2 -10,0 z m 190,0 0,-2 10,0 0,2 -10,0 z M 99,10 l 0,-10 2,0 0,10 -2,0 z"/>
+                <Polygon fill="YELLOW" stroke="BLACK" layoutX="100" layoutY="100">
+                    <transforms>
+                        <Rotate angle="${base.value * 360/(base.max - base.min)}" pivotX="0" pivotY="0">
+                            <axis>
+                                <Point3D x="0.0" y="0.0"  z="1.0" />
+                            </axis>               
+                        </Rotate>
+                    </transforms>
+                    <points>
+                        <Double fx:value="-20.0"/>
+                        <Double fx:value="0.0"  />
+                        <Double fx:value="0.0"  />
+                        <Double fx:value="-80.0"/>
+                        <Double fx:value="20.0" />
+                        <Double fx:value="0.0"  />
+                        <Double fx:value="0.0"  />
+                        <Double fx:value="20.0" />
+                    </points>
+                    <rotationAxis>
+                        <Point3D z="1.0" />
+                    </rotationAxis>
+                </Polygon>
+            </children>
+        </AnchorPane>
+    </ui>
+</dashfx.controls.bases.NumberControlBase>
