@@ -7,9 +7,22 @@ Icon: /dashfx/controls/res/32-fxicon.png
 Controls:
 -
   Name: Value Meter
-  Description: Excellent Slider-like control
+  Description: Excellent slider-like control
   Image: /dashfx/controls/res/ValueMeter.png
   Source: /dashfx/controls/ValueMeter.fxml
+  Category: General
+  Supported Types: Number
+  Defaults:
+    min: -1.0
+    max: 1.0
+    value: 0.0
+-
+  Name: Color Changing Value Meter
+  Description: Slider-like control that changes color based on its value
+  Image: /dashfx/controls/res/ValueMeter.png
+  Source: /dashfx/controls/ColorChangeValueMeter.fxml
+  Custom Properties:
+    Left Color: {var: leftColor, ptype: javafx.beans.property.SimpleObjectProperty, type: javafx.scene.paint.Color, description: Color of the left part of the slider}
   Category: General
   Supported Types: Number
   Defaults:
@@ -29,12 +42,24 @@ Controls:
   List Class: dashfx.lib.registers.ControlRegister
 -
   Name: Compass
+#  Image: /dashfx/controls/res/Compass.png #TODO: create this image
   Description: Compass for displaying data from Gyros and Compasses
   Source: /dashfx/controls/Compass.fxml
+  Custom Properties:
+    Needle Color:
+      var: needleColor
+      ptype: javafx.beans.property.SimpleObjectProperty
+      type: javafx.scene.paint.Color
+      description: Color of the needle
+    Circle Color:
+      var: circleColor
+      ptype: javafx.beans.property.SimpleObjectProperty
+      type: javafx.scene.paint.Color
+      description: Color of the base circle
   Types: Number
   Defaults:
     value: 0
-    min: -1
-    max: 1
+    min: 0
+    max: 360
 
 

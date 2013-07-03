@@ -5,6 +5,7 @@
 package dashfx.lib.designers;
 
 import java.util.HashMap;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -31,6 +32,7 @@ public class Designers
 		all.put(Boolean.class, BoolDesigner.class);
 		all.put(boolean.class, BoolDesigner.class);
 		all.put(Enum.class, EnumDesigner.class);
+        all.put(Color.class, ColorDesigner.class);
 	}
 
 	public static void addDesigner(Class type, Class designer)
