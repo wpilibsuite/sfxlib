@@ -47,15 +47,15 @@ Controls:
   Source: /dashfx/controls/Compass.fxml
   Custom Properties:
     Needle Color:
-      var: needleColor
-      ptype: javafx.beans.property.SimpleObjectProperty
-      type: javafx.scene.paint.Color
-      description: Color of the needle
+      Var: needleColor
+      Type: javafx.scene.paint.Color
+      Description: Color of the needle
+      Default: YELLOW
     Circle Color:
-      var: circleColor
-      ptype: javafx.beans.property.SimpleObjectProperty
-      type: javafx.scene.paint.Color
-      description: Color of the base circle
+      Var: circleColor
+      Type: javafx.scene.paint.Color
+      Description: Color of the base circle
+      Default: RED
   Types: Number
   Defaults:
     value: 0

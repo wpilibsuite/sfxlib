@@ -26,22 +26,23 @@ import javafx.scene.paint.Color;
  * @author Sam
  */
 @Designer(Color.class)
-public class ColorDesigner implements PropertyDesigner<Color>{
-    
-    private ColorPicker colorPicker = new ColorPicker();
-    
-    public ColorDesigner() {
-        
-    }
+public class ColorDesigner implements PropertyDesigner<Color>
+{
+	private ColorPicker colorPicker = new ColorPicker();
 
-    @Override
-    public void design(Property<Color> prop) {
-        colorPicker.valueProperty().bindBidirectional(prop);
-    }
+	public ColorDesigner()
+	{
+	}
 
-    @Override
-    public Node getUiBits() {
-        return colorPicker;
-    }
-    
+	@Override
+	public void design(Property<Color> prop)
+	{
+		colorPicker.valueProperty().bindBidirectional(prop);
+	}
+
+	@Override
+	public Node getUiBits()
+	{
+		return colorPicker;
+	}
 }

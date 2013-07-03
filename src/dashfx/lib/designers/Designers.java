@@ -32,7 +32,7 @@ public class Designers
 		all.put(Boolean.class, BoolDesigner.class);
 		all.put(boolean.class, BoolDesigner.class);
 		all.put(Enum.class, EnumDesigner.class);
-        all.put(Color.class, ColorDesigner.class);
+		all.put(Color.class, ColorDesigner.class);
 	}
 
 	public static void addDesigner(Class type, Class designer)
@@ -52,7 +52,7 @@ public class Designers
 		{
 			PropertyDesigner pd = (PropertyDesigner) dznrClz.newInstance();
 			if (type.isEnum())
-				((EnumDesigner)pd).setEnum(type);
+				((EnumDesigner) pd).setEnum(type);
 			return pd;
 		}
 		catch (InstantiationException | IllegalAccessException ex)
