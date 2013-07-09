@@ -17,19 +17,6 @@ Controls:
     max: 1.0
     value: 0.0
 -
-  Name: Color Changing Value Meter
-  Description: Slider-like control that changes color based on its value
-  Image: /dashfx/controls/res/ValueMeter.png
-  Source: /dashfx/controls/ColorChangeValueMeter.fxml
-  Custom Properties:
-    Left Color: {var: leftColor, ptype: javafx.beans.property.SimpleObjectProperty, type: javafx.scene.paint.Color, description: Color of the left part of the slider}
-  Category: General
-  Supported Types: Number
-  Defaults:
-    min: -1.0
-    max: 1.0
-    value: 0.0
--
   Name: Label
   Description: Control for displaying text
   Image: /dashfx/controls/res/label.png
@@ -61,5 +48,16 @@ Controls:
     value: 0
     min: 0
     max: 360
+-
+  Name: VuMeter
+  Description: Compass for displaying data from Gyros and Compasses
+  Source: /dashfx/controls/VuMeter.fxml
+  Custom Properties:
+    Needle Color: {Var: needleColor, Type: javafx.scene.paint.Color, Description: Color of the needle, Default: YELLOW}
+  Types: Number
+  Defaults:
+    value: 0
+    min: -1
+    max: 1
 
 

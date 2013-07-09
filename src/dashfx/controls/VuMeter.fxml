@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.transform.*?>
+<?import dashfx.lib.controls.fxmlutils.*?>
+
+<dashfx.controls.bases.NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+	<ui>
+		<ScalePane prefHeight="52" prefWidth="143" maxWidth="Infinity" maxHeight="Infinity" minWidth="20" minHeight="20">
+			<children>
+				<AnchorPane minHeight="52" minWidth="143" prefHeight="52" prefWidth="143" maxWidth="143" maxHeight="52" >
+					<children>
+						<SVGPath content="m 61.21875,0.0588212 0,33.3786788 20,0 0,-33.3786788 z" fill="#60dc00">
+							<transforms>
+								<Rotate angle="${(90 * ((base.value - base.min) / (base.max - base.min)))+ -45}" pivotX="71.22" pivotY="100.0" />
+							</transforms>
+						</SVGPath>
+						<Line startX="71.22" endX="71.22" startY="0" endY="100" >
+							<transforms>
+								<Rotate angle="${(90 * ((base.value - base.min) / (base.max - base.min)))+ -45}" pivotX="71.22" pivotY="100.0" />
+							</transforms>
+						</Line>
+						<SVGPath content="M 71.21875,0.51282148 C 43.60451,0.51282148 18.59644,11.697631 0.5,29.794071 l 21.21875,21.21875 c 12.66751,-12.66751 30.17003,-20.5 49.5,-20.5 19.32997,0 36.83249,7.83249 49.5,20.5 L 141.9375,29.794071 C 123.84106,11.697631 98.83299,0.51282148 71.21875,0.51282148 z" strokeWidth="1" stroke="black" fill="transparent"  />
+					</children>
+					<clip>
+						<SVGPath content="M 71.21875,0.51282148 C 43.60451,0.51282148 18.59644,11.697631 0.5,29.794071 l 21.21875,21.21875 c 12.66751,-12.66751 30.17003,-20.5 49.5,-20.5 19.32997,0 36.83249,7.83249 49.5,20.5 L 141.9375,29.794071 C 123.84106,11.697631 98.83299,0.51282148 71.21875,0.51282148 z" />
+					</clip>
+				</AnchorPane>
+			</children>
+		</ScalePane>
+	</ui>
+</dashfx.controls.bases.NumberControlBase>
