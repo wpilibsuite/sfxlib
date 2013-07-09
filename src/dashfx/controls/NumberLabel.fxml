@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import dashfx.controls.bases.*?>
+
+<NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+	<ui>
+		<HBox>
+			<dashfx.lib.controls.fxmlutils.CollapsableHBox>
+				<Label text="${base.name}" visible="${base.showLabel}"  />
+				<Label text=": " visible="${base.showLabel}" />
+			</dashfx.lib.controls.fxmlutils.CollapsableHBox>
+			<dashfx.lib.controls.fxmlutils.FormattableLabel format="${base.custom.format}" value="${base.value}" />
+		</HBox>
+	</ui>
+</NumberControlBase>

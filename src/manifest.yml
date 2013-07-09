@@ -26,6 +26,15 @@ Controls:
   Defaults:
     value: text
 -
+  Name: Number Label
+  Description: Control for displaying # text
+  Image: /dashfx/controls/res/label.png
+  Source: /dashfx/controls/NumberLabel.fxml
+  Category: General
+  Supported Types: Number
+  Custom Properties:
+    Format String: {Var: format, Type: java.lang.String, Description: Color of the format, Default: "%.2f"}
+-
   List Class: dashfx.lib.registers.ControlRegister
 -
   Name: Compass
