@@ -71,8 +71,12 @@ public class ScalePane extends StackPane
 			try
 			{
 				Node child = getChildren().get(0);
-				double diffH = contentHeight / child.getBoundsInLocal().getHeight();
-				double diffW = contentWidth / child.getBoundsInLocal().getWidth();
+				double diffH = contentHeight / child.getLayoutBounds().getHeight();
+				double diffW = contentWidth / child.getLayoutBounds().getWidth();
+				if (Double.isNaN(diffH))
+					diffH = 1;
+				if (Double.isNaN(diffW))
+					diffW = 1;
 				child.setScaleX(diffW);
 				child.setScaleY(diffH);
 			}
