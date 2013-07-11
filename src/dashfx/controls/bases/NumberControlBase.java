@@ -16,7 +16,7 @@
  */
 package dashfx.controls.bases;
 
-import dashfx.lib.controls.Designable;
+import dashfx.lib.controls.*;
 import dashfx.lib.data.SmartValueTypes;
 import dashfx.lib.data.SupportedTypes;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -68,6 +68,7 @@ public class NumberControlBase extends ControlBase
 	}
 
 	@Designable(value = "Value", description = "The value of the control")
+	@Range(minProp = "min", maxProp = "max")
 	public SimpleDoubleProperty valueProperty()
 	{
 		return value;
