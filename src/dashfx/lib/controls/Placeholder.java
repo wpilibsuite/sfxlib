@@ -17,6 +17,9 @@
 package dashfx.lib.controls;
 
 import javafx.beans.property.*;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 
@@ -63,5 +66,24 @@ public class Placeholder extends BorderPane
 	public void replace(Node child)
 	{
 		setCenter(child);
+		if (getOnReplaced() != null)
+			getOnReplaced().handle(new Event(this, this, EventType.ROOT));
+	}
+
+	private ObjectProperty<EventHandler<? super Event>> onReplaced = new SimpleObjectProperty<>(this, "onReplaced");
+
+	public ObjectProperty<EventHandler<? super Event>> onReplacedProperty()
+	{
+		return onReplaced;
+	}
+
+	public void setOnReplaced(EventHandler<? super Event> event)
+	{
+		onReplacedProperty().set(event);
+	}
+
+	public EventHandler<? super Event> getOnReplaced()
+	{
+		return onReplacedProperty().get();
 	}
 }

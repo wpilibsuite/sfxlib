@@ -9,7 +9,7 @@
 
 <StringControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
 	<ui>
-		<HBox>
+		<HBox alignment="CENTER_LEFT">
 			<dashfx.lib.controls.fxmlutils.CollapsableHBox>
 				<Label text="${base.name}" visible="${base.showLabel}"  />
 				<Label text=": " visible="${base.showLabel}" />

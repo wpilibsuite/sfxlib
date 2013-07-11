@@ -21,6 +21,8 @@ import dashfx.lib.data.*;
 import dashfx.lib.controls.Control;
 import dashfx.lib.controls.*;
 import java.util.*;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -32,7 +34,16 @@ import javafx.scene.layout.*;
  */
 @Designable(value = "HStack Panel", image = "/dashfx/controls/res/hbox.png", description = "Fitting horizontal stacking panel")
 @Category("Grouping")
-@DesignableChildProperty(property = {"Hgrow"}, name = {"HGrow"}, description = {"Horizontal Growth"})
+@DesignableChildProperty(property =
+{
+	"Hgrow"
+}, name =
+{
+	"HGrow"
+}, description =
+{
+	"Horizontal Growth"
+})
 public class DataHBox extends HBox implements DataCoreProvider, Control, DesignablePane, EventHandler<Event>
 {
 	private DataCoreProvider superprovider = null;
@@ -40,6 +51,8 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	private ArrayList<Registerable> registered = new ArrayList<>();
 	private boolean designing;
 	private boolean nested = false;
+	private SimpleObjectProperty<DataPaneMode> dataMode = new SimpleObjectProperty<>(this, "dataMode", DataPaneMode.Passthrough);
+	private SimpleStringProperty name = new SimpleStringProperty(this, "name");
 
 	public DataHBox()
 	{
@@ -78,6 +91,83 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 				}
 			}
 		});
+		dataMode.addListener(new ChangeListener<DataPaneMode>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends DataPaneMode> ov, DataPaneMode t, DataPaneMode t1)
+			{
+				for (Registerable registerable : registered)
+				{
+					registerable.registered(DataHBox.this);
+				}
+				if (superprovider != null && getOnRegisterRequest() != null)
+					getOnRegisterRequest().handle(null);
+			}
+		});
+		name.addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends String> ov, String t, String t1)
+			{
+				if (dataMode.get() == DataPaneMode.Passthrough)
+					return;
+
+				for (Registerable registerable : registered)
+				{
+					registerable.registered(DataHBox.this);
+				}
+				if (superprovider != null && getOnRegisterRequest() != null)
+					getOnRegisterRequest().handle(null);
+			}
+		});
+	}
+	private ObjectProperty<EventHandler<? super Event>> onRegisterRequest = new SimpleObjectProperty<>(this, "onRegisterRequest");
+
+	public ObjectProperty<EventHandler<? super Event>> onRegisterRequestProperty()
+	{
+		return onRegisterRequest;
+	}
+
+	public void setOnRegisterRequest(EventHandler<? super Event> event)
+	{
+		onRegisterRequestProperty().set(event);
+	}
+
+	public EventHandler<? super Event> getOnRegisterRequest()
+	{
+		return onRegisterRequestProperty().get();
+	}
+
+	@Designable(value = "Data Mode", description = "Determines how much this node proxies name requests when resolving")
+	public ObjectProperty<DataPaneMode> dataModeProperty()
+	{
+		return dataMode;
+	}
+
+	public DataPaneMode getDataMode()
+	{
+		return dataMode.get();
+	}
+
+	public void setDataMode(DataPaneMode dataMode)
+	{
+		this.dataMode.set(dataMode);
+	}
+
+	@Designable(value = "Name", description = "Proxy Resolving Name prefix")
+	public StringProperty nameProperty()
+	{
+		return name;
+	}
+
+	public String getName()
+	{
+		return name.get();
+	}
+
+	public void setName(String dataMode)
+	{
+		this.name.set(dataMode);
 	}
 
 	@Override
@@ -136,8 +226,11 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	}
 
 	@Override
+	@SuppressWarnings("AssignmentToMethodParameter")
 	public SmartValue getObservable(String name)
 	{
+		if (getName() != null && (getDataMode() == DataPaneMode.ForceNested || (getDataMode() == DataPaneMode.Nested && !name.startsWith("/"))))
+			name = getName() + (getName().endsWith("/") || name.startsWith("/") ? "" : "/") + name;
 		return superprovider.getObservable(name);
 	}
 
@@ -150,6 +243,8 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 			r.registered(this);
 			registered.add(r);
 		}
+		if (getOnRegisterRequest() != null)
+			getOnRegisterRequest().handle(null);
 	}
 
 	@Override
