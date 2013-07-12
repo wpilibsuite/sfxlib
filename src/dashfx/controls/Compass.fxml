@@ -18,7 +18,7 @@
 				<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="200.0" maxWidth="200" maxHeight="200" >
 					<children>
 						<!--Name and value-->
-						<Label text="${base.name}" visible="${base.showLabel}" layoutY="0"/>
+						<Label text="${base.label}" visible="${base.showLabel}" layoutY="0"/>
 						<Label text="${base.stringValue}" visible="${base.showLabel}" layoutX="180" layoutY="0"/>
 
 						<!--Meter-->

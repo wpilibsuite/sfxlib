@@ -11,7 +11,7 @@
 	<ui>
 		<HBox alignment="CENTER_LEFT">
 			<dashfx.lib.controls.fxmlutils.CollapsableHBox>
-				<Label text="${base.name}" visible="${base.showLabel}"  />
+				<Label text="${base.label}" visible="${base.showLabel}"  />
 				<Label text=": " visible="${base.showLabel}" />
 			</dashfx.lib.controls.fxmlutils.CollapsableHBox>
 			<Label text="${base.value}" />
