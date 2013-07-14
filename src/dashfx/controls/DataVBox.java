@@ -29,7 +29,7 @@ import javafx.scene.layout.*;
  *
  * @author patrick
  */
-@Designable(value = "VStack Panel", image = "/dashfx/controls/res/hbox.png", description = "Fitting vertical stacking panel")
+@Designable(value = "VStack Panel", image = "/dashfx/controls/res/vbox.png", description = "Fitting vertical stacking panel")
 @Category("Grouping")
 @DesignableChildProperty(property = {"Vgrow"}, name = {"VGrow"}, description = {"Vorizontal Growth"})
 public class DataVBox extends PaneControlBase<VBox> implements EventHandler<Event>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg7235"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   width="64"
+   height="64"
+   sodipodi:docname="hbox.svg"
+   inkscape:export-filename="/home/patrick/NetBeansProjects/sfxlib/src/dashfx/controls/res/hbox.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <metadata
+     id="metadata7241">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs7239" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     id="namedview7237"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="4"
+     inkscape:cx="23.680817"
+     inkscape:cy="38.888368"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7235">
+    <inkscape:grid
+       type="xygrid"
+       id="grid7245" />
+  </sodipodi:namedview>
+  <path
+     style="fill:#000000;fill-opacity:1;stroke:none"
+     d="M 0 5 L 0 59 L 64 59 L 64 5 L 0 5 z M 1 6 L 25 6 L 25 58 L 1 58 L 1 6 z M 26 6 L 50 6 L 50 58 L 26 58 L 26 6 z M 51 6 L 63 6 L 63 58 L 51 58 L 51 6 z M 53 31 L 53 33 L 55 33 L 55 31 L 53 31 z M 56 31 L 56 33 L 58 33 L 58 31 L 56 31 z M 59 31 L 59 33 L 61 33 L 61 31 L 59 31 z "
+     id="rect7247" />
+  <text
+     xml:space="preserve"
+     style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="57.143818"
+     y="35.523972"
+     id="text7255"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan7257"
+       x="57.143818"
+       y="35.523972" /></text>
+</svg>

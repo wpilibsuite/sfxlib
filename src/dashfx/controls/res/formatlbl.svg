@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64px"
+   height="64px"
+   id="svg7309"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="formatlbl.svg"
+   inkscape:export-filename="/home/patrick/NetBeansProjects/sfxlib/src/dashfx/controls/res/formatlabel.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs7311" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="55.328048"
+     inkscape:cy="40.445996"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="717"
+     inkscape:window-x="1920"
+     inkscape:window-y="407"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid7321" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="30,32"
+       id="guide7323" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="32,42"
+       id="guide7325" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7314">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <text
+       xml:space="preserve"
+       style="font-size:21.28611374px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sawasdee;-inkscape-font-specification:Sawasdee"
+       x="31.662209"
+       y="26.434221"
+       id="text7317"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan7319"
+         x="31.662209"
+         y="26.434221"
+         dx="0 0.125 0 0.1875 -1.1875 0.625"
+         dy="0.3125">format</tspan><tspan
+         sodipodi:role="line"
+         x="31.662209"
+         y="53.041862"
+         dx="0.625 0.03125 0.59375 -0.044194166 0.17677669"
+         id="tspan7346">label</tspan></text>
+  </g>
+</svg>

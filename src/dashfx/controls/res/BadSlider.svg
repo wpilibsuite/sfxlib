@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg8636"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   width="64"
+   height="64"
+   sodipodi:docname="BadSlider.svg"
+   inkscape:export-filename="/home/patrick/NetBeansProjects/sfxlib/src/dashfx/controls/res/BadSlider.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <metadata
+     id="metadata8642">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8640" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="717"
+     id="namedview8638"
+     showgrid="true"
+     inkscape:zoom="5.2149125"
+     inkscape:cx="31.625442"
+     inkscape:cy="36.408111"
+     inkscape:window-x="1920"
+     inkscape:window-y="407"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8636">
+    <inkscape:grid
+       type="xygrid"
+       id="grid8646" />
+  </sodipodi:namedview>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1"
+     d="M 4.5 28.5 C 2.838 28.5 1.5 29.838 1.5 31.5 C 1.5 33.162 2.838 34.5 4.5 34.5 L 39.875 34.5 C 39.322024 33.470446 39 32.274909 39 31 C 39 30.116375 39.160073 29.278464 39.4375 28.5 L 4.5 28.5 z M 51.5625 28.5 C 51.839927 29.278464 52 30.116375 52 31 C 52 32.274909 51.677976 33.470446 51.125 34.5 L 57.5 34.5 C 59.162 34.5 60.5 33.162 60.5 31.5 C 60.5 29.838 59.162 28.5 57.5 28.5 L 51.5625 28.5 z "
+     id="rect8648" />
+  <path
+     style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 52,31 c 0,3.865993 -2.910149,7 -6.5,7 -3.589851,0 -6.5,-3.134007 -6.5,-7 0,-3.865993 2.910149,-7 6.5,-7 3.589851,0 6.5,3.134007 6.5,7 z"
+     id="path8650" />
+</svg>

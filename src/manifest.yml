@@ -28,7 +28,7 @@ Controls:
 -
   Name: Number Label
   Description: Control for displaying # text
-  Image: /dashfx/controls/res/label.png
+  Image: /dashfx/controls/res/formatlabel.png
   Source: /dashfx/controls/NumberLabel.fxml
   Category: General
   Supported Types: Number
@@ -38,7 +38,7 @@ Controls:
   List Class: dashfx.lib.registers.ControlRegister
 -
   Name: Compass
-#  Image: /dashfx/controls/res/Compass.png #TODO: create this image
+  Image: /dashfx/controls/res/compass.png
   Description: Compass for displaying data from Gyros and Compasses
   Source: /dashfx/controls/Compass.fxml
   Custom Properties:
@@ -46,12 +46,12 @@ Controls:
       Var: needleColor
       Type: javafx.scene.paint.Color
       Description: Color of the needle
-      Default: YELLOW
+      Default: "#0655a1"
     Circle Color:
       Var: circleColor
       Type: javafx.scene.paint.Color
       Description: Color of the base circle
-      Default: RED
+      Default: "#60dc00"
   Types: Number
   Defaults:
     value: 0
@@ -59,6 +59,7 @@ Controls:
     max: 360
 -
   Name: VuMeter
+  Image: /dashfx/controls/res/VuMeter.png
   Description: Compass for displaying data from Gyros and Compasses
   Source: /dashfx/controls/VuMeter.fxml
   Custom Properties:
