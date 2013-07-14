@@ -41,6 +41,7 @@ Controls:
   Image: /dashfx/controls/res/compass.png
   Description: Compass for displaying data from Gyros and Compasses
   Source: /dashfx/controls/Compass.fxml
+  Category: General
   Custom Properties:
     Needle Color:
       Var: needleColor
@@ -65,6 +66,7 @@ Controls:
   Custom Properties:
     Needle Color: {Var: needleColor, Type: javafx.scene.paint.Color, Description: Color of the needle, Default: YELLOW}
   Types: Number
+  Category: General
   Defaults:
     value: 0
     min: -1

@@ -16,6 +16,7 @@
  */
 package dashfx.controls;
 
+import dashfx.lib.controls.Category;
 import dashfx.lib.data.SupportedTypes;
 import dashfx.lib.controls.Designable;
 import dashfx.lib.data.*;
@@ -31,6 +32,7 @@ import javafx.scene.chart.*;
  */
 @Designable(value = "Graph (A)", image = "/dashfx/controls/res/GraphA.png", description = "Uses built-in graph and manual list storting. Horrible")
 @SupportedTypes({SmartValueTypes.Number})
+@Category("General")
 public class GraphA extends LineChart<Number, Number> implements Control, ChangeListener<Object>
 {
 	StringProperty name = new SimpleStringProperty();

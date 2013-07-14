@@ -16,6 +16,7 @@
  */
 package dashfx.controls;
 
+import dashfx.lib.controls.Category;
 import dashfx.lib.controls.Control;
 import dashfx.lib.controls.Designable;
 import dashfx.lib.data.DataCoreProvider;
@@ -39,6 +40,7 @@ import javafx.scene.layout.*;
  * @author patrick
  */
 @Designable(value = "Camera", image = "/dashfx/controls/res/camera.png", description = "MJPEG ip camera view")
+@Category("General")
 public class CameraView implements Control
 {
 	private static final int[] START_BYTES = new int[]
