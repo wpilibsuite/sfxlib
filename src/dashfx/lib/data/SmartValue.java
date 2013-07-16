@@ -86,7 +86,7 @@ public class SmartValue extends SimpleObjectProperty<Object>
 	public String asString()
 	{
 		if (getValue() == null)
-			return null;
+			return "";
 		return getValue().toString();
 	}
 

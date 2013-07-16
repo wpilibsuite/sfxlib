@@ -71,5 +71,11 @@ Controls:
     value: 0
     min: -1
     max: 1
-
+-
+  # this is a pure java class defined in yaml with no annotations
+  Class: dashfx.controls.SendableChooser
+  Name: ComboBox
+  Description: Configurable Multi-item selector
+  Category: General
+  Group Type: Sendable Chooser
 
