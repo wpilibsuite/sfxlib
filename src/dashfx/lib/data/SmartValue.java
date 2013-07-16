@@ -6,7 +6,7 @@ package dashfx.lib.data;
 
 import java.util.HashMap;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableMap;
+import javafx.collections.*;
 
 /**
  * This class provides a single way to represent all possible data
@@ -37,6 +37,25 @@ public class SmartValue extends SimpleObjectProperty<Object>
 		super(null);
 		name = "";
 		type = SmartValueTypes.Unknown;
+	}
+
+	public boolean isArray()
+	{
+		return getValue() instanceof ObservableList;
+	}
+
+	public ObservableList asArray()
+	{
+		if (isArray())
+			return (ObservableList)getValue();
+		else if (getValue() instanceof ObservableMap)
+			return FXCollections.emptyObservableList();
+		else
+		{
+			ObservableList ol = FXCollections.observableArrayList();
+			ol.add(getValue());
+			return ol;
+		}
 	}
 
 	public boolean isEmpty()

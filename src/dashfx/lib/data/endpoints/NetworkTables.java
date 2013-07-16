@@ -20,8 +20,12 @@ import dashfx.lib.data.*;
 import dashfx.lib.controls.DesignableData;
 import edu.wpi.first.wpilibj.networktables2.client.NetworkTableClient;
 import edu.wpi.first.wpilibj.networktables2.stream.SocketStreamFactory;
+import edu.wpi.first.wpilibj.networktables2.type.*;
 import edu.wpi.first.wpilibj.tables.*;
 import java.io.IOException;
+import java.util.Arrays;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -103,7 +107,10 @@ public class NetworkTables implements DataSource, ITableListener, DataSender
 			proc.processData(null, new SimpleTransaction(new SmartValue(null, null, string.substring(0, string.lastIndexOf("/~TYPE~")), o.toString())));
 		}
 		else
-			proc.processData(null, new SimpleTransaction(new SmartValue(o, getType(o), string)));
+		{
+			SmartValueTypes type = getType(o);
+			proc.processData(null, new SimpleTransaction(new SmartValue(type.isArray() ? rawClone(o, type) : o, type, string)));
+		}
 	}
 
 	public static SmartValueTypes getType(Object value)
@@ -129,11 +136,109 @@ public class NetworkTables implements DataSource, ITableListener, DataSender
 		{
 			return SmartValueTypes.String;
 		}
+		else if (value instanceof NumberArray)
+		{
+			return SmartValueTypes.DoubleArray;
+		}
+		else if (value instanceof BooleanArray)
+		{
+			return SmartValueTypes.BooleanArray;
+		}
+		else if (value instanceof StringArray)
+		{
+			return SmartValueTypes.StringArray;
+		}
+		else if (value instanceof Object[]) // :-(
+		{
+			Object[] arr = (Object[]) value;
+			if (arr.length > 0)
+			{
+				value = arr[0];
+
+				if (value instanceof Double)
+				{
+					return SmartValueTypes.DoubleArray;
+				}
+				else if (value instanceof Boolean)
+				{
+					return SmartValueTypes.BooleanArray;
+				}
+				else if (value instanceof String)
+				{
+					return SmartValueTypes.StringArray;
+				}
+				else
+					return SmartValueTypes.Array;
+			}
+			else
+				return SmartValueTypes.Array;
+		}
 		else
 		{
 			throw new RuntimeException("Hey! fix it! " + value.getClass().getCanonicalName());
 //			return SmartValueTypes.Unknown;
 		}
+	}
+
+	// So awful...
+	public static ObservableList rawClone(Object data, SmartValueTypes type)
+	{
+		ObservableList ar = FXCollections.observableArrayList();
+		if (data instanceof ArrayData)
+		{
+			switch (type)
+			{
+				case DoubleArray:
+				{
+					// notice how we have to copy this manually since somebody *cough*mitch*cough* didn't want to make it easy to export raw values?
+					NumberArray arr = (NumberArray) data;
+					for (int i = 0; i < arr.size(); i++)
+					{
+						ar.add(arr.get(i));
+					}
+					break;
+				}
+				case StringArray:
+				{
+					// notice this is EXACTLY the same as above, except different types. dumb
+					StringArray arr = (StringArray) data;
+					for (int i = 0; i < arr.size(); i++)
+					{
+						ar.add(arr.get(i));
+					}
+					break;
+				}
+				case BooleanArray:
+				{
+					// notice this is EXACTLY the same as above, except different types. dumb again
+					BooleanArray arr = (BooleanArray) data;
+					for (int i = 0; i < arr.size(); i++)
+					{
+						ar.add(arr.get(i));
+					}
+					break;
+				}
+				default:
+					throw new RuntimeException("Not an array! " + type.toString());
+			}
+		}
+		else
+		{
+			switch (type)
+			{
+				case DoubleArray:
+				case StringArray:
+				case BooleanArray:
+				{
+					Object[] arr = (Object[]) data;
+					ar.addAll(Arrays.asList(arr));
+					break;
+				}
+				default:
+					throw new RuntimeException("Not an array! " + type.toString());
+			}
+		}
+		return ar;
 	}
 
 	@Override

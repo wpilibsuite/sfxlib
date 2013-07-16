@@ -40,4 +40,9 @@ public enum SmartValueTypes
 	{
 		return mask;
 	}
+
+	public boolean isArray()
+	{
+		return (this.mask & Array.mask) != 0;
+	}
 }

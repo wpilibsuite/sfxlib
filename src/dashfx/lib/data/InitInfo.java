@@ -43,6 +43,11 @@ public class InitInfo
 		return host;
 	}
 
+	public String getRawHost()
+	{
+		return host;
+	}
+
 	public static void setTeamNumber(int num)
 	{
 		teamNumber = num;
