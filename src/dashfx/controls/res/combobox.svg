@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64px"
+   height="64px"
+   id="svg3821"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="drawing.svg">
+  <defs
+     id="defs3823" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="28.452677"
+     inkscape:cy="34.452193"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-grids="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="717"
+     inkscape:window-x="0"
+     inkscape:window-y="723"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3829" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3826">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <rect
+       style="fill:none;stroke:#000000"
+       id="rect3831"
+       width="63"
+       height="21"
+       x="0.5"
+       y="21.500011"
+       rx="5" />
+    <rect
+       style="fill:#000000;stroke:none"
+       id="rect3833"
+       width="1"
+       height="21"
+       x="49"
+       y="22" />
+    <text
+       xml:space="preserve"
+       style="font-size:21.12643623px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sawasdee;-inkscape-font-specification:Sawasdee"
+       x="51.628635"
+       y="38.462013"
+       id="text3835"
+       sodipodi:linespacing="125%"
+       inkscape:transform-center-x="-4.5285656"
+       inkscape:transform-center-y="5.3847639"><tspan
+         sodipodi:role="line"
+         id="tspan3837"
+         x="51.628635"
+         y="38.462013">v</tspan></text>
+    <text
+       inkscape:transform-center-y="5.3847639"
+       inkscape:transform-center-x="-4.5285656"
+       sodipodi:linespacing="125%"
+       id="text3839"
+       y="38.5625"
+       x="5.3125"
+       style="font-size:21.12643623px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sawasdee;-inkscape-font-specification:Sawasdee"
+       xml:space="preserve"><tspan
+         y="38.5625"
+         x="5.3125"
+         id="tspan3841"
+         sodipodi:role="line"
+         dx="0 -0.4375 -0.125 0.375"
+         dy="0 0 -0.3125 0.375">item</tspan></text>
+  </g>
+</svg>
