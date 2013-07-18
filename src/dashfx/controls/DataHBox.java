@@ -52,7 +52,9 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	private boolean designing;
 	private boolean nested = false;
 	private SimpleObjectProperty<DataPaneMode> dataMode = new SimpleObjectProperty<>(this, "dataMode", DataPaneMode.Passthrough);
-	private SimpleStringProperty name = new SimpleStringProperty(this, "name");
+	private SimpleStringProperty name = new SimpleStringProperty(this, "name"),
+			baseName = new SimpleStringProperty(this, "baseName");
+	private SmartValue defaults = new SmartValue(false, SmartValueTypes.Hash, "nokey"); //TODO: total hack
 
 	public DataHBox()
 	{
@@ -109,6 +111,11 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
 			{
+				String bname = name.getValue();
+				if (bname.endsWith("/"))
+					bname = bname.substring(0, bname.length() - 2);
+				bname = bname.substring(bname.lastIndexOf('/') + 1);
+				baseName.setValue(bname);
 				if (dataMode.get() == DataPaneMode.Passthrough)
 					return;
 
@@ -168,6 +175,16 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	public void setName(String dataMode)
 	{
 		this.name.set(dataMode);
+	}
+
+	public StringProperty baseNameProperty()
+	{
+		return baseName;
+	}
+
+	public String getBaseName()
+	{
+		return baseNameProperty().getValue();
 	}
 
 	@Override

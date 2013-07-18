@@ -54,7 +54,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		return this.ui;
 	}
-	private StringProperty name = new SimpleStringProperty(this, "name");
+	private StringProperty name = new SimpleStringProperty(this, "name", "");
 
 	@Designable(value = "Path", description = "The path the control binds to")
 	public StringProperty nameProperty()
@@ -71,7 +71,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		nameProperty().setValue(value);
 	}
-	private StringProperty lbl = new SimpleStringProperty(this, "label");
+	private StringProperty lbl = new SimpleStringProperty(this, "label", "");
 
 	@Designable(value = "Label", description = "What to label the control (not all controls support)")
 	public StringProperty labelProperty()
