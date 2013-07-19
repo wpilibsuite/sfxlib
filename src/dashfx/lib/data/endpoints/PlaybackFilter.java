@@ -26,8 +26,8 @@ public class PlaybackFilter implements DataProcessor
 
 	public PlaybackFilter()
 	{
-		pointerIndex.addListener(new ChangeListener<Number>() {
-
+		pointerIndex.addListener(new ChangeListener<Number>()
+		{
 			@Override
 			public void changed(ObservableValue<? extends Number> ov, Number t, Number t1)
 			{
@@ -36,8 +36,6 @@ public class PlaybackFilter implements DataProcessor
 			}
 		});
 	}
-
-
 
 	@Override
 	public synchronized void processData(DataProcessor source, ValueTransaction data)
@@ -105,17 +103,11 @@ public class PlaybackFilter implements DataProcessor
 		//TODO: optimize
 		int ipointerIndex = from;
 		if (index >= forward.size())
-		{
-			index = forward.size()-1;
-		}
+			index = forward.size() - 1;
 		if (ipointerIndex >= forward.size())
-		{
-			ipointerIndex = forward.size()-1;
-		}
-		if (index == ipointerIndex || index == 0 )
-		{
+			ipointerIndex = forward.size() - 1;
+		if (index == ipointerIndex || index == 0)
 			return new SimpleTransaction();
-		}
 		if (index < ipointerIndex)
 		{
 			// must go in reverse
@@ -130,7 +122,7 @@ public class PlaybackFilter implements DataProcessor
 		}
 		else if (index > ipointerIndex)
 		{
-			// must go in reverse
+			// must go in forward
 			ValueTransaction st = forward.get(ipointerIndex + 1);
 			ipointerIndex += 1;
 			while (index < ipointerIndex)
@@ -156,10 +148,11 @@ public class PlaybackFilter implements DataProcessor
 	private Thread runner;
 	private boolean running = false;
 
-	public  void playWithTime()
+	public void playWithTime()
 	{
 		playWithTime(1.0);
 	}
+
 	public synchronized void playWithTime(final double scale)
 	{
 		if (runner == null && isViewingHistory())

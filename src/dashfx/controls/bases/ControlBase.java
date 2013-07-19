@@ -88,7 +88,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		labelProperty().setValue(value);
 	}
-	private BooleanProperty showLabel = new SimpleBooleanProperty(this, "showLabel", true);
+	private BooleanProperty showLabel = new SimpleBooleanProperty(this, "showLabel", false);
 
 	@Designable(value = "Show Label", description = "Show a label (not all controls support)")
 	public BooleanProperty showLabelProperty()
