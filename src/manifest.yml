@@ -80,3 +80,11 @@ Controls:
   Group Type: Sendable Chooser
   Image: /dashfx/controls/res/combobox.png
 
+-
+  Name: Color Sensor
+  Description: Displays the color being sent by a color sensor.
+  Class: dashfx.controls.ColorSensor
+  Category: General
+  Group Type: Color Sensor
+  #TODO make the image
+  Types: NumberArray
