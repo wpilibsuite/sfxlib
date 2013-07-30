@@ -90,7 +90,7 @@ public class BadSliderControl extends Slider implements Control, ChangeListener<
 	@Override
 	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
-		setValue(((SmartValue) ov).asNumber(0));
+		setValue(((SmartValue) ov).getData().asNumber());
 	}
 
 	@Override

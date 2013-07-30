@@ -14,40 +14,67 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.controls.bases;
-
-import dashfx.lib.controls.Designable;
-import dashfx.lib.data.values.SmartValueAdapter;
-import javafx.beans.property.*;
+package dashfx.lib.data.values;
 
 /**
  *
  * @author patrick
  */
-public class StringControlBase extends ControlBase
+
+
+public class StringSmartValue extends SingleValueSmartValueAdapter
 {
-	private SimpleStringProperty value = new SimpleStringProperty(this, "value");
 
-	public String getValue()
+	public StringSmartValue(String value)
 	{
-		return value.get();
+		setRaw(value);
 	}
 
-	public void setValue(String value)
-	{
-		this.value.set(value);
-	}
 
-	@Designable(value = "Value", description = "The value of the control")
-	public SimpleStringProperty valueProperty()
+	@Override
+	public Double asNumber()
 	{
-		return value;
+		Double result = null;
+		try
+		{
+			result = Double.parseDouble(asString());
+		}
+		catch(NumberFormatException nefarious)
+		{
+			//null it you dummy
+		}
+		return result;
 	}
 
 	@Override
-	protected void changed(Object newValue, SmartValueAdapter data)
+	public boolean isNumber()
 	{
-		setValue(data.asString());
+		return false;
 	}
-}
 
+	@Override
+	public String asString()
+	{
+		return (String) asRaw();
+	}
+
+	@Override
+	public boolean isString()
+	{
+		return true;
+	}
+
+	@Override
+	public Boolean asBoolean()
+	{
+		Double dbl = asNumber();
+		return dbl != null && dbl != 0;
+	}
+
+	@Override
+	public boolean isBoolean()
+	{
+		return false;
+	}
+
+}

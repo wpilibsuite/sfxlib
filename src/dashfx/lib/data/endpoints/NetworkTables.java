@@ -18,6 +18,7 @@ package dashfx.lib.data.endpoints;
 
 import dashfx.lib.data.*;
 import dashfx.lib.controls.DesignableData;
+import dashfx.lib.data.values.*;
 import edu.wpi.first.wpilibj.networktables2.client.NetworkTableClient;
 import edu.wpi.first.wpilibj.networktables2.stream.SocketStreamFactory;
 import edu.wpi.first.wpilibj.networktables2.type.*;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 /**
  *
@@ -104,12 +106,39 @@ public class NetworkTables implements DataSource, ITableListener, DataSender
 			string = string.substring(1);
 		if (string.endsWith("~TYPE~"))
 		{
-			proc.processData(null, new SimpleTransaction(new SmartValue(null, null, string.substring(0, string.lastIndexOf("/~TYPE~")), o.toString())));
+			proc.processData(null, new SimpleTransaction(new SmartValue(new BooleanSmartValue(null), null, string.substring(0, string.lastIndexOf("/~TYPE~")), o.toString())));
 		}
 		else
 		{
 			SmartValueTypes type = getType(o);
-			proc.processData(null, new SimpleTransaction(new SmartValue(type.isArray() ? rawClone(o, type) : o, type, string)));
+			SmartValueAdapter sva;
+			if (type.isArray())
+				sva = new ArraySmartValue(rawClone(o, type));
+			else
+			{
+				switch(type)
+				{
+					case Boolean:
+						sva = new BooleanSmartValue((Boolean)o);
+						break;
+					case Number:
+					case Double:
+					case Integer:
+						sva = new DoubleSmartValue((Double)o);
+						break;
+					case String:
+						sva = new StringSmartValue((String)o);
+						break;
+					case Grouped:
+					case GroupedHash:
+					case Hash:
+						sva = new HashSmartValue((ObservableMap<String, SmartValue>)o);
+						break;
+					default:
+						throw new RuntimeException("A butterfly caused a bit to flip, or network tables just broke. Probbably the latter unless at hight altituides.");
+				}
+			}
+			proc.processData(null, new SimpleTransaction(new SmartValue(sva, type, string)));
 		}
 	}
 

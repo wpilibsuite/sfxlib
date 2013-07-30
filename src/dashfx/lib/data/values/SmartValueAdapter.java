@@ -14,40 +14,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.controls.bases;
+package dashfx.lib.data.values;
 
-import dashfx.lib.controls.Designable;
-import dashfx.lib.data.values.SmartValueAdapter;
-import javafx.beans.property.*;
+import dashfx.lib.data.SmartValue;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 /**
  *
  * @author patrick
  */
-public class StringControlBase extends ControlBase
+public interface SmartValueAdapter
 {
-	private SimpleStringProperty value = new SimpleStringProperty(this, "value");
+	public boolean isArray();
 
-	public String getValue()
-	{
-		return value.get();
-	}
+	public ObservableList asArray();
 
-	public void setValue(String value)
-	{
-		this.value.set(value);
-	}
+	public Double asNumber();
 
-	@Designable(value = "Value", description = "The value of the control")
-	public SimpleStringProperty valueProperty()
-	{
-		return value;
-	}
+	public boolean isNumber();
 
-	@Override
-	protected void changed(Object newValue, SmartValueAdapter data)
-	{
-		setValue(data.asString());
-	}
+	public String asString();
+
+	public boolean isString();
+
+	public ObservableMap<String, SmartValue> asHash();
+
+	public boolean isHash();
+
+	public Boolean asBoolean();
+
+	public boolean isBoolean();
+
+	public Object asRaw();
 }
-

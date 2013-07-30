@@ -4,7 +4,7 @@
  */
 package dashfx.lib.data;
 
-import java.util.HashMap;
+import dashfx.lib.data.values.SmartValueAdapter;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.*;
 
@@ -16,17 +16,20 @@ public class SmartValue extends SimpleObjectProperty<Object>
 	private String name;
 	private String groupName = "";
 	private SmartValueTypes type;
+	private SmartValueAdapter adapter;
 
-	public SmartValue(Object data, SmartValueTypes type, String name)
+	public SmartValue(SmartValueAdapter data, SmartValueTypes type, String name)
 	{
-		super(data);
+		super(data.asRaw());
+		this.adapter = data;
 		this.name = name;
 		this.type = type;
 	}
 
-	public SmartValue(Object data, SmartValueTypes type, String name, String groupName)
+	public SmartValue(SmartValueAdapter data, SmartValueTypes type, String name, String groupName)
 	{
-		super(data);
+		super(data.asRaw());
+		this.adapter = data;
 		this.groupName = groupName;
 		this.name = name;
 		this.type = type;
@@ -39,95 +42,9 @@ public class SmartValue extends SimpleObjectProperty<Object>
 		type = SmartValueTypes.Unknown;
 	}
 
-	public boolean isArray()
-	{
-		return getValue() instanceof ObservableList;
-	}
-
-	public ObservableList asArray()
-	{
-		if (isArray())
-			return (ObservableList)getValue();
-		else if (getValue() instanceof ObservableMap)
-			return FXCollections.emptyObservableList();
-		else
-		{
-			ObservableList ol = FXCollections.observableArrayList();
-			ol.add(getValue());
-			return ol;
-		}
-	}
-
 	public boolean isEmpty()
 	{
-		return getValue() == null;
-	}
-
-	public double asNumber()
-	{
-		return asNumber(0.0);
-	}
-
-	public double asNumber(double defaultValue)
-	{
-		if (isEmpty())
-			return defaultValue;
-		if (getValue() instanceof Double || getValue() instanceof Float || getValue() instanceof Integer)
-			return (double) getValue();
-		// TODO: shoud we try parsing strings?
-		return defaultValue;
-	}
-
-	public boolean isNumber()
-	{
-		return asNumber(0.0) == asNumber(1.0);
-	}
-
-	public String asString()
-	{
-		if (getValue() == null)
-			return "";
-		return getValue().toString();
-	}
-
-	public boolean isString()
-	{
-		return (getValue() instanceof String);
-	}
-
-	// TODO: shoudld the hash's be quiet about if they are observable or not and coalase?
-	public ObservableMap<String, SmartValue> asHash()
-	{
-		return asHash(null);
-	}
-
-	public ObservableMap<String, SmartValue> asHash(ObservableMap<String, SmartValue> defaultValue)
-	{
-		if (getValue() instanceof ObservableMap)
-			return (ObservableMap<String, SmartValue>) getValue();
-		return defaultValue;
-	}
-
-	public boolean isHash()
-	{
-		return asHash() != null;
-	}
-
-	public HashMap<String, SmartValue> asRawHash()
-	{
-		return asRawHash(null);
-	}
-
-	public HashMap<String, SmartValue> asRawHash(HashMap<String, SmartValue> defaulltValue)
-	{
-		if (getValue() instanceof HashMap)
-			return (HashMap<String, SmartValue>) getValue();
-		return defaulltValue;
-	}
-
-	public boolean isRawHash()
-	{
-		return asRawHash() != null;
+		return super.getValue() == null;
 	}
 
 	public SmartValue getSubKey(String name)
@@ -137,10 +54,7 @@ public class SmartValue extends SimpleObjectProperty<Object>
 
 	public SmartValue getSubKey(String name, boolean quiet)
 	{
-		HashMap<String, SmartValue> hm = asRawHash();
-		if (hm != null)
-			return hm.get(name);
-		ObservableMap<String, SmartValue> om = asHash();
+		ObservableMap<String, SmartValue> om = getData().asHash();
 		if (om != null)
 			return om.get(name);
 		if (quiet)
@@ -149,9 +63,10 @@ public class SmartValue extends SimpleObjectProperty<Object>
 		throw new RuntimeException("Not a hashmap you dimwit!");
 	}
 
-	public void setData(Object o)
+	public void setData(SmartValueAdapter adpt)
 	{
-		super.setValue(o);
+		this.adapter = adpt;
+		super.setValue(adpt.asRaw());
 	}
 
 	/**
@@ -207,5 +122,10 @@ public class SmartValue extends SimpleObjectProperty<Object>
 	public String toString()
 	{
 		return String.format("SmartValue [Name: %s, Group Name: %s, Type: %s, Value: %s]", getName(), getGroupName(), getType(), getValue());
+	}
+
+	public SmartValueAdapter getData()
+	{
+		return this.adapter;
 	}
 }

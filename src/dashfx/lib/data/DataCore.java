@@ -5,6 +5,7 @@
 package dashfx.lib.data;
 
 import dashfx.lib.controls.Control;
+import dashfx.lib.data.values.HashSmartValue;
 import java.util.*;
 import javafx.application.*;
 import javafx.beans.property.*;
@@ -17,7 +18,7 @@ import javafx.collections.*;
  */
 public class DataCore implements DataCoreProvider, DataProcessor
 {
-	private SmartValue dataTree = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, "");
+	private SmartValue dataTree = new SmartValue(new HashSmartValue((ObservableMap)FXCollections.observableHashMap()), SmartValueTypes.Hash, "");
 	private ArrayList<DataInitDescriptor<DataEndpoint>> endpoints = new ArrayList<>();
 	private LinkedList<DataProcessor> filters = new LinkedList<>();
 	private ReadOnlyListWrapper<String> knownNames;
@@ -91,16 +92,17 @@ public class DataCore implements DataCoreProvider, DataProcessor
 		for (String string : bits)
 		{
 			partialName += "/" + string;
-			if (tmp.asHash() == null)
+			if (tmp.getData().asHash() == null)
 			{
-				tmp.setData(FXCollections.observableHashMap());
+				// Evil villains take note: Java has no idea what I just did here
+				tmp.setData(new HashSmartValue((ObservableMap)FXCollections.observableHashMap()));
 				tmp.setType(SmartValueTypes.Hash);
 			}
 			if (tmp.getSubKey(string, true) == null)
 			{
-				SmartValue nsv = new SmartValue(FXCollections.observableHashMap(), SmartValueTypes.Hash, partialName);
+				SmartValue nsv = new SmartValue(new HashSmartValue((ObservableMap)FXCollections.observableHashMap()), SmartValueTypes.Hash, partialName);
 				nsv.addListener(changer);
-				tmp.asHash().put(string, nsv);
+				tmp.getData().asHash().put(string, nsv);
 			}
 			tmp = tmp.getSubKey(string);
 		}
@@ -162,7 +164,7 @@ public class DataCore implements DataCoreProvider, DataProcessor
 					if (smartValue.getGroupName() != null && !smartValue.getGroupName().isEmpty())
 						obs.setGroupName(smartValue.getGroupName());
 					if (!(smartValue.getValue() == null && obs.getValue() != null))
-						obs.setData(smartValue.getValue());
+						obs.setData(smartValue.getData());
 					if (!knownNames.contains(smartValue.getName()))
 						knownNames.add(smartValue.getName());
 				}

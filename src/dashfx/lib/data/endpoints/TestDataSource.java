@@ -6,6 +6,7 @@ package dashfx.lib.data.endpoints;
 
 import dashfx.lib.data.*;
 import dashfx.lib.controls.DesignableData;
+import dashfx.lib.data.values.*;
 
 /**
  *
@@ -64,15 +65,15 @@ public class TestDataSource implements DataSource, Runnable, DataSender
 		try
 		{
 			double t = 0;
-			proc.processData(null, new SimpleTransaction(new SmartValue("Clever Gollumn", SmartValueTypes.String, "invisible")));
+			proc.processData(null, new SimpleTransaction(new SmartValue(new StringSmartValue("Clever Gollumn"), SmartValueTypes.String, "invisible")));
 			while (shouldBeRunning)
 			{
 				final SimpleTransaction trans = new SimpleTransaction();
 
-				trans.addValue(new SmartValue(Math.sin(t), SmartValueTypes.Double, "sin"));
-				trans.addValue(new SmartValue(Math.cos(t), SmartValueTypes.Double, "cos"));
-				trans.addValue(new SmartValue(Math.sin(t) + Math.cos(t * 0.989), SmartValueTypes.Double, "complex"));
-				trans.addValue(new SmartValue(String.valueOf(Math.sin(t)), SmartValueTypes.String, "sins"));
+				trans.addValue(new SmartValue(new DoubleSmartValue(Math.sin(t)), SmartValueTypes.Double, "sin"));
+				trans.addValue(new SmartValue(new DoubleSmartValue(Math.cos(t)), SmartValueTypes.Double, "cos"));
+				trans.addValue(new SmartValue(new DoubleSmartValue(Math.sin(t) + Math.cos(t * 0.989)), SmartValueTypes.Double, "complex"));
+				trans.addValue(new SmartValue(new StringSmartValue(String.valueOf(Math.sin(t))), SmartValueTypes.String, "sins"));
 
 				proc.processData(null, trans);
 				try

@@ -71,7 +71,7 @@ public class ArrayLister implements Control, ChangeListener<Object>
 		{
 			smrtVal = provider.getObservable(getName());
 			smrtVal.addListener(this);
-			if (smrtVal.getValue() != null && !smrtVal.isHash())
+			if (smrtVal.getValue() != null && !smrtVal.getData().isHash())
 				changed(smrtVal, null, smrtVal.getValue());
 		}
 		// TODO: don't leak on multiple calls
@@ -84,7 +84,7 @@ public class ArrayLister implements Control, ChangeListener<Object>
 					smrtVal.removeListener(ArrayLister.this);
 				smrtVal = provider.getObservable(t1);
 				smrtVal.addListener(ArrayLister.this);
-				if (smrtVal.getValue() != null && !smrtVal.isHash())
+				if (smrtVal.getValue() != null && !smrtVal.getData().isHash())
 					ArrayLister.this.changed(smrtVal, null, smrtVal.getValue());
 			}
 		});
@@ -93,7 +93,7 @@ public class ArrayLister implements Control, ChangeListener<Object>
 	@Override
 	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
-		obstensiblyAntiAircraft.set(smrtVal.asArray());
+		obstensiblyAntiAircraft.set(smrtVal.getData().asArray());
 	}
 
 	private StringProperty name = new SimpleStringProperty(this, "name");

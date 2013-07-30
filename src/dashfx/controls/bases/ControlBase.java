@@ -20,6 +20,7 @@ import dashfx.lib.data.DataCoreProvider;
 import dashfx.lib.data.SmartValue;
 import dashfx.lib.controls.Control;
 import dashfx.lib.controls.Designable;
+import dashfx.lib.data.values.SmartValueAdapter;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.fxml.FXML;
@@ -119,8 +120,8 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 		{
 			smrtVal = provider.getObservable(getName());
 			smrtVal.addListener(this);
-			if (smrtVal.getValue() != null && !smrtVal.isHash())
-				changed(smrtVal, null, smrtVal.getValue());
+			if (!smrtVal.isEmpty() && !smrtVal.getData().isHash())
+				changed(smrtVal, null, smrtVal.getData().asRaw());
 		}
 		// TODO: don't leak on multiple calls
 		nameProperty().addListener(new ChangeListener<String>()
@@ -132,8 +133,8 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 					smrtVal.removeListener(ControlBase.this);
 				smrtVal = provider.getObservable(t1);
 				smrtVal.addListener(ControlBase.this);
-				if (smrtVal.getValue() != null && !smrtVal.isHash())
-					ControlBase.this.changed(smrtVal, null, smrtVal.getValue());
+				if (!smrtVal.isEmpty() && !smrtVal.getData().isHash())
+					ControlBase.this.changed(smrtVal, null, smrtVal.getData().asRaw());
 			}
 		});
 	}
@@ -145,11 +146,11 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 			return;
 		ignore = true;
 		stringValue.set(t1.toString());
-		changed(t1);
+		changed(t1, smrtVal.getData());
 		ignore = false;
 	}
 
-	protected abstract void changed(Object newValue);
+	protected abstract void changed(Object newValue, SmartValueAdapter adapter);
 
 	public SmartValue getSmartValue()
 	{

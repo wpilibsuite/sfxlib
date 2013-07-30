@@ -62,16 +62,16 @@ public class SendableChooser implements Control
 		@Override
 		public void changed(ObservableValue ov, Object t, Object t1)
 		{
-			ObservableList ary = options.asArray();
+			ObservableList ary = options.getData().asArray();
 			cbox.itemsProperty().set(ary);
 			String selection = "";
-			if (selected.isEmpty() || selected.isHash())
+			if (selected.isEmpty() || selected.getData().isHash())
 			{
-				selection = deFault.asString();
+				selection = deFault.getData().asString();
 			}
 			else
 			{
-				selection = selected.asString();
+				selection = selected.getData().asString();
 			}
 			int indx = ary.indexOf(selection);
 			if (indx >= 0)
@@ -85,11 +85,11 @@ public class SendableChooser implements Control
 		@Override
 		public void changed(ObservableValue ov, Object t, Object t1)
 		{
-			ObservableList ary = options.asArray();
+			ObservableList ary = options.getData().asArray();
 			String selection = "";
-			if (!(selected.isEmpty() || selected.isHash()))
+			if (!(selected.isEmpty() || selected.getData().isHash()))
 			{
-				selection = selected.asString();
+				selection = selected.getData().asString();
 			}
 			int indx = ary.indexOf(selection);
 			if (indx >= 0)
@@ -109,7 +109,7 @@ public class SendableChooser implements Control
 			@Override
 			public void changed(ObservableValue ov, Object t, Object t1)
 			{
-				if (selected != null && !selected.asString().equals(t1.toString()))
+				if (selected != null && !selected.getData().asString().equals(t1.toString()))
 				{
 					selected.setValue(t1.toString());
 				}

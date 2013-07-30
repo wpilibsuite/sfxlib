@@ -18,6 +18,8 @@ package dashfx.controls.bases;
 
 import dashfx.lib.controls.Designable;
 import dashfx.lib.data.SmartValueTypes;
+import dashfx.lib.data.values.BooleanSmartValue;
+import dashfx.lib.data.values.SmartValueAdapter;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 
@@ -40,7 +42,7 @@ public class BooleanControlBase extends ControlBase
 				{
 					ignore = true;
 					getSmartValue().setType(SmartValueTypes.Boolean);
-					getSmartValue().setData(t1);
+					getSmartValue().setData(new BooleanSmartValue(t1));
 					dblvalue.set(t1 ? 1.0 : 0.0);
 					ignore = false;
 				}
@@ -76,26 +78,8 @@ public class BooleanControlBase extends ControlBase
 	}
 
 	@Override
-	protected void changed(Object newValue)
+	protected void changed(Object newValue, SmartValueAdapter data)
 	{
-		if (newValue instanceof Integer)
-			setValue(0 != (Integer) newValue);
-		else if (newValue instanceof Double)
-			setValue(0 != (Double) newValue);
-		else if (newValue instanceof Float)
-			setValue(0 != (Float) newValue);
-		else if (newValue instanceof Boolean)
-			setValue((Boolean) newValue);
-		else
-		{
-			try
-			{
-				setValue(Boolean.valueOf(newValue.toString()));
-			}
-			catch (Throwable t)
-			{
-				setValue(false);
-			}
-		}
+		setValue(data.asBoolean());
 	}
 }

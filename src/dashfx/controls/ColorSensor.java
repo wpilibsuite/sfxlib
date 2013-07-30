@@ -5,6 +5,7 @@
 package dashfx.controls;
 
 import dashfx.controls.bases.ControlBase;
+import dashfx.lib.data.values.SmartValueAdapter;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 
@@ -24,9 +25,9 @@ public class ColorSensor extends ControlBase
 	}
 
 	@Override
-	protected void changed(Object newValue)
+	protected void changed(Object newValue, SmartValueAdapter data)
 	{
-		ObservableList vals = getSmartValue().asArray();
+		ObservableList vals = data.asArray();
 		String hexstring;
 		if (vals.size() == 3)
 		{

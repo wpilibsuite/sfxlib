@@ -14,40 +14,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.controls.bases;
+package dashfx.lib.data.values;
 
-import dashfx.lib.controls.Designable;
-import dashfx.lib.data.values.SmartValueAdapter;
-import javafx.beans.property.*;
+import dashfx.lib.data.SmartValue;
+import javafx.collections.*;
 
 /**
  *
  * @author patrick
  */
-public class StringControlBase extends ControlBase
+public abstract class SingleValueSmartValueAdapter extends SmartValueAdapterBase
 {
-	private SimpleStringProperty value = new SimpleStringProperty(this, "value");
+	protected ObservableList ol = FXCollections.observableArrayList(0.0);
 
-	public String getValue()
+	@Override
+	public boolean isArray()
 	{
-		return value.get();
+		return false;
 	}
 
-	public void setValue(String value)
+	protected void updateUL(Object value)
 	{
-		this.value.set(value);
-	}
-
-	@Designable(value = "Value", description = "The value of the control")
-	public SimpleStringProperty valueProperty()
-	{
-		return value;
+		if (!ol.get(0).equals(value))
+			ol.set(0, value);
 	}
 
 	@Override
-	protected void changed(Object newValue, SmartValueAdapter data)
+	public ObservableList asArray()
 	{
-		setValue(data.asString());
+		updateUL(asRaw());
+		return ol;
+	}
+
+	@Override
+	public ObservableMap<String, SmartValue> asHash()
+	{
+		return null;
+	}
+
+	@Override
+	public boolean isHash()
+	{
+		return false;
 	}
 }
-

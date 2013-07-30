@@ -111,7 +111,7 @@ public class GraphA extends LineChart<Number, Number> implements Control, Change
 	public void changed(ObservableValue<? extends Object> ov, Object old, Object t1)
 	{
 		SmartValue sv = (SmartValue) ov;
-		double x = sv.asNumber();
+		double x = sv.getData().asNumber();
 
 		series.getData().add(new XYChart.Data(t++, x));
 		if (series.getData().size() > 500)

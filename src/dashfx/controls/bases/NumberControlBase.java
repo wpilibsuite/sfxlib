@@ -19,6 +19,8 @@ package dashfx.controls.bases;
 import dashfx.lib.controls.*;
 import dashfx.lib.data.SmartValueTypes;
 import dashfx.lib.data.SupportedTypes;
+import dashfx.lib.data.values.DoubleSmartValue;
+import dashfx.lib.data.values.SmartValueAdapter;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -46,7 +48,7 @@ public class NumberControlBase extends ControlBase
 				{
 					ignore = true;
 					getSmartValue().setType(SmartValueTypes.Double);
-					getSmartValue().setData(t1.doubleValue());
+					getSmartValue().setData(new DoubleSmartValue(t1.doubleValue()));
 					double tvalue = (Math.max(getMin(), Math.min(getMax(), t1.doubleValue())));
 					stringValue.set(String.valueOf(Math.round(tvalue * 100) / 100.0));
 					ignore = false;
@@ -109,30 +111,8 @@ public class NumberControlBase extends ControlBase
 	}
 
 	@Override
-	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
+	protected void changed(Object newValue, SmartValueAdapter data)
 	{
-		changed(t1);
-	}
-
-	@Override
-	protected void changed(Object newValue)
-	{
-		if (newValue instanceof Integer)
-			setValue((Integer) newValue);
-		else if (newValue instanceof Double)
-			setValue((Double) newValue);
-		else if (newValue instanceof Float)
-			setValue((Float) newValue);
-		else
-		{
-			try
-			{
-				setValue(Double.valueOf(newValue.toString()));
-			}
-			catch (Throwable t)
-			{
-				setValue(0.0);
-			}
-		}
+		setValue(data.asNumber());
 	}
 }

@@ -14,40 +14,57 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.controls.bases;
-
-import dashfx.lib.controls.Designable;
-import dashfx.lib.data.values.SmartValueAdapter;
-import javafx.beans.property.*;
+package dashfx.lib.data.values;
 
 /**
  *
  * @author patrick
  */
-public class StringControlBase extends ControlBase
+
+
+public class BooleanSmartValue extends SingleValueSmartValueAdapter
 {
-	private SimpleStringProperty value = new SimpleStringProperty(this, "value");
 
-	public String getValue()
+	public BooleanSmartValue(Boolean bool)
 	{
-		return value.get();
+		setRaw(bool);
 	}
 
-	public void setValue(String value)
-	{
-		this.value.set(value);
-	}
 
-	@Designable(value = "Value", description = "The value of the control")
-	public SimpleStringProperty valueProperty()
+	@Override
+	public Double asNumber()
 	{
-		return value;
+		return asBoolean() ? 1.0 : 0.0;
 	}
 
 	@Override
-	protected void changed(Object newValue, SmartValueAdapter data)
+	public boolean isNumber()
 	{
-		setValue(data.asString());
+		return false;
 	}
-}
 
+	@Override
+	public String asString()
+	{
+		return String.valueOf(asBoolean());
+	}
+
+	@Override
+	public boolean isString()
+	{
+		return false;
+	}
+
+	@Override
+	public Boolean asBoolean()
+	{
+		return (Boolean) asRaw();
+	}
+
+	@Override
+	public boolean isBoolean()
+	{
+		return true;
+	}
+
+}

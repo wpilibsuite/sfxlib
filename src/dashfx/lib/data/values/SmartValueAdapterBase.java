@@ -14,40 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.controls.bases;
-
-import dashfx.lib.controls.Designable;
-import dashfx.lib.data.values.SmartValueAdapter;
-import javafx.beans.property.*;
+package dashfx.lib.data.values;
 
 /**
  *
  * @author patrick
  */
-public class StringControlBase extends ControlBase
+
+
+public abstract class SmartValueAdapterBase implements SmartValueAdapter
 {
-	private SimpleStringProperty value = new SimpleStringProperty(this, "value");
+	protected Object rawData;
 
-	public String getValue()
+	protected void setRaw(Object data)
 	{
-		return value.get();
-	}
-
-	public void setValue(String value)
-	{
-		this.value.set(value);
-	}
-
-	@Designable(value = "Value", description = "The value of the control")
-	public SimpleStringProperty valueProperty()
-	{
-		return value;
+		rawData = data;
 	}
 
 	@Override
-	protected void changed(Object newValue, SmartValueAdapter data)
+	public Object asRaw()
 	{
-		setValue(data.asString());
+		return rawData;
 	}
-}
 
+}

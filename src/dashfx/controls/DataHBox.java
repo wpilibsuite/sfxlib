@@ -54,7 +54,7 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	private SimpleObjectProperty<DataPaneMode> dataMode = new SimpleObjectProperty<>(this, "dataMode", DataPaneMode.Passthrough);
 	private SimpleStringProperty name = new SimpleStringProperty(this, "name"),
 			baseName = new SimpleStringProperty(this, "baseName");
-	private SmartValue defaults = new SmartValue(false, SmartValueTypes.Hash, "nokey"); //TODO: total hack
+	private SmartValue defaults = null;//;new SmartValue(false, SmartValueTypes.Hash, "nokey"); //TODO: total hack
 
 	public DataHBox()
 	{
