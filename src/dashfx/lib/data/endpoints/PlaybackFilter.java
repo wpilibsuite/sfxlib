@@ -45,6 +45,12 @@ public class PlaybackFilter implements DataProcessor
 			next.processData(this, data);
 			pointerIndex.set(pointerIndex.get() + 1);
 		}
+		else if (!isLive())
+		{
+			// TODO: dont dump
+			return;
+		}
+		//TODO: trim history to avoid OOMs
 		int nextIndex = forward.size();
 		forward.add(data);
 		Date di = new Date();
@@ -71,7 +77,8 @@ public class PlaybackFilter implements DataProcessor
 	public synchronized void leavePlayback()
 	{
 		viewHist = false;
-		//TODO: restore pointer
+		isLive = true;
+		//TODO: restore pointer and data
 	}
 
 	public synchronized IntegerProperty getPointer()
@@ -145,6 +152,12 @@ public class PlaybackFilter implements DataProcessor
 	{
 		return viewHist;
 	}
+
+	public boolean isLive()
+	{
+		return isLive;
+	}
+	private boolean isLive = true;
 	private Thread runner;
 	private boolean running = false;
 
@@ -205,5 +218,47 @@ public class PlaybackFilter implements DataProcessor
 	{
 		// we need nothing :-)
 		return true;
+	}
+
+	public synchronized Object[] _impl_save()
+	{
+		return new Object[]
+		{
+			forward.toArray(new ValueTransaction[]
+			{
+			}),
+			dates.toArray()
+		};
+	}
+
+	public synchronized void _impl_load(ValueTransaction[] trans, List<Date> ndates)
+	{
+		forward.clear();
+		backward.clear();
+		isLive = false;
+		dates.clear();
+		dates.addAll(ndates);
+		latest.clear();
+		len.set(0);
+//TODO: don't dupe this code
+		for (ValueTransaction data : trans)
+		{
+			forward.add(data);
+			// compute the reverse patch and add to latest
+			SimpleTransaction vt = new SimpleTransaction();
+			for (SmartValue smartValue : data.getValues())
+			{
+				if (latest.containsKey(smartValue.getName()))
+				{
+					vt.addValue(latest.get(smartValue.getName()));
+				}
+				latest.put(smartValue.getName(), smartValue);
+			}
+			backward.add(vt);
+		}
+
+		int nextIndex = forward.size();
+		len.set(nextIndex + 1);
+		pointerIndex.set(0);
 	}
 }
