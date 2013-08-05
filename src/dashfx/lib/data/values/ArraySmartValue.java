@@ -17,6 +17,8 @@
 package dashfx.lib.data.values;
 
 import dashfx.lib.data.SmartValue;
+import java.util.Arrays;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
@@ -32,6 +34,11 @@ public class ArraySmartValue extends SmartValueAdapterBase
 	public ArraySmartValue(ObservableList data)
 	{
 		setRaw(data);
+	}
+
+	public ArraySmartValue(Object[] rawExportedData)
+	{
+		setRaw(FXCollections.observableArrayList(Arrays.asList(rawExportedData)));
 	}
 
 
@@ -93,6 +100,11 @@ public class ArraySmartValue extends SmartValueAdapterBase
 	public boolean isHash()
 	{
 		return false;
+	}
+
+	public Object exportData()
+	{
+		return asArray().toArray();
 	}
 
 }
