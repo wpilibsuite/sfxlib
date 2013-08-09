@@ -185,7 +185,7 @@ public class PlaybackFilter implements DataProcessor
 							Date cur = getDateAtIndex(idx);
 							Date nxt = getDateAtIndex(idx + next);
 							long diff = (long) (scale * (nxt.getTime() - cur.getTime()));
-							Thread.sleep(diff);
+							Thread.sleep(Math.max(0, diff));
 							pointerIndex.set(pointerIndex.get() + next);
 						}
 					}

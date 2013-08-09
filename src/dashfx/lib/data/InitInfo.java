@@ -97,4 +97,9 @@ public class InitInfo
 	{
 		this.options.put(name, value);
 	}
+
+	public HashMap<String, String> getAllOptions()
+	{
+		return this.options;
+	}
 }
