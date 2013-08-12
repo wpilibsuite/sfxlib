@@ -24,6 +24,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
+import javafx.event.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 
@@ -68,6 +69,8 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 				{
 					registerable.registered(PaneControlBase.this);
 				}
+				if (superprovider != null && getOnRegisterRequest() != null)
+					getOnRegisterRequest().handle(null);
 			}
 		});
 		name.addListener(new ChangeListener<String>()
@@ -82,8 +85,26 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 				{
 					registerable.registered(PaneControlBase.this);
 				}
+				if (superprovider != null && getOnRegisterRequest() != null)
+					getOnRegisterRequest().handle(null);
 			}
 		});
+	}
+	private ObjectProperty<EventHandler<? super Event>> onRegisterRequest = new SimpleObjectProperty<>(this, "onRegisterRequest");
+
+	public ObjectProperty<EventHandler<? super Event>> onRegisterRequestProperty()
+	{
+		return onRegisterRequest;
+	}
+
+	public void setOnRegisterRequest(EventHandler<? super Event> event)
+	{
+		onRegisterRequestProperty().set(event);
+	}
+
+	public EventHandler<? super Event> getOnRegisterRequest()
+	{
+		return onRegisterRequestProperty().get();
 	}
 
 	@Designable(value = "Data Mode", description = "Determines how much this node proxies name requests when resolving")
@@ -190,6 +211,8 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 			r.registered(this);
 			registered.add(r);
 		}
+		if (superprovider != null && getOnRegisterRequest() != null)
+			getOnRegisterRequest().handle(null);
 	}
 
 	@Override
