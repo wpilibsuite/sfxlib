@@ -29,7 +29,7 @@ import javafx.scene.control.*;
  *
  * @author patrick
  */
-@Designable(value = "Dwemthy's array", description = "Thar be dragons", image = "/dashfx/controls/res/listview.png")
+@Designable(value = "Array View", description = "Displays a list of array elements", image = "/dashfx/controls/res/listview.png")
 @Category("General")
 @SupportedTypes({
 	SmartValueTypes.Array,

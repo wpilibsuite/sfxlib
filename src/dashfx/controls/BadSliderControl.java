@@ -29,7 +29,7 @@ import javafx.scene.control.Slider;
  *
  * @author patrick
  */
-@Designable(value = "Bad Slider", image = "/dashfx/controls/res/BadSlider.png", description = "Uses built-in slider. Horrible")
+@Designable(value = "Raw Slider", image = "/dashfx/controls/res/BadSlider.png", description = "Uses built-in slider")
 @DesignableProperty(value =
 {
 	"value",
