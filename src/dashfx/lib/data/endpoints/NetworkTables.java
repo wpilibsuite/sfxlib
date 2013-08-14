@@ -77,7 +77,7 @@ public class NetworkTables implements DataSource, ITableListener, DataSender
 			if (info == null)
 				info = new InitInfo();
 			Integer port = info.getPort();
-			if (port == null)
+			if (port == null || port == 0)
 				port = 1735;
 			nwt = new NetworkTableClient(new SocketStreamFactory(info.getHost(), port));
 			if (proc != null)
