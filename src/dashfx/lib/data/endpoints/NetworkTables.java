@@ -116,23 +116,23 @@ public class NetworkTables implements DataSource, ITableListener, DataSender
 				sva = new ArraySmartValue(rawClone(o, type));
 			else
 			{
-				switch(type)
+				switch (type)
 				{
 					case Boolean:
-						sva = new BooleanSmartValue((Boolean)o);
+						sva = new BooleanSmartValue((Boolean) o);
 						break;
 					case Number:
 					case Double:
 					case Integer:
-						sva = new DoubleSmartValue((Double)o);
+						sva = new DoubleSmartValue((Double) o);
 						break;
 					case String:
-						sva = new StringSmartValue((String)o);
+						sva = new StringSmartValue((String) o);
 						break;
 					case Grouped:
 					case GroupedHash:
 					case Hash:
-						sva = new HashSmartValue((ObservableMap<String, SmartValue>)o);
+						sva = new HashSmartValue((ObservableMap<String, SmartValue>) o);
 						break;
 					default:
 						throw new RuntimeException("A butterfly caused a bit to flip, or network tables just broke. Probbably the latter unless at hight altituides.");
@@ -197,10 +197,12 @@ public class NetworkTables implements DataSource, ITableListener, DataSender
 					return SmartValueTypes.StringArray;
 				}
 				else
-					return SmartValueTypes.Array;
+					//	return SmartValueTypes.Array;
+					throw new RuntimeException("Hey! fix it! local!" + value.getClass().getCanonicalName());
+
 			}
 			else
-				return SmartValueTypes.Array;
+				return SmartValueTypes.DoubleArray;
 		}
 		else
 		{
@@ -275,7 +277,52 @@ public class NetworkTables implements DataSource, ITableListener, DataSender
 	{
 		if (isConnected())
 		{
-			nwt.putValue(data.getName(), data.getValue());
+			Object val = data.getValue();
+			if (val instanceof ObservableList)
+			{
+				Object[] vv = ((ObservableList) val).toArray();
+				if (vv.length == 0)
+				{
+					//TODO: probe for correct type
+					val = new NumberArray();
+				}
+				else
+				{
+					//TODO: this is horrible
+
+					val = vv[0];
+
+					if (val instanceof Double)
+					{
+						val = new NumberArray();
+						for (Object d : vv)
+						{
+							((NumberArray) val).add((Double) d);
+						}
+					}
+					else if (val instanceof Boolean)
+					{
+
+						val = new BooleanArray();
+						for (Object d : vv)
+						{
+							((BooleanArray) val).add((Boolean) d);
+						}
+					}
+					else if (val instanceof String)
+					{
+						val = new StringArray();
+						for (Object d : vv)
+						{
+							((StringArray) val).add((String) d);
+						}
+					}
+					else
+						throw new RuntimeException("Hey! fix it! send local!" + val.getClass().getCanonicalName());
+
+				}
+			}
+			nwt.putValue(data.getName(), val);
 		}
 	}
 }
