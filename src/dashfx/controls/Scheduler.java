@@ -17,16 +17,15 @@
 package dashfx.controls;
 
 import dashfx.lib.controls.Category;
+import dashfx.lib.controls.DashFXProperties;
 import dashfx.lib.controls.Designable;
 import dashfx.lib.controls.GroupType;
 import dashfx.lib.data.DataCoreProvider;
 import dashfx.lib.data.DataPaneMode;
 import dashfx.lib.data.SmartValue;
 import dashfx.lib.data.values.ArraySmartValue;
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -47,6 +46,7 @@ import javafx.scene.text.Font;
 @Category("General")
 @Designable(value = "Scheduler", description = "The Command Scheduler")
 @GroupType("Scheduler")
+@DashFXProperties("Sealed: false, Save Children: false")
 public class Scheduler extends DataVBox
 {
 	SmartValue names, ids, canceller;
@@ -68,7 +68,7 @@ public class Scheduler extends DataVBox
 		lbl.setText("Running Commands");
 		lbl.setFont(Font.font("System", 16.0));
 		VBox.setMargin(lbl, new Insets(6.0, 6.0, 6.0, 12.0));
-		ui.setPrefHeight(300);
+		ui.setPrefHeight(250);
 
 		//Data
 		setDataMode(DataPaneMode.Nested);
@@ -139,7 +139,7 @@ public class Scheduler extends DataVBox
 		}
 		for (int i = 0; i < times; i++)
 		{
-			getChildren().add(new CommandLister(i < nay.size() ? nay.get(i).toString() : "", i < iay.size() ? iay.get(i) : null));
+			getChildren().add(new CommandLister(i < nay.size() ? nay.get(i).toString() : "", i < iay.size() ? iay.get(i) : null, (i % 2 == 0) ? true:false));
 		}
 	}
 
@@ -150,7 +150,7 @@ public class Scheduler extends DataVBox
 		Label lbll;
 		ImageView iv = new ImageView();
 
-		private CommandLister(String name, Object id)
+		private CommandLister(String name, Object id, boolean striped)
 		{
 			this.name = name;
 			this.id = id;
@@ -158,10 +158,17 @@ public class Scheduler extends DataVBox
 			setAlignment(Pos.CENTER_LEFT);
 			setPadding(new Insets(0, 6, 0, 6));
 			lbll = new Label(name);
+			lbll.setMaxWidth(Double.MAX_VALUE);
 			HBox.setHgrow(lbll, Priority.ALWAYS);
+
 			iv.setFitHeight(32.0);
 			iv.setFitWidth(32.0);
 			iv.setImage(new Image(getClass().getResourceAsStream("/dashfx/controls/res/media-playback-stop.png")));
+			if (striped)
+			{
+				setStyle("-fx-background-color: #eee");
+			}
+
 			getChildren().add(lbll);
 			if (id instanceof Double)
 			{
