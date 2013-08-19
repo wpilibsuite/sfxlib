@@ -16,9 +16,9 @@
  */
 package dashfx.controls;
 
+import dashfx.lib.controls.Category;
 import dashfx.lib.controls.Control;
 import dashfx.lib.controls.Designable;
-import dashfx.lib.controls.DesignableProperty;
 import dashfx.lib.controls.Designer;
 import dashfx.lib.data.DataCoreProvider;
 import java.io.File;
@@ -35,6 +35,7 @@ import javafx.scene.layout.BorderPane;
  * @author patrick
  */
 @Designable(value = "Image", description = "Image Control")
+@Category("General")
 public class ImageControl extends BorderPane implements Control
 {
 	private SimpleStringProperty file = new SimpleStringProperty(this, "file", "");
@@ -64,7 +65,7 @@ public class ImageControl extends BorderPane implements Control
 		});
 	}
 
-	@Designable
+	@Designable(value="File", description = "Path to image to load")
 	@Designer(File.class)
 	public StringProperty fileProperty()
 	{
