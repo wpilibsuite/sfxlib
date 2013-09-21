@@ -64,7 +64,7 @@ Controls:
   Description: Compass for displaying data from Gyros and Compasses
   Source: /dashfx/controls/VuMeter.fxml
   Custom Properties:
-    Needle Color: {Var: needleColor, Type: javafx.scene.paint.Color, Description: Color of the needle, Default: YELLOW}
+    Needle Color: {Var: fill, Type: javafx.scene.paint.Color, Description: Color of the needle, Default: '#60dc00'}
   Types: Number
   Category: General
   Defaults:

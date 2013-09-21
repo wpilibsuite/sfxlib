@@ -17,7 +17,7 @@
 			<children>
 				<AnchorPane minHeight="52" minWidth="143" prefHeight="52" prefWidth="143" maxWidth="143" maxHeight="52" >
 					<children>
-						<SVGPath content="m 61.21875,0.0588212 0,33.3786788 20,0 0,-33.3786788 z" fill="#60dc00">
+						<SVGPath content="m 61.21875,0.0588212 0,33.3786788 20,0 0,-33.3786788 z" fill="${base.custom.fill}">
 							<transforms>
 								<Rotate angle="${(90 * ((base.value - base.min) / (base.max - base.min)))+ -45}" pivotX="71.22" pivotY="100.0" />
 							</transforms>
