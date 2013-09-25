@@ -182,6 +182,11 @@ public class PlaybackFilter implements DataProcessor
 						while (running)
 						{
 							int idx = pointerIndex.get();
+							if (idx < 0 || (idx + next) < 0 || (idx + next) > (dates.size()-1))
+							{
+								stopTheFilm();
+								return;
+							}
 							Date cur = getDateAtIndex(idx);
 							Date nxt = getDateAtIndex(idx + next);
 							long diff = (long) (scale * (nxt.getTime() - cur.getTime()));
