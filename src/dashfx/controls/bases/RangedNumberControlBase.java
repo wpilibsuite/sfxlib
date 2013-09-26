@@ -33,22 +33,9 @@ import javafx.beans.value.ObservableValue;
 	{
 	SmartValueTypes.Number
 })
-public class NumberControlBase extends ControlBase
+public class RangedNumberControlBase extends NumberControlBase
 {
-	protected SimpleDoubleProperty value = new SimpleDoubleProperty(this, "value", 0.0);
-
-	public NumberControlBase()
-	{
-		value.addListener(new ChangeListener<Number>()
-		{
-			@Override
-			public void changed(ObservableValue<? extends Number> ov, Number t, Number t1)
-			{
-				simpleValueChanged(t1);
-			}
-		});
-	}
-
+	@Override
 	protected void simpleValueChanged(Number t1)
 	{
 		if (!ignore && getSmartValue() != null)
@@ -56,30 +43,60 @@ public class NumberControlBase extends ControlBase
 			ignore = true;
 			getSmartValue().setType(SmartValueTypes.Double);
 			getSmartValue().setData(new DoubleSmartValue(t1.doubleValue()));
-			double tvalue = t1.doubleValue();
+			double tvalue = (Math.max(getMin(), Math.min(getMax(), t1.doubleValue())));
 			stringValue.set(String.valueOf(Math.round(tvalue * 100) / 100.0));
 			ignore = false;
 		}
 	}
 
-	public double getValue()
-	{
-		return value.get();
-	}
-
 	public void setValue(double value)
 	{
-		double tvalue = value;
+		double tvalue = (Math.max(getMin(), Math.min(getMax(), value)));
 		this.value.set(tvalue);
 		stringValue.set(String.valueOf(Math.round(tvalue * 100) / 100.0));
 	}
 
 	@Designable(value = "Value", description = "The value of the control")
+	@Range(minProp = "min", maxProp = "max")
 	public SimpleDoubleProperty valueProperty()
 	{
 		return value;
 	}
-	
+	private SimpleDoubleProperty min = new SimpleDoubleProperty(this, "min");
+
+	public double getMin()
+	{
+		return min.get();
+	}
+
+	public void setMin(double min)
+	{
+		this.min.set(min);
+	}
+
+	@Designable(value = "Min", description = "The minimum value of the control")
+	public SimpleDoubleProperty minProperty()
+	{
+		return min;
+	}
+	private SimpleDoubleProperty max = new SimpleDoubleProperty(this, "max");
+
+	public double getMax()
+	{
+		return max.get();
+	}
+
+	public void setMax(double max)
+	{
+		this.max.set(max);
+	}
+
+	@Designable(value = "Max", description = "The maximum value of the control")
+	public SimpleDoubleProperty maxProperty()
+	{
+		return max;
+	}
+
 	@Override
 	protected void changed(Object newValue, SmartValueAdapter data)
 	{

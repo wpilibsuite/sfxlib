@@ -11,7 +11,7 @@
 <?import javafx.scene.transform.*?>
 <?import dashfx.lib.controls.fxmlutils.*?>
 
-<dashfx.controls.bases.NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+<dashfx.controls.bases.RangedNumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
 	<ui>
 		<ScalePane prefHeight="52" prefWidth="143" maxWidth="Infinity" maxHeight="Infinity" minWidth="20" minHeight="20">
 			<children>
@@ -36,4 +36,4 @@
 			</children>
 		</ScalePane>
 	</ui>
-</dashfx.controls.bases.NumberControlBase>
+</dashfx.controls.bases.RangedNumberControlBase>

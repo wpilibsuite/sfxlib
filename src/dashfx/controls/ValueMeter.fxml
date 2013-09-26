@@ -10,7 +10,7 @@
 <?import dashfx.controls.bases.*?>
 <?language javascript?>
 
-<NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+<RangedNumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
 	<fx:script>
 		function moused(e)
 		{
@@ -26,4 +26,4 @@
 			</children>
 		</StackPane>
 	</ui>
-</NumberControlBase>
+</RangedNumberControlBase>

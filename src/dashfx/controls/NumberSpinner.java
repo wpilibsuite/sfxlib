@@ -16,7 +16,7 @@
  */
 package dashfx.controls;
 
-import dashfx.controls.bases.NumberControlBase;
+import dashfx.controls.bases.*;
 import dashfx.lib.controls.Category;
 import dashfx.lib.controls.Designable;
 import javafx.beans.property.*;
@@ -37,7 +37,7 @@ import javafx.scene.text.Font;
  */
 @Designable(description = "Number editor with scrolling", value = "Number Box")
 @Category("General")
-public class NumberSpinner extends NumberControlBase
+public class NumberSpinner extends RangedNumberControlBase
 {
 	//property_accessor :value
 	DoubleProperty step;
