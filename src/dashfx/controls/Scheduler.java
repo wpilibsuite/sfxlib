@@ -46,7 +46,7 @@ import javafx.scene.text.Font;
 @Category("General")
 @Designable(value = "Scheduler", description = "The Command Scheduler")
 @GroupType("Scheduler")
-@DashFXProperties("Sealed: false, Save Children: false")
+@DashFXProperties("Sealed: true, Save Children: false")
 public class Scheduler extends DataVBox
 {
 	SmartValue names, ids, canceller;
