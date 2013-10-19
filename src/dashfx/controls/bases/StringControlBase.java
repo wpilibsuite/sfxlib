@@ -16,6 +16,7 @@
  */
 package dashfx.controls.bases;
 
+import dashfx.lib.controls.Category;
 import dashfx.lib.controls.Designable;
 import dashfx.lib.data.values.SmartValueAdapter;
 import javafx.beans.property.*;
@@ -39,6 +40,7 @@ public class StringControlBase extends ControlBase
 	}
 
 	@Designable(value = "Value", description = "The value of the control")
+	@Category("Data")
 	public SimpleStringProperty valueProperty()
 	{
 		return value;

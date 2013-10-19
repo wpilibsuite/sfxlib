@@ -124,6 +124,7 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 	}
 
 	@Designable(value = "Name", description = "Proxy Resolving Name prefix")
+	@Category("Basic")
 	public StringProperty nameProperty()
 	{
 		return name;

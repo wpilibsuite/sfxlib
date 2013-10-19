@@ -48,11 +48,13 @@ Controls:
       Type: javafx.scene.paint.Color
       Description: Color of the needle
       Default: "#0655a1"
+      Category: Style
     Circle Color:
       Var: circleColor
       Type: javafx.scene.paint.Color
       Description: Color of the base circle
       Default: "#60dc00"
+      Category: Style
   Types: Number
   Defaults:
     value: 0

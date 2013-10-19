@@ -75,6 +75,7 @@ public class RangedNumberControlBase extends NumberControlBase
 	}
 
 	@Designable(value = "Min", description = "The minimum value of the control")
+	@Category("Basic")
 	public SimpleDoubleProperty minProperty()
 	{
 		return min;
@@ -92,6 +93,7 @@ public class RangedNumberControlBase extends NumberControlBase
 	}
 
 	@Designable(value = "Max", description = "The maximum value of the control")
+	@Category("Basic")
 	public SimpleDoubleProperty maxProperty()
 	{
 		return max;

@@ -16,6 +16,7 @@
  */
 package dashfx.controls.bases;
 
+import dashfx.lib.controls.Category;
 import dashfx.lib.data.DataCoreProvider;
 import dashfx.lib.data.SmartValue;
 import dashfx.lib.controls.Control;
@@ -58,6 +59,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	private StringProperty name = new SimpleStringProperty(this, "name", "");
 
 	@Designable(value = "Path", description = "The path the control binds to")
+	@Category("Basic")
 	public StringProperty nameProperty()
 	{
 		return name;
@@ -75,6 +77,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	private StringProperty lbl = new SimpleStringProperty(this, "label", "");
 
 	@Designable(value = "Label", description = "What to label the control (not all controls support)")
+	@Category("Basic")
 	public StringProperty labelProperty()
 	{
 		return lbl;
