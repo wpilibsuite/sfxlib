@@ -123,6 +123,24 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 		this.dataMode.set(dataMode);
 	}
 
+
+	@Designable(value = "CSS", description = "FX CSS Style rules")
+	@Category("Style")
+	public StringProperty styleProperty()
+	{
+		return getUi().styleProperty();
+	}
+
+	public String getStyle()
+	{
+		return styleProperty().getValue();
+	}
+
+	public void setStyle(String value)
+	{
+		styleProperty().setValue(value);
+	}
+
 	@Designable(value = "Name", description = "Proxy Resolving Name prefix")
 	@Category("Basic")
 	public StringProperty nameProperty()

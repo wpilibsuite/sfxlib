@@ -184,7 +184,7 @@ public class CameraView implements Control
 					}
 
 				}
-				catch (UnknownHostException | java.net.NoRouteToHostException ex)
+				catch (UnknownHostException | java.net.SocketException ex)
 				{
 					while (!urlChanged)
 					{

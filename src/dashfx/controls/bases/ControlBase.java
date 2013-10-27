@@ -21,6 +21,7 @@ import dashfx.lib.data.DataCoreProvider;
 import dashfx.lib.data.SmartValue;
 import dashfx.lib.controls.Control;
 import dashfx.lib.controls.Designable;
+import dashfx.lib.controls.DesignableProperty;
 import dashfx.lib.data.values.SmartValueAdapter;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
@@ -74,6 +75,24 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		nameProperty().setValue(value);
 	}
+
+	@Designable(value = "CSS", description = "FX CSS Style rules")
+	@Category("Style")
+	public StringProperty styleProperty()
+	{
+		return getUi().styleProperty();
+	}
+
+	public String getStyle()
+	{
+		return styleProperty().getValue();
+	}
+
+	public void setStyle(String value)
+	{
+		styleProperty().setValue(value);
+	}
+
 	private StringProperty lbl = new SimpleStringProperty(this, "label", "");
 
 	@Designable(value = "Label", description = "What to label the control (not all controls support)")
