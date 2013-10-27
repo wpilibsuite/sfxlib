@@ -94,3 +94,4 @@ Decorators:
  -
   Listed Decorators:
     - dashfx.lib.decorators.LabelDecorator
+    - dashfx.lib.decorators.RotateDecorator
