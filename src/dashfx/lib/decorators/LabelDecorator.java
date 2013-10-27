@@ -23,10 +23,12 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -47,6 +49,7 @@ public class LabelDecorator implements Decorator
 	{
 		root = new StackPane();
 		root.getChildren().add(box = new HBox());
+		((HBox) box).setAlignment(Pos.CENTER_LEFT);
 		box.getChildren().add(lbl = new Label(""));
 		orientationProperty().addListener(new ChangeListener<Orientation>()
 		{
@@ -58,11 +61,13 @@ public class LabelDecorator implements Decorator
 				if (t1 == Orientation.HORIZONTAL)
 				{
 					box = new HBox();
+					((HBox) box).setAlignment(Pos.CENTER_LEFT);
 					box.getChildren().add(lbl);
 				}
 				else
 				{
 					box = new VBox();
+					((VBox) box).setAlignment(Pos.TOP_CENTER);
 				}
 				root.getChildren().add(box);
 				if (node != null)
@@ -80,6 +85,8 @@ public class LabelDecorator implements Decorator
 		box.getChildren().clear();
 		box.getChildren().add(lbl);
 		box.getChildren().add(getOrientation() == Orientation.HORIZONTAL ? 1 : 0, parent);
+		HBox.setHgrow(node, Priority.SOMETIMES);
+		VBox.setVgrow(node, Priority.SOMETIMES);
 	}
 
 	@Override
