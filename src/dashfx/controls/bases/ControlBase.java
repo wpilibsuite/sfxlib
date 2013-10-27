@@ -92,43 +92,7 @@ public abstract class ControlBase implements Control, ChangeListener<Object>
 	{
 		styleProperty().setValue(value);
 	}
-
-	private StringProperty lbl = new SimpleStringProperty(this, "label", "");
-
-	@Designable(value = "Label", description = "What to label the control (not all controls support)")
-	@Category("Basic")
-	public StringProperty labelProperty()
-	{
-		return lbl;
-	}
-
-	public String getLabel()
-	{
-		return labelProperty().getValue();
-	}
-
-	public void setLabel(String value)
-	{
-		labelProperty().setValue(value);
-	}
-	private BooleanProperty showLabel = new SimpleBooleanProperty(this, "showLabel", false);
-
-	@Designable(value = "Show Label", description = "Show a label (not all controls support)")
-	public BooleanProperty showLabelProperty()
-	{
-		return showLabel;
-	}
-
-	public boolean getShowLabel()
-	{
-		return showLabelProperty().get();
-	}
-
-	public void setShowLabel(boolean value)
-	{
-		showLabelProperty().set(value);
-	}
-
+	
 	@Override
 	public void registered(final DataCoreProvider provider)
 	{

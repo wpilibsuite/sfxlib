@@ -9,12 +9,6 @@
 
 <NumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
 	<ui>
-		<HBox>
-			<dashfx.lib.controls.fxmlutils.CollapsableHBox>
-				<Label text="${base.label}" visible="${base.showLabel}"  />
-				<Label text=": " visible="${base.showLabel}" />
-			</dashfx.lib.controls.fxmlutils.CollapsableHBox>
-			<dashfx.lib.controls.fxmlutils.FormattableLabel format="${base.custom.format}" value="${base.value}" />
-		</HBox>
+		<dashfx.lib.controls.fxmlutils.FormattableLabel format="${base.custom.format}" value="${base.value}" />
 	</ui>
 </NumberControlBase>
