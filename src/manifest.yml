@@ -90,3 +90,7 @@ Controls:
   Group Type: Color Sensor
   #TODO make the image
   Types: NumberArray
+Decorators:
+ -
+  Listed Decorators:
+    - dashfx.lib.decorators.LabelDecorator
