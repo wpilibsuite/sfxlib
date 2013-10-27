@@ -16,40 +16,15 @@
  */
 package dashfx.lib.data.video;
 
-import java.util.HashMap;
+import dashfx.lib.data.Initable;
+import javafx.scene.image.Image;
 
 /**
  *
  * @author patrick
  */
-public class VideoCore
+public interface VideoProcessor extends Initable
 {
-	private HashMap<String, VideoStream> streams = new HashMap<>();
-
-	//void addVideoFilter(VideoProcessor r);
-	VideoStream mountVideoEndpoint(String name, VideoEndpoint r)
-	{
-		VideoStream vs = new VideoStream(name);
-		r.setProcessor(vs);
-		streams.put(name, vs);
-		return vs;
-	}
-
-	VideoStream findStream(String name)
-	{
-		if (streams.containsKey(name))
-			return streams.get(name);
-		return null;
-	}
-
-	void dispose()
-	{
-		//TODO: ???
-	}
-
-	//TODO: fix these
-//	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-//	DataProcessor[] getAllDataFilters();
-//	void clearAllDataEndpoints();
-
+	void processFrame(VideoProcessor source, Image data);
+	void setProcessor(VideoProcessor proc);
 }

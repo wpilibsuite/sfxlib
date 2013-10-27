@@ -16,40 +16,13 @@
  */
 package dashfx.lib.data.video;
 
-import java.util.HashMap;
+import javafx.scene.image.Image;
 
 /**
  *
  * @author patrick
  */
-public class VideoCore
+public interface VideoViewer
 {
-	private HashMap<String, VideoStream> streams = new HashMap<>();
-
-	//void addVideoFilter(VideoProcessor r);
-	VideoStream mountVideoEndpoint(String name, VideoEndpoint r)
-	{
-		VideoStream vs = new VideoStream(name);
-		r.setProcessor(vs);
-		streams.put(name, vs);
-		return vs;
-	}
-
-	VideoStream findStream(String name)
-	{
-		if (streams.containsKey(name))
-			return streams.get(name);
-		return null;
-	}
-
-	void dispose()
-	{
-		//TODO: ???
-	}
-
-	//TODO: fix these
-//	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-//	DataProcessor[] getAllDataFilters();
-//	void clearAllDataEndpoints();
-
+	void processFrame(Image data);
 }
