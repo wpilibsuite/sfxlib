@@ -11,7 +11,7 @@
 <?import javafx.scene.transform.*?>
 <?import dashfx.lib.controls.fxmlutils.*?>
 
-<dashfx.controls.bases.RangedNumberControlBase fx:id="base" xmlns:fx="http://javafx.com/fxml">
+<dashfx.controls.bases.RangedNumberControlBase clip="false" fx:id="base" xmlns:fx="http://javafx.com/fxml">
 	<ui>
 		<ScalePane prefHeight="200" prefWidth="200" maxWidth="Infinity" maxHeight="Infinity" minWidth="20" minHeight="20"    >
 			<children>
@@ -22,7 +22,7 @@
 						<SVGPath content="m 28.582201,170.0036 7.071067,-7.0711 1.414214,1.4142 -7.071068,7.0711 -1.414213,-1.4142 z m 0,-140.00713 1.414213,-1.4143 7.071068,7.0711 -1.414214,1.4142 -7.071067,-7.071 z m 134.350289,134.35023 1.41421,-1.4142 7.07107,7.0711 -1.41421,1.4142 -7.07107,-7.0711 z m 0,-128.69343 7.07107,-7.0711 1.41421,1.4142 -7.07107,7.0711 -1.41421,-1.4142 z M 99,200 l 0,-10 2,0 0,10 -2,0 z m -99,-99 0,-2 10,0 0,2 -10,0 z m 190,0 0,-2 10,0 0,2 -10,0 z M 99,10 l 0,-10 2,0 0,10 -2,0 z"/>
 						<Polygon fill="${base.custom.needleColor}" stroke="BLACK" layoutX="100" layoutY="100">
 							<transforms>
-								<Rotate angle="${base.value * 360/(base.max - base.min)}" pivotX="0" pivotY="0">
+								<Rotate angle="${(base.value - base.min)/(base.max - base.min) * 360}" pivotX="0" pivotY="0">
 									<axis>
 										<Point3D x="0.0" y="0.0"  z="1.0" />
 									</axis>

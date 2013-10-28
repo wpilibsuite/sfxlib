@@ -21,9 +21,7 @@ import dashfx.lib.data.SmartValueTypes;
 import dashfx.lib.data.SupportedTypes;
 import dashfx.lib.data.values.DoubleSmartValue;
 import dashfx.lib.data.values.SmartValueAdapter;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.*;
 
 /**
  *
@@ -44,6 +42,8 @@ public class RangedNumberControlBase extends NumberControlBase
 			getSmartValue().setType(SmartValueTypes.Double);
 			getSmartValue().setData(new DoubleSmartValue(t1.doubleValue()));
 			double tvalue = (Math.max(getMin(), Math.min(getMax(), t1.doubleValue())));
+			if (!getClip())
+				tvalue = t1.doubleValue();
 			stringValue.set(String.valueOf(Math.round(tvalue * 100) / 100.0));
 			ignore = false;
 		}
@@ -52,6 +52,8 @@ public class RangedNumberControlBase extends NumberControlBase
 	public void setValue(double value)
 	{
 		double tvalue = (Math.max(getMin(), Math.min(getMax(), value)));
+		if (!getClip())
+			tvalue = value;
 		this.value.set(tvalue);
 		stringValue.set(String.valueOf(Math.round(tvalue * 100) / 100.0));
 	}
@@ -72,6 +74,23 @@ public class RangedNumberControlBase extends NumberControlBase
 	public void setMin(double min)
 	{
 		this.min.set(min);
+	}
+
+	@Designable(value = "Clip", description = "Should we Clip the value to [Min..Max]")
+	public BooleanProperty clipProperty()
+	{
+		return clip;
+	}
+	private SimpleBooleanProperty clip = new SimpleBooleanProperty(this, "clip", true);
+
+	public boolean getClip()
+	{
+		return clip.get();
+	}
+
+	public void setClip(boolean clip)
+	{
+		this.clip.set(clip);
 	}
 
 	@Designable(value = "Min", description = "The minimum value of the control")
