@@ -90,6 +90,12 @@ public class LabelDecorator implements Decorator
 	}
 
 	@Override
+	public void undecorate()
+	{
+		// we don't need to do anything special, just ignore this
+	}
+
+	@Override
 	public Node getUi()
 	{
 		return root;

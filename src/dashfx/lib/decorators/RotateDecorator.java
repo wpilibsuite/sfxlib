@@ -39,6 +39,12 @@ public class RotateDecorator implements Decorator
 	}
 
 	@Override
+	public void undecorate()
+	{
+		// nothing to do...
+	}
+
+	@Override
 	public Node getUi()
 	{
 		return rotated;

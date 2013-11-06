@@ -25,5 +25,6 @@ import javafx.scene.Node;
 public interface Decorator
 {
 	void decorate(Node parent);
+	void undecorate();
 	Node getUi();
 }
