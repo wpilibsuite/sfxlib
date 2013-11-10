@@ -15,6 +15,9 @@ import javafx.beans.value.*;
  */
 public class PlaybackFilter implements DataProcessor
 {
+    
+        private final long FIVE_MINUTES = 1000*60*5;
+    
 	private DataProcessor next;
 	private boolean viewHist = false;
 	private ArrayList<Date> dates = new ArrayList<>();
@@ -50,7 +53,16 @@ public class PlaybackFilter implements DataProcessor
 			// TODO: dont dump
 			return;
 		}
-		//TODO: trim history to avoid OOMs
+                
+                while (len.get() > 0 && dates.get(0).getTime() < dates.get(dates.size()-1).getTime()-FIVE_MINUTES)
+                {
+                    dates.remove(0);
+                    forward.remove(0);
+                    backward.remove(0);
+                    pointerIndex.set(Math.max(0,pointerIndex.get()-1));
+                    len.set(len.get()-1);
+                }
+                
 		int nextIndex = forward.size();
 		forward.add(data);
 		Date di = new Date();
