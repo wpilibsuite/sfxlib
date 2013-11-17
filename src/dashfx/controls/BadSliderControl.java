@@ -20,6 +20,7 @@ import dashfx.lib.data.SupportedTypes;
 import dashfx.lib.controls.Designable;
 import dashfx.lib.data.*;
 import dashfx.lib.controls.*;
+import dashfx.lib.data.values.DoubleSmartValue;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.scene.Node;
@@ -42,11 +43,30 @@ import javafx.scene.control.Slider;
 	"The maximum value"
 })
 @Category("General")
-@SupportedTypes({SmartValueTypes.Number})
+@SupportedTypes(
+{
+	SmartValueTypes.Number
+})
 public class BadSliderControl extends Slider implements Control, ChangeListener<Object>
 {
+	private StringProperty name = new SimpleStringProperty();
+	private SmartValue ov = null;
+	private boolean modifying = false;
 
-	StringProperty name = new SimpleStringProperty();
+	public BadSliderControl()
+	{
+		this.valueProperty().addListener(new ChangeListener<Number>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Number> oov, Number t, Number t1)
+			{
+				if (!modifying && ov != null && t1.doubleValue() != ov.getData().asNumber())
+				{
+					ov.setData(new DoubleSmartValue(t1.doubleValue()));
+				}
+			}
+		});
+	}
 
 	@Designable(value = "Name", description = "The name the control binds to")
 	public StringProperty nameProperty()
@@ -73,7 +93,7 @@ public class BadSliderControl extends Slider implements Control, ChangeListener<
 		//TODO: add better getObservable Overrides
 		if (getName() != null)
 		{
-			provider.getObservable(getName()).addListener(this);
+			(ov = provider.getObservable(getName())).addListener(this);
 		}
 		name.addListener(new ChangeListener<String>()
 		{
@@ -82,7 +102,7 @@ public class BadSliderControl extends Slider implements Control, ChangeListener<
 			{
 				if (t != null)
 					provider.getObservable(t).removeListener(BadSliderControl.this);
-				provider.getObservable(t1).addListener(BadSliderControl.this);
+				(BadSliderControl.this.ov = provider.getObservable(t1)).addListener(BadSliderControl.this);
 			}
 		});
 	}
@@ -90,7 +110,9 @@ public class BadSliderControl extends Slider implements Control, ChangeListener<
 	@Override
 	public void changed(ObservableValue<? extends Object> ov, Object t, Object t1)
 	{
+		modifying = true;
 		setValue(((SmartValue) ov).getData().asNumber());
+		modifying = false;
 	}
 
 	@Override
