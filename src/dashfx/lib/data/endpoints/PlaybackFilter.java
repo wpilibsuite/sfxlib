@@ -15,9 +15,7 @@ import javafx.beans.value.*;
  */
 public class PlaybackFilter implements DataProcessor
 {
-    
-        private final long FIVE_MINUTES = 1000*60*5;
-    
+	private final long FIVE_MINUTES = 1000 * 60 * 5;
 	private DataProcessor next;
 	private boolean viewHist = false;
 	private ArrayList<Date> dates = new ArrayList<>();
@@ -53,16 +51,16 @@ public class PlaybackFilter implements DataProcessor
 			// TODO: dont dump
 			return;
 		}
-                
-                while (len.get() > 0 && dates.get(0).getTime() < dates.get(dates.size()-1).getTime()-FIVE_MINUTES)
-                {
-                    dates.remove(0);
-                    forward.remove(0);
-                    backward.remove(0);
-                    pointerIndex.set(Math.max(0,pointerIndex.get()-1));
-                    len.set(len.get()-1);
-                }
-                
+
+		while (len.get() > 0 && dates.get(0).getTime() < dates.get(dates.size() - 1).getTime() - FIVE_MINUTES)
+		{
+			dates.remove(0);
+			forward.remove(0);
+			backward.remove(0);
+			pointerIndex.set(Math.max(0, pointerIndex.get() - 1));
+			len.set(len.get() - 1);
+		}
+
 		int nextIndex = forward.size();
 		forward.add(data);
 		Date di = new Date();
@@ -109,9 +107,9 @@ public class PlaybackFilter implements DataProcessor
 		return dates.get(idx);
 	}
 
-	private synchronized void scrubTo(int from, int index)
+	private void scrubTo(int from, int index)
 	{
-		ValueTransaction vt = scrubDiffTo(from, index);
+		final ValueTransaction vt = scrubDiffTo(from, index);
 		next.processData(this, vt);
 	}
 
@@ -194,15 +192,21 @@ public class PlaybackFilter implements DataProcessor
 						while (running)
 						{
 							int idx = pointerIndex.get();
-							if (idx < 0 || (idx + next) < 0 || (idx + next) > (dates.size()-1))
+							while (idx < 0 || (idx + next) < 0 || (idx + next) > (dates.size() - 1))
 							{
-								stopTheFilm();
-								return;
+								try
+								{
+									Thread.sleep(50);
+								}
+								catch (InterruptedException eeeee)
+								{
+									// just loop again, see if we have anything
+								}
 							}
 							Date cur = getDateAtIndex(idx);
 							Date nxt = getDateAtIndex(idx + next);
 							long diff = (long) (scale * (nxt.getTime() - cur.getTime()));
-							Thread.sleep(Math.max(0, diff));
+							Thread.sleep(Math.max(1, diff));
 							pointerIndex.set(pointerIndex.get() + next);
 						}
 					}

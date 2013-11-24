@@ -77,6 +77,22 @@ public class SimpleTransaction implements ValueTransaction
 		});
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("{Simple Transaction:: ");
+		for (SmartValue sv : values)
+		{
+			sb.append(sv.toString());
+			sb.append(",   ");
+		}
+		sb.append("}");
+		return sb.toString();
+	}
+
+
+
 	public static SimpleTransaction merge(ValueTransaction st, ValueTransaction get)
 	{
 		//TOOD: deleted items!
