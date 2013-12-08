@@ -32,6 +32,7 @@ import javafx.scene.layout.*;
 @Designable(value = "VStack Panel", image = "/dashfx/controls/res/vbox.png", description = "Fitting vertical stacking panel")
 @Category("Grouping")
 @DesignableChildProperty(property = {"Vgrow"}, name = {"VGrow"}, description = {"Vorizontal Growth"})
+@DashFXProperties("Sealed: false, Save Children: true")
 public class DataVBox extends PaneControlBase<VBox> implements EventHandler<Event>
 {
 	private boolean designing;

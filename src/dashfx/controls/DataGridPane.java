@@ -27,8 +27,9 @@ import javafx.scene.layout.*;
  *
  * @author patrick
  */
-@Designable(value = "Grid", description = "Grid Pane", image = "/dashfx/controls/res/gridpane.png")
+//@Designable(value = "Grid", description = "Grid Pane", image = "/dashfx/controls/res/gridpane.png") //TODO: this needs more UI to work
 @DesignableProperty(value = {"hgap", "vgap"}, descriptions = {"Horizontal Spacing", "Vertical spacing"})
+@DashFXProperties("Sealed: false, Save Children: true")
 public class DataGridPane extends PaneControlBase<GridPane>
 {
 	public DataGridPane()
