@@ -35,7 +35,7 @@ import javafx.scene.text.Font;
  *
  * @author patrick
  */
-@Designable(description = "Number editor with scrolling", value = "Number Box")
+@Designable(description = "Number editor with scrolling", value = "Number Box", image = "/dashfx/controls/res/number box.png")
 @Category("General")
 public class NumberSpinner extends RangedNumberControlBase
 {

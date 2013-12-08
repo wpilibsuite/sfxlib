@@ -28,7 +28,7 @@ import javafx.scene.control.*;
  *
  * @author patrick
  */
-@Designable(value = "Connection", description = "Connection Indicator")
+@Designable(value = "Connection", description = "Connection Indicator", image = "/dashfx/controls/res/connection.png")
 @Category("General")
 public class ConnectionIndicator implements Control
 {

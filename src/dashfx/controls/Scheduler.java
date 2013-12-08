@@ -44,7 +44,7 @@ import javafx.scene.text.Font;
  * @author patrick
  */
 @Category("General")
-@Designable(value = "Scheduler", description = "The Command Scheduler")
+@Designable(value = "Scheduler", description = "The Command Scheduler", image = "/dashfx/controls/res/scheduler.png")
 @GroupType("Scheduler")
 @DashFXProperties("Sealed: true, Save Children: false")
 public class Scheduler extends DataVBox
