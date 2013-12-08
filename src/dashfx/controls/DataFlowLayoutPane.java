@@ -20,7 +20,11 @@ import dashfx.lib.controls.Designable;
 import dashfx.controls.bases.*;
 import dashfx.lib.controls.*;
 import dashfx.lib.data.*;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import javafx.beans.property.ObjectProperty;
+import javafx.geometry.Bounds;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -37,12 +41,30 @@ public class DataFlowLayoutPane extends PaneControlBase<FlowPane>
 	public DataFlowLayoutPane()
 	{
 		super(new FlowPane());
+        
+	}
+    
+    
+	@Designable(value = "Orentation", description = "which direction to flow first.")
+	public ObjectProperty<Orientation> orientationProperty()
+	{
+		return ((FlowPane)getUi()).orientationProperty();
+	}
+
+	public Orientation getOrientation()
+	{
+		return orientationProperty().get();
+	}
+
+	public void setUrl(Orientation value)
+	{
+		orientationProperty().set(value);
 	}
 
 	@Override
 	public EnumSet<ResizeDirections> getSupportedOps()
 	{
-		return EnumSet.of(ResizeDirections.LeftRight, ResizeDirections.UpDown, ResizeDirections.NorthEastSouthWest, ResizeDirections.SouthEastNorthWest);
+		return EnumSet.of(ResizeDirections.LeftRight, ResizeDirections.UpDown, ResizeDirections.NorthEastSouthWest, ResizeDirections.SouthEastNorthWest, ResizeDirections.Move);
 	}
 
 	@Override
@@ -50,23 +72,78 @@ public class DataFlowLayoutPane extends PaneControlBase<FlowPane>
 	{
 		return true;
 	}
+    
+    private Node[] overlays;
+	private Region[] childs;
+	private int[] indexes;
+	private double[] lastSizeX;
+	private double sizeX, sizeY,posX, posY,x,y,  dxDiff;
+    
 
 	@Override
 	public void BeginDragging(Node[] overlays, Region[] childs, double x, double y, double sizeX, double sizeY, double posX, double posY)
-	{
-		// TODO: FIXME
+	{      
+        this.overlays = overlays;
+        this.x = x - getUi().localToScene(getUi().getBoundsInLocal()).getMinX();
+        this.y = y - getUi().localToScene(getUi().getBoundsInLocal()).getMinY();
+        
 	}
 
 	@Override
-	public void ContinueDragging(double dx, double dy)
+	public void ContinueDragging(double dx, double dy)           
 	{
-		// TODO: FIXME
+
+        for(Node o:overlays){
+            
+            System.out.println("pos "+(x+dx)+" ,"+(y+dy));
+            ArrayList<Node> currentCol = new ArrayList<Node>();
+            int colStart = -1;
+            double lastY = 0;
+            for(Node child:getChildren()){
+                if(child.getBoundsInParent().getMinX() <= x+dx && child.getBoundsInParent().getMaxX() >= x+dx){
+                    if(child.getBoundsInParent().getMinY() < lastY){
+                        break;
+                    } else {
+                       if(colStart == -1)colStart = getChildren().indexOf(child);
+                        currentCol.add(child);                        
+                        lastY = child.getBoundsInParent().getMinY();
+                    }
+                    
+                }
+            }
+            System.out.println("");
+            System.out.println(currentCol);
+            if(currentCol.size() > 0){
+                boolean added = false;
+                for(int i = 0; i < currentCol.size(); i++){
+                    Node child = currentCol.get(i);
+                    if(child.getBoundsInParent().getMinY() + child.getBoundsInParent().getHeight()/2 > y+dy){
+                        if(child != o){
+                            getChildren().remove(o);
+                            System.out.println(getChildren().size()+"    "+getChildren().indexOf(child));
+                            getChildren().add(getChildren().indexOf(child), o);
+                        }
+                        
+                        added = true;
+
+                        break;
+                    }
+                }
+                if(!added){
+                    getChildren().remove(o);
+                    currentCol.remove(o);
+                    getChildren().add(colStart+currentCol.size(),o);
+                }
+            }
+        }
+		
 	}
 
 	@Override
 	public void FinishDragging()
 	{
-		// TODO: FIXME
+		overlays = childs = null;
+        sizeX = sizeY = posX = posY = 0;
 	}
 
 	@Override
