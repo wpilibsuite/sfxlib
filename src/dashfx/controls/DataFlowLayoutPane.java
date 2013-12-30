@@ -92,51 +92,104 @@ public class DataFlowLayoutPane extends PaneControlBase<FlowPane>
 	@Override
 	public void ContinueDragging(double dx, double dy)           
 	{
+        
+        double X = x+dx;
+        double Y = y+dy;
+        
+        if(getOrientation().equals(Orientation.VERTICAL)){
 
-        for(Node o:overlays){
-            
-            System.out.println("pos "+(x+dx)+" ,"+(y+dy));
-            ArrayList<Node> currentCol = new ArrayList<Node>();
-            int colStart = -1;
-            double lastY = 0;
-            for(Node child:getChildren()){
-                if(child.getBoundsInParent().getMinX() <= x+dx && child.getBoundsInParent().getMaxX() >= x+dx){
-                    if(child.getBoundsInParent().getMinY() < lastY){
-                        break;
-                    } else {
-                       if(colStart == -1)colStart = getChildren().indexOf(child);
-                        currentCol.add(child);                        
-                        lastY = child.getBoundsInParent().getMinY();
-                    }
-                    
+            for(Node o:overlays){
+
+                int colStart = -1;
+                int colSize = 0;
+                double lastY = 0;
+
+                for(Node child:getChildren()){
+                    Bounds childBounds = child.getBoundsInParent();
+                    if (colStart != -1){
+                        if( childBounds.getMinY() == getChildren().get(colStart).getBoundsInParent().getMinY()){
+                            //colSize = getChildren().indexOf(child)-colStart;                            
+                            break;
+                        }                    
+                        colSize++;
+                    } else if(colStart == -1 && childBounds.getMinX() <= X && childBounds.getMaxX() >= X){
+                        colStart = getChildren().indexOf(child);     
+                        colSize = 1; 
+                        //System.out.printf("colStart set to %d ", colStart);
+                    }         
                 }
-            }
-            System.out.println("");
-            System.out.println(currentCol);
-            if(currentCol.size() > 0){
-                boolean added = false;
-                for(int i = 0; i < currentCol.size(); i++){
-                    Node child = currentCol.get(i);
-                    if(child.getBoundsInParent().getMinY() + child.getBoundsInParent().getHeight()/2 > y+dy){
-                        if(child != o){
-                            getChildren().remove(o);
-                            System.out.println(getChildren().size()+"    "+getChildren().indexOf(child));
-                            getChildren().add(getChildren().indexOf(child), o);
+
+
+                //System.out.printf("column %d, %d %n", colStart, colSize);
+
+                if(colStart > -1 && colSize > 0){
+                    boolean added = false;
+                    for(int i = colStart; i < colStart+colSize; i++){
+                        Node child = getChildren().get(i);
+                        Bounds childBounds = child.getBoundsInParent();
+                        if(childBounds.getMinY() + childBounds.getHeight()/2 > Y){
+                            if(child != o){
+                                getChildren().remove(o);
+                                getChildren().add(i, o);
+                            }
+                            added = true; 
+                            break;
                         }
-                        
-                        added = true;
-
-                        break;
+                    }
+                    if(!added){
+                        getChildren().remove(o);
+                        //System.out.printf("st+len = %d", colStart+colSize-1);
+                        getChildren().add(colStart+colSize-1, o);
                     }
                 }
-                if(!added){
-                    getChildren().remove(o);
-                    currentCol.remove(o);
-                    getChildren().add(colStart+currentCol.size(),o);
+            }
+        } else {
+            
+            for(Node o:overlays){
+
+                int rowStart = -1;
+                int rowSize = 0;
+
+                for(Node child:getChildren()){
+                    Bounds childBounds = child.getBoundsInParent();
+                    if (rowStart != -1){
+                        if( childBounds.getMinX() == getChildren().get(rowStart).getBoundsInParent().getMinX()){                         
+                            break;
+                        }                    
+                        rowSize++;
+                    } else if(rowStart == -1 && childBounds.getMinY() <= Y && childBounds.getMaxY() >= Y){
+                        rowStart = getChildren().indexOf(child);     
+                        rowSize = 1; 
+                        //System.out.printf("rowStart set to %d ", rowStart);
+                    }         
+                }
+
+
+                //System.out.printf("row %d, %d %n", rowStart, rowSize);
+
+                if(rowStart > -1 && rowSize > 0){
+                    boolean added = false;
+                    for(int i = rowStart; i < rowStart+rowSize; i++){
+                        Node child = getChildren().get(i);
+                        Bounds childBounds = child.getBoundsInParent();
+                        if(childBounds.getMinX() + childBounds.getWidth()/2 > X){
+                            if(child != o){
+                                getChildren().remove(o);
+                                getChildren().add(i, o);
+                            }
+                            added = true; 
+                            break;
+                        }
+                    }
+                    if(!added){
+                        getChildren().remove(o);
+                        //System.out.printf("st+len = %d", rowStart+rowSize-1);
+                        getChildren().add(rowStart+rowSize-1, o);
+                    }
                 }
             }
+            
         }
-		
 	}
 
 	@Override
