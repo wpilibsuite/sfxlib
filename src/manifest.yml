@@ -88,7 +88,7 @@ Controls:
   Class: dashfx.controls.ColorSensor
   Category: General
   Group Type: Color Sensor
-  #TODO make the image
+  Image: /dashfx/controls/res/ColorSensor.png
   Types: NumberArray
 Decorators:
  -

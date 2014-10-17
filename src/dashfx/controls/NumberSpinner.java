@@ -35,14 +35,14 @@ import javafx.scene.text.Font;
  *
  * @author patrick
  */
-@Designable(description = "Number editor with scrolling", value = "Number Box")
+@Designable(description = "Number editor with scrolling", value = "Number Box", image = "/dashfx/controls/res/number box.png")
 @Category("General")
 public class NumberSpinner extends RangedNumberControlBase
 {
 	//property_accessor :value
 	DoubleProperty step;
 	boolean noback;
-	BooleanProperty logStyle;
+	BooleanProperty logStyle, showButtons;
 	TextField field;
 	Button plus, minus;
 
@@ -78,6 +78,22 @@ public class NumberSpinner extends RangedNumberControlBase
 		logStyleProperty().setValue(value);
 	}
 
+	@Designable(value = "Buttons", description = "Show the + and - increment buttons")
+	public BooleanProperty showButtonsProperty()
+	{
+		return showButtons;
+	}
+
+	public boolean getShowButtons()
+	{
+		return showButtonsProperty().getValue();
+	}
+
+	public void setShowButtons(boolean value)
+	{
+		showButtonsProperty().setValue(value);
+	}
+
 	public NumberSpinner()
 	{
 		init();
@@ -85,12 +101,13 @@ public class NumberSpinner extends RangedNumberControlBase
 
 	private void init()
 	{
-		HBox hbox = new HBox();
+		final HBox hbox = new HBox();
 		setUi(hbox);
 		this.minProperty().setValue(Double.NEGATIVE_INFINITY);
 		this.step = new SimpleDoubleProperty(this, "step", 0);
 		maxProperty().setValue(Double.POSITIVE_INFINITY);
 		this.logStyle = new SimpleBooleanProperty(this, "logStyle", false);
+		this.showButtons = new SimpleBooleanProperty(this, "showButtons", true);
 		valueProperty().addListener(new ChangeListener<Number>()
 		{
 			@Override
@@ -98,6 +115,21 @@ public class NumberSpinner extends RangedNumberControlBase
 			{
 				if (!noback)
 					field.setText(t1.toString());
+			}
+		});
+		showButtons.addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
+			{
+				if (t1) // if show
+				{
+					hbox.getChildren().addAll(plus, minus);
+				}
+				else
+				{
+					hbox.getChildren().removeAll(plus, minus);
+				}
 			}
 		});
 		Font font = new Font("System Bold", 13);

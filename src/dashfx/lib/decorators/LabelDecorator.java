@@ -43,7 +43,7 @@ public class LabelDecorator implements Decorator
 	private Node node;
 	private Pane box;
 	private Label lbl;
-	private SimpleObjectProperty<Orientation> orientationProp = new SimpleObjectProperty<>(this, "orientation", Orientation.HORIZONTAL);
+	private SimpleObjectProperty<LabelPosition> orientationProp = new SimpleObjectProperty<>(this, "orientation", LabelPosition.Left);
 
 	public LabelDecorator()
 	{
@@ -51,14 +51,14 @@ public class LabelDecorator implements Decorator
 		root.getChildren().add(box = new HBox());
 		((HBox) box).setAlignment(Pos.CENTER_LEFT);
 		box.getChildren().add(lbl = new Label(""));
-		orientationProperty().addListener(new ChangeListener<Orientation>()
+		orientationProperty().addListener(new ChangeListener<LabelPosition>()
 		{
 			@Override
-			public void changed(ObservableValue<? extends Orientation> ov, Orientation t, Orientation t1)
+			public void changed(ObservableValue<? extends LabelPosition> ov, LabelPosition t, LabelPosition t1)
 			{
 				box.getChildren().clear();
 				root.getChildren().clear();
-				if (t1 == Orientation.HORIZONTAL)
+				if (t1 == LabelPosition.Left)
 				{
 					box = new HBox();
 					((HBox) box).setAlignment(Pos.CENTER_LEFT);
@@ -72,7 +72,7 @@ public class LabelDecorator implements Decorator
 				root.getChildren().add(box);
 				if (node != null)
 					box.getChildren().add(node);
-				if (t1 == Orientation.VERTICAL)
+				if (t1 == LabelPosition.Bottom)
 					box.getChildren().add(lbl);
 			}
 		});
@@ -84,9 +84,15 @@ public class LabelDecorator implements Decorator
 		this.node = parent;
 		box.getChildren().clear();
 		box.getChildren().add(lbl);
-		box.getChildren().add(getOrientation() == Orientation.HORIZONTAL ? 1 : 0, parent);
+		box.getChildren().add(getOrientation() == LabelPosition.Left ? 1 : 0, parent);
 		HBox.setHgrow(node, Priority.SOMETIMES);
 		VBox.setVgrow(node, Priority.SOMETIMES);
+	}
+
+	@Override
+	public void undecorate()
+	{
+		// we don't need to do anything special, just ignore this
 	}
 
 	@Override
@@ -112,17 +118,17 @@ public class LabelDecorator implements Decorator
 	}
 
 	@Designable(value = "Orientation", description = "Where to put the label")
-	public ObjectProperty<Orientation> orientationProperty()
+	public ObjectProperty<LabelPosition> orientationProperty()
 	{
 		return orientationProp;
 	}
 
-	public Orientation getOrientation()
+	public LabelPosition getOrientation()
 	{
 		return orientationProperty().getValue();
 	}
 
-	public void setOrientation(Orientation orientation)
+	public void setOrientation(LabelPosition orientation)
 	{
 		orientationProperty().setValue(orientation);
 	}

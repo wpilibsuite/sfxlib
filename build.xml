@@ -51,8 +51,7 @@
       -init-macrodef-junit:     defines macro for junit execution
       -init-macrodef-debug:     defines macro for class debugging
       -init-macrodef-java:      defines macro for class execution
-      -do-jar-with-manifest:    JAR building (if you are using a manifest)
-      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      -do-jar:                  JAR building
       run:                      execution of project 
       -javadoc-build:           Javadoc generation
       test-report:              JUnit report generation
@@ -71,4 +70,18 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-pre-compile">
+        <!-- Set the env vars to defaults if not set already (properties are immutable) -->
+        <property environment="env"/>
+        <property name="env.BUILD_TAG" value=""/>
+        <property name="env.BUILD_ID" value=""/>
+        <property name="env.GIT_COMMIT" value=""/>
+        <echo file="${src.dir}/dashfx/Version.java">package dashfx;
+            
+public class Version
+{
+    public static String BUILD="${env.BUILD_TAG}-${env.BUILD_ID}-${env.GIT_COMMIT}";//handy. non jenkins builds are --
+}
+        </echo>
+    </target>
 </project>

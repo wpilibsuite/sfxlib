@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="612"
+   height="612"
+   viewBox="0, 0, 612, 612"
+   id="svg2"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="connection.svg"
+   inkscape:export-filename="/home/patrick/NetBeansProjects/sfxlib/src/dashfx/controls/res/connection.png"
+   inkscape:export-xdpi="9.4099998"
+   inkscape:export-ydpi="9.4099998">
+  <metadata
+     id="metadata24">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#bc4747"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="718"
+     id="namedview22"
+     showgrid="false"
+     inkscape:zoom="0.38562092"
+     inkscape:cx="306"
+     inkscape:cy="306"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Background" />
+  <g
+     id="Background" />
+  <g
+     id="Layer 1">
+    <path
+       d="M20.491,306.5 L154.931,306.5"
+       fill-opacity="0"
+       stroke="#000000"
+       stroke-width="23"
+       id="path8" />
+    <g
+       id="g10">
+      <path
+         d="M119.741,188.934 L323.371,306.5 L119.741,424.066 z"
+         fill="#00E200"
+         id="path12" />
+      <path
+         d="M119.741,188.934 L323.371,306.5 L119.741,424.066 z"
+         fill-opacity="0"
+         stroke="#000000"
+         stroke-width="23"
+         id="path14" />
+    </g>
+    <path
+       d="M464.879,306.5 L592.509,306.5"
+       fill-opacity="0"
+       stroke="#000000"
+       stroke-width="23"
+       id="path16" />
+    <path
+       d="M315.212,188.934 L476.165,306.5 L315.212,424.066 L315.212,422.507 L474.031,306.5 L315.212,190.493 z"
+       fill-opacity="0"
+       stroke="#000000"
+       stroke-width="23"
+       id="path18" />
+  </g>
+  <defs
+     id="defs20" />
+</svg>

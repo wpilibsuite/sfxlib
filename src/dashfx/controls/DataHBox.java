@@ -44,6 +44,7 @@ import javafx.scene.layout.*;
 {
 	"Horizontal Growth"
 })
+@DashFXProperties("Sealed: false, Save Children: true")
 public class DataHBox extends HBox implements DataCoreProvider, Control, DesignablePane, EventHandler<Event>
 {
 	private DataCoreProvider superprovider = null;

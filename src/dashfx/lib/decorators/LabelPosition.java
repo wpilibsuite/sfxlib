@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 patrick
+ * Copyright (C) 2014 patrick
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,17 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.lib.decorators;
 
-import javafx.scene.Node;
+package dashfx.lib.decorators;
 
 /**
  *
  * @author patrick
  */
-public interface Decorator
+public enum LabelPosition
 {
-	void decorate(Node parent);
-	void undecorate();
-	Node getUi();
+	Left,
+	Bottom
 }

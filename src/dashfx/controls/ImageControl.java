@@ -34,7 +34,7 @@ import javafx.scene.layout.BorderPane;
  *
  * @author patrick
  */
-@Designable(value = "Image", description = "Image Control")
+@Designable(value = "Image", description = "Image Control", image = "/dashfx/controls/res/image.png")
 @Category("General")
 public class ImageControl extends BorderPane implements Control
 {
