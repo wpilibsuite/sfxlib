@@ -24,22 +24,30 @@ import java.util.HashMap;
  */
 public class VideoCore
 {
-	private HashMap<String, VideoStream> streams = new HashMap<>();
+	private HashMap<String, VideoEndpoint> endpoints = new HashMap<>();
+	private HashMap<String, ChainableVideoPipe> pipes = new HashMap<>();
 
 	//void addVideoFilter(VideoProcessor r);
-	VideoStream mountVideoEndpoint(String name, VideoEndpoint r)
+	public void mountVideoEndpoint(String name, VideoEndpoint r)
 	{
-		VideoStream vs = new VideoStream(name);
-		r.setProcessor(vs);
-		streams.put(name, vs);
-		return vs;
+		ChainableVideoPipe pipe = new ChainableVideoPipe();
+		r.setTarget(pipe);
+		endpoints.put(name, r);
+		pipes.put(name, pipe);
 	}
-
-	VideoStream findStream(String name)
+	
+	public void addViewer(String name, VideoViewer viewer)
 	{
-		if (streams.containsKey(name))
-			return streams.get(name);
-		return null;
+		ChainableVideoPipe pipe = pipes.get(name);
+		if (pipe != null) // TODO: weakness
+			pipe.addDest(viewer);
+	}
+	
+	public void removeViewer(String name, VideoViewer viewer)
+	{
+		ChainableVideoPipe pipe = pipes.get(name);
+		if (pipe != null)
+			pipe.removeDest(viewer);
 	}
 
 	void dispose()

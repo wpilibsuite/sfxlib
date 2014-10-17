@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 patrick
+ * Copyright (C) 2014 patrick
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +16,13 @@
  */
 package dashfx.lib.data.video;
 
-import dashfx.lib.data.Initable;
 import java.awt.image.BufferedImage;
 
 /**
  *
  * @author patrick
  */
-public interface VideoProcessor extends Initable
+public interface VideoPipe
 {
-	void processFrame(VideoProcessor source, BufferedImage data);
-	void setProcessor(VideoProcessor proc);
+	void updateFrame(BufferedImage next);
 }

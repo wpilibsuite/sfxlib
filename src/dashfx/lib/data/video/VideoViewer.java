@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 patrick
+ * Copyright (C) 2014 patrick
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,10 @@
  */
 package dashfx.lib.data.video;
 
-import javafx.scene.image.Image;
-
 /**
  *
  * @author patrick
  */
-public interface VideoViewer
+public interface VideoViewer extends VideoPipe
 {
-	void processFrame(Image data);
 }

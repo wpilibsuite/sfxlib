@@ -26,5 +26,5 @@ import dashfx.lib.data.Initable;
 public interface VideoEndpoint extends Initable
 {
 	boolean isConnected();
-	void setProcessor(VideoProcessor proc);
+	void setTarget(VideoPipe proc);
 }

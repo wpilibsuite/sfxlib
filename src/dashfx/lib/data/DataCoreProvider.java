@@ -17,6 +17,7 @@
 package dashfx.lib.data;
 
 import dashfx.lib.controls.Control;
+import dashfx.lib.data.video.VideoCore;
 
 /**
  *
@@ -29,6 +30,7 @@ public interface DataCoreProvider
 	void addDataFilter(DataProcessor r);
 	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
 	SmartValue getObservable(String name);
+	VideoCore getVideoCore(); // TODO: kind of leaky
 
 	void dispose();
 

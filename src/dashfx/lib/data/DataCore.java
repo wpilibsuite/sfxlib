@@ -6,6 +6,7 @@ package dashfx.lib.data;
 
 import dashfx.lib.controls.Control;
 import dashfx.lib.data.values.HashSmartValue;
+import dashfx.lib.data.video.VideoCore;
 import java.util.*;
 import javafx.application.*;
 import javafx.beans.property.*;
@@ -34,6 +35,8 @@ public class DataCore implements DataCoreProvider, DataProcessor
 			}
 		}
 	};
+	
+	private VideoCore videoCore = new VideoCore();
 
 	public DataCore()
 	{
@@ -217,5 +220,11 @@ public class DataCore implements DataCoreProvider, DataProcessor
 	public void dispose()
 	{
 		clearAllDataEndpoints();
+	}
+	
+	@Override
+	public VideoCore getVideoCore()
+	{
+		return videoCore;
 	}
 }

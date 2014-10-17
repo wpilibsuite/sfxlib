@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 patrick
+ * Copyright (C) 2014 patrick
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +16,36 @@
  */
 package dashfx.lib.data.video;
 
-import dashfx.lib.data.Initable;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author patrick
  */
-public interface VideoProcessor extends Initable
+public class ChainableVideoPipe implements VideoPipe
 {
-	void processFrame(VideoProcessor source, BufferedImage data);
-	void setProcessor(VideoProcessor proc);
+	List<VideoPipe> targets = new ArrayList<>();
+
+	@Override
+	public void updateFrame(BufferedImage next)
+	{
+		for (VideoPipe out : targets)
+		{
+			out.updateFrame(next);
+		}
+	}
+
+	public void removeDest(VideoPipe dest)
+	{
+		targets.remove(dest);
+	}
+
+	public void addDest(VideoPipe dest)
+	{
+		if (!targets.contains(dest))
+			targets.add(dest);
+	}
+	
 }
