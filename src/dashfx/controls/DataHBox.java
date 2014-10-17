@@ -20,6 +20,7 @@ import dashfx.lib.controls.Designable;
 import dashfx.lib.data.*;
 import dashfx.lib.controls.Control;
 import dashfx.lib.controls.*;
+import dashfx.lib.data.video.VideoCore;
 import java.util.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
@@ -425,5 +426,11 @@ public class DataHBox extends HBox implements DataCoreProvider, Control, Designa
 	public boolean isAppendable()
 	{
 		return true;
+	}
+
+	@Override
+	public VideoCore getVideoCore()
+	{
+		return superprovider.getVideoCore();
 	}
 }
