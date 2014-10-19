@@ -26,6 +26,8 @@ public class InitInfo
 {
 	private static int teamNumber;
 	private String host;
+	private String path;
+	private String protocol;
 	private Integer port;
 	private HashMap<String, String> options = new HashMap<>();
 
@@ -38,7 +40,7 @@ public class InitInfo
 		{
 			if (teamNumber == 0)
 				return "127.0.0.1";
-			return "10." + teamNumber / 100 + "." + teamNumber % 100 + ".2";
+			return "roborio-"+teamNumber + ".local";
 		}
 		return host;
 	}
@@ -46,6 +48,18 @@ public class InitInfo
 	public String getRawHost()
 	{
 		return host;
+	}
+
+	public String getProtocol()
+	{
+		return getProtocol(null);
+	}
+
+	public String getProtocol(String Default)
+	{
+		if (protocol == null)
+			return Default;
+		return protocol;
 	}
 
 	public static void setTeamNumber(int num)
@@ -63,7 +77,17 @@ public class InitInfo
 	 */
 	public void setHost(String host)
 	{
-		this.host = host;
+		if (host.contains("://"))
+		{
+			int index = host.indexOf("://");
+			protocol = host.substring(0, index);
+			this.host = host.substring(index+3);
+		}
+		else
+		{
+			protocol = null;
+			this.host = host;
+		}
 	}
 
 	/**
@@ -102,4 +126,16 @@ public class InitInfo
 	{
 		return this.options;
 	}
+
+	public String getPath()
+	{
+		return path;
+	}
+
+	public void setPath(String path)
+	{
+		this.path = path;
+	}
+
+
 }
