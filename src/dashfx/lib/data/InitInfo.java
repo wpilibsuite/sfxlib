@@ -16,7 +16,14 @@
  */
 package dashfx.lib.data;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -137,5 +144,50 @@ public class InitInfo
 		this.path = path;
 	}
 
+	public String getUrl()
+	{
+		return getUrl("???");
+	}
 
+	public String getUrl(String defProtocol)
+	{
+		StringBuilder sb = new StringBuilder();
+		if (getProtocol(null) == null)
+		{
+			sb.append(defProtocol);
+			sb.append("://");
+		}
+		sb.append(getHost());
+		if (getPort()!= null)
+		{
+			sb.append(':');
+			sb.append(getPort());
+		}
+		if (getPath() == null || !getPath().startsWith("/"))
+			sb.append('/');
+		if (getPath() != null);
+			sb.append(getPath());
+
+		int join = 0;
+		
+		for (String k : options.keySet())
+		{
+			if (join++ == 0)
+				sb.append("?");
+			else
+				sb.append("&");
+			try
+			{
+				sb.append(URLEncoder.encode(k, "UTF-8"));
+				sb.append("=");
+				sb.append(URLEncoder.encode(options.get(k), "UTF-8"));
+			}
+			catch (UnsupportedEncodingException ex)
+			{
+				throw new RuntimeException(ex); // this is strange
+			}
+		}
+			
+		return sb.toString();
+	}
 }
