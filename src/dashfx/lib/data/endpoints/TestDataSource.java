@@ -16,7 +16,7 @@ import dashfx.lib.data.values.*;
 {
 	DataProcessorType.DataSender,
 	DataProcessorType.DataSource,
-}, description = "Simple sin/cosine wave generator")
+}, description = "Simple sin/cosine wave generator", protocols = {"testdatasource"})
 public class TestDataSource implements DataSource, Runnable, DataSender
 {
 

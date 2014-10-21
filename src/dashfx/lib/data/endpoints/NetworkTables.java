@@ -36,7 +36,8 @@ import javafx.collections.ObservableMap;
 @DesignableData(name = "NetworkTables", types =
 {
 	DataProcessorType.DataSender
-}, description = "Full NetworkTables 2.0 Client for bidirection Robot communication")
+}, description = "Full NetworkTables 2.0 Client for bidirection Robot communication", protocols = {"nwt"},
+				optionNames = {"version"})
 public class NetworkTables implements DataSource, ITableListener, DataSender
 {
 	NetworkTableClient nwt;
