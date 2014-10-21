@@ -19,6 +19,7 @@ package dashfx.controls.bases;
 import dashfx.lib.controls.*;
 import dashfx.lib.data.*;
 import dashfx.lib.controls.Control;
+import dashfx.lib.data.video.VideoCore;
 import java.util.*;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
@@ -219,6 +220,12 @@ public abstract class PaneControlBase<T extends Pane> implements DataCoreProvide
 		if (getName() != null && (getDataMode() == DataPaneMode.ForceNested || (getDataMode() == DataPaneMode.Nested && !name.startsWith("/"))))
 			name = getName() + (getName().endsWith("/") || name.startsWith("/") ? "" : "/") + name;
 		return superprovider.getObservable(name);
+	}
+
+	@Override
+	public VideoCore getVideoCore()
+	{
+		return superprovider.getVideoCore(); // TODO: prefix truncate?
 	}
 
 	@Override

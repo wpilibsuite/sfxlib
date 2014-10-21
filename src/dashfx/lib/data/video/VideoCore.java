@@ -16,21 +16,69 @@
  */
 package dashfx.lib.data.video;
 
+import dashfx.lib.data.DataEndpoint;
+import dashfx.lib.data.DataInitDescriptor;
+import dashfx.lib.data.DataProcessor;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *
  * @author patrick
  */
-public class VideoCore //TODO: interface this?
+public class VideoCore
 {
-//	void addDataEndpoint(DataEndpoint r);
-//	void addDataFilter(DataProcessor r);
-//	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
-//	SmartValue getObservable(String name);
-//
-//	void pause();
-//	void resume();
-//
-//	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-//	DataProcessor[] getAllDataFilters();
-//	void clearAllDataEndpoints();
+	private ArrayList<DataInitDescriptor<VideoEndpoint>> endpoints = new ArrayList<>();
+	private HashMap<String, ChainableVideoPipe> pipes = new HashMap<>();
+
+	//void addVideoFilter(VideoProcessor r);
+	public void mountVideoEndpoint(DataInitDescriptor<VideoEndpoint> r)
+	{
+		ChainableVideoPipe pipe = new ChainableVideoPipe();
+		r.reInit();
+		r.getObject().setTarget(pipe);
+		endpoints.add(r);
+		pipes.put(r.getMountPoint(), pipe);
+	}
+	
+	public void addViewer(String name, VideoViewer viewer)
+	{
+		ChainableVideoPipe pipe = pipes.get(name);
+		if (pipe != null) // TODO: weakness
+			pipe.addDest(viewer);
+	}
+	
+	public void removeViewer(String name, VideoViewer viewer)
+	{
+		ChainableVideoPipe pipe = pipes.get(name);
+		if (pipe != null)
+			pipe.removeDest(viewer);
+	}
+
+	void dispose()
+	{
+		//TODO: ???
+	}
+
+	//TODO: fix these
+	public DataInitDescriptor<VideoEndpoint>[] getAllVideoEndpoints()
+	{
+		
+		return endpoints.toArray(new DataInitDescriptor[]
+		{
+		});
+	}
+//	DataProcessor[] getAllDataFilters();z
+	public void clearAllVideoEndpoints()
+	{
+		// TODO: don't leave listeners dangling
+		for (DataInitDescriptor<VideoEndpoint> dataInitDescriptor : endpoints)
+		{
+			dataInitDescriptor.getObject().setTarget(null);
+		}
+		endpoints.clear();
+		pipes.clear();
+		// TODO: don't leave listeners dangling
+	}
+
 }

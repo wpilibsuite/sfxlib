@@ -14,27 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.lib.data;
+package dashfx.lib.data.video;
 
-import dashfx.lib.controls.Control;
-import dashfx.lib.data.video.VideoCore;
+import dashfx.lib.data.Initable;
+import java.awt.image.BufferedImage;
 
 /**
  *
  * @author patrick
  */
-public interface DataCoreProvider
+public interface VideoProcessor extends Initable
 {
-	void addControl(Control r);
-	void addDataEndpoint(DataEndpoint r);
-	void addDataFilter(DataProcessor r);
-	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
-	SmartValue getObservable(String name);
-	VideoCore getVideoCore(); // TODO: kind of leaky
-
-	void dispose();
-
-	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-	DataProcessor[] getAllDataFilters();
-	void clearAllDataEndpoints();
+	void processFrame(VideoProcessor source, BufferedImage data);
+	void setProcessor(VideoProcessor proc);
 }

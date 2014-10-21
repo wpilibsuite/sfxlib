@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 patrick
+ * Copyright (C) 2014 patrick
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,27 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dashfx.lib.data;
+package dashfx.lib.data.video;
 
-import dashfx.lib.controls.Control;
-import dashfx.lib.data.video.VideoCore;
+import java.awt.image.BufferedImage;
 
 /**
  *
  * @author patrick
  */
-public interface DataCoreProvider
+public interface VideoMonitor
 {
-	void addControl(Control r);
-	void addDataEndpoint(DataEndpoint r);
-	void addDataFilter(DataProcessor r);
-	void mountDataEndpoint(DataInitDescriptor<DataEndpoint> r);
-	SmartValue getObservable(String name);
-	VideoCore getVideoCore(); // TODO: kind of leaky
-
-	void dispose();
-
-	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-	DataProcessor[] getAllDataFilters();
-	void clearAllDataEndpoints();
+	VideoPipe getDerivedStream(String name);
+	VideoPipe getDerivedStream(VideoPipe parent, String name);
 }
