@@ -210,8 +210,6 @@ public class DataCore implements DataCoreProvider, DataProcessor
 		for (DataInitDescriptor<DataEndpoint> dataInitDescriptor : endpoints)
 		{
 			dataInitDescriptor.getObject().setProcessor(null);
-			dataInitDescriptor.setObject(null);
-
 		}
 		endpoints.clear();
 	}

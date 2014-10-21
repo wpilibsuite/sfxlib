@@ -16,7 +16,14 @@
  */
 package dashfx.lib.data;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +33,8 @@ public class InitInfo
 {
 	private static int teamNumber;
 	private String host;
+	private String path;
+	private String protocol;
 	private Integer port;
 	private HashMap<String, String> options = new HashMap<>();
 
@@ -38,7 +47,7 @@ public class InitInfo
 		{
 			if (teamNumber == 0)
 				return "127.0.0.1";
-			return "10." + teamNumber / 100 + "." + teamNumber % 100 + ".2";
+			return "roborio-"+teamNumber + ".local";
 		}
 		return host;
 	}
@@ -46,6 +55,18 @@ public class InitInfo
 	public String getRawHost()
 	{
 		return host;
+	}
+
+	public String getProtocol()
+	{
+		return getProtocol(null);
+	}
+
+	public String getProtocol(String Default)
+	{
+		if (protocol == null)
+			return Default;
+		return protocol;
 	}
 
 	public static void setTeamNumber(int num)
@@ -63,7 +84,17 @@ public class InitInfo
 	 */
 	public void setHost(String host)
 	{
-		this.host = host;
+		if (host != null && host.contains("://"))
+		{
+			int index = host.indexOf("://");
+			protocol = host.substring(0, index);
+			this.host = host.substring(index+3);
+		}
+		else
+		{
+			protocol = null;
+			this.host = host;
+		}
 	}
 
 	/**
@@ -101,5 +132,62 @@ public class InitInfo
 	public HashMap<String, String> getAllOptions()
 	{
 		return this.options;
+	}
+
+	public String getPath()
+	{
+		return path;
+	}
+
+	public void setPath(String path)
+	{
+		this.path = path;
+	}
+
+	public String getUrl()
+	{
+		return getUrl("???");
+	}
+
+	public String getUrl(String defProtocol)
+	{
+		StringBuilder sb = new StringBuilder();
+		if (getProtocol(null) == null)
+		{
+			sb.append(defProtocol);
+			sb.append("://");
+		}
+		sb.append(getHost());
+		if (getPort()!= null)
+		{
+			sb.append(':');
+			sb.append(getPort());
+		}
+		if (getPath() == null || !getPath().startsWith("/"))
+			sb.append('/');
+		if (getPath() != null)
+			sb.append(getPath());
+
+		int join = 0;
+		
+		for (String k : options.keySet())
+		{
+			if (join++ == 0)
+				sb.append("?");
+			else
+				sb.append("&");
+			try
+			{
+				sb.append(URLEncoder.encode(k, "UTF-8"));
+				sb.append("=");
+				sb.append(URLEncoder.encode(options.get(k), "UTF-8"));
+			}
+			catch (UnsupportedEncodingException ex)
+			{
+				throw new RuntimeException(ex); // this is strange
+			}
+		}
+			
+		return sb.toString();
 	}
 }
