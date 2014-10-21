@@ -16,6 +16,10 @@
  */
 package dashfx.lib.data.video;
 
+import dashfx.lib.data.DataEndpoint;
+import dashfx.lib.data.DataInitDescriptor;
+import dashfx.lib.data.DataProcessor;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -24,16 +28,17 @@ import java.util.HashMap;
  */
 public class VideoCore
 {
-	private HashMap<String, VideoEndpoint> endpoints = new HashMap<>();
+	private ArrayList<DataInitDescriptor<VideoEndpoint>> endpoints = new ArrayList<>();
 	private HashMap<String, ChainableVideoPipe> pipes = new HashMap<>();
 
 	//void addVideoFilter(VideoProcessor r);
-	public void mountVideoEndpoint(String name, VideoEndpoint r)
+	public void mountVideoEndpoint(DataInitDescriptor<VideoEndpoint> r)
 	{
 		ChainableVideoPipe pipe = new ChainableVideoPipe();
-		r.setTarget(pipe);
-		endpoints.put(name, r);
-		pipes.put(name, pipe);
+		r.reInit();
+		r.getObject().setTarget(pipe);
+		endpoints.add(r);
+		pipes.put(r.getMountPoint(), pipe);
 	}
 	
 	public void addViewer(String name, VideoViewer viewer)
@@ -56,8 +61,24 @@ public class VideoCore
 	}
 
 	//TODO: fix these
-//	DataInitDescriptor<DataEndpoint>[] getAllDataEndpoints();
-//	DataProcessor[] getAllDataFilters();
-//	void clearAllDataEndpoints();
+	public DataInitDescriptor<VideoEndpoint>[] getAllVideoEndpoints()
+	{
+		
+		return endpoints.toArray(new DataInitDescriptor[]
+		{
+		});
+	}
+//	DataProcessor[] getAllDataFilters();z
+	public void clearAllVideoEndpoints()
+	{
+		// TODO: don't leave listeners dangling
+		for (DataInitDescriptor<VideoEndpoint> dataInitDescriptor : endpoints)
+		{
+			dataInitDescriptor.getObject().setTarget(null);
+		}
+		endpoints.clear();
+		pipes.clear();
+		// TODO: don't leave listeners dangling
+	}
 
 }
