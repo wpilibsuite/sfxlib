@@ -23,6 +23,7 @@ import dashfx.lib.data.DataCoreProvider;
 import dashfx.lib.data.SmartValue;
 import dashfx.lib.data.video.VideoViewer;
 import java.awt.image.BufferedImage;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -45,17 +46,35 @@ public class VideoControl extends ImageView implements VideoViewer, Control
 
 	public VideoControl()
 	{
-		im = new WritableImage(640,480);
+		im = new WritableImage(120,120);
+		
 		setImage(im);
 	}
 	
 	@Override
-	public void updateFrame(BufferedImage next)
+	public void updateFrame(final BufferedImage next)
 	{
-		System.out.println("Frame update");
-		im = SwingFXUtils.toFXImage(next, im);
-		setImage(im);
-	}	
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run()
+			{
+				im = SwingFXUtils.toFXImage(next, im);
+				setImage(im);
+			}
+		});
+	}
+	
+	// TODO: we should probbably wrap this so we can resize properly
+	public double getWidth()
+	{
+		return super.getFitWidth();
+	}
+	
+	public double getHeight()
+	{
+		return super.getFitHeight();
+	}
 
 	@Override
 	public Node getUi()
