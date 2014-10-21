@@ -84,7 +84,7 @@ public class InitInfo
 	 */
 	public void setHost(String host)
 	{
-		if (host.contains("://"))
+		if (host != null && host.contains("://"))
 		{
 			int index = host.indexOf("://");
 			protocol = host.substring(0, index);
@@ -165,7 +165,7 @@ public class InitInfo
 		}
 		if (getPath() == null || !getPath().startsWith("/"))
 			sb.append('/');
-		if (getPath() != null);
+		if (getPath() != null)
 			sb.append(getPath());
 
 		int join = 0;
