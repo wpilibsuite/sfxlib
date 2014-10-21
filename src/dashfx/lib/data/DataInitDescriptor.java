@@ -16,8 +16,6 @@
  */
 package dashfx.lib.data;
 
-import javafx.beans.property.SimpleStringProperty;
-
 /**
  *
  * @author patrick
@@ -25,32 +23,22 @@ import javafx.beans.property.SimpleStringProperty;
 public class DataInitDescriptor<T extends Initable>
 {
 	private T object;
-	private SimpleStringProperty name;
+	private String name;
 	private InitInfo initInfo;
-	private SimpleStringProperty mountPoint;
+	private String mountPoint;
 
 	public DataInitDescriptor()
 	{
-		name = new SimpleStringProperty("");
-		mountPoint = new SimpleStringProperty("/");
+		name = "";
+		mountPoint = "/";
 	}
 
 	public DataInitDescriptor(T object, String name, InitInfo initInfo, String mountPoint)
 	{
 		this.object = object;
-		this.name = new SimpleStringProperty(name);
+		this.name = name;
 		this.initInfo = initInfo;
-		this.mountPoint = new SimpleStringProperty(mountPoint);
-	}
-	
-	public SimpleStringProperty nameProperty()
-	{
-		return name;
-	}
-	
-	public SimpleStringProperty mountPointProperty()
-	{
-		return mountPoint;
+		_setMountPoint(mountPoint);
 	}
 
 	/**
@@ -60,7 +48,7 @@ public class DataInitDescriptor<T extends Initable>
 	{
 		object.init(initInfo);
 	}
-	
+
 	/**
 	 * @return the object
 	 */
@@ -70,27 +58,11 @@ public class DataInitDescriptor<T extends Initable>
 	}
 
 	/**
-	 * @param object the object to set
-	 */
-	public void setObject(T object)
-	{
-		this.object = object;
-	}
-
-	/**
 	 * @return the name
 	 */
 	public String getName()
 	{
-		return name.get();
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name)
-	{
-		this.name.set(name);
+		return name;
 	}
 
 	/**
@@ -102,32 +74,27 @@ public class DataInitDescriptor<T extends Initable>
 	}
 
 	/**
-	 * @param initInfo the initInfo to set
-	 */
-	public void setInitInfo(InitInfo initInfo)
-	{
-		this.initInfo = initInfo;
-	}
-
-	/**
 	 * @return the mountPoint
 	 */
 	public String getMountPoint()
 	{
-		return mountPoint.get();
+		return mountPoint;
 	}
 
 	/**
+	 * Normalizes and sets the mount point
 	 * @param mountPoint the mountPoint to set
 	 */
-	public void setMountPoint(String mountPoint)
+	private void _setMountPoint(String mountPoint)
 	{
-		this.mountPoint.set(mountPoint);
+		this.mountPoint = mountPoint;
+		if (!mountPoint.startsWith("/"))
+			this.mountPoint = "/"+mountPoint;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "DataInitDescriptor(" + object.toString()+ ", name = \"" + getName()+"\", mount = \"" + getMountPoint() +"\" )";
+		return "DataInitDescriptor(" + object.toString() + ", name = \"" + getName() + "\", mount = \"" + getMountPoint() + "\" )";
 	}
 }
