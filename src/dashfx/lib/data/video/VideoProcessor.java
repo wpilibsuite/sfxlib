@@ -25,6 +25,6 @@ import java.awt.image.BufferedImage;
  */
 public interface VideoProcessor extends Initable
 {
-	void processFrame(VideoProcessor source, BufferedImage data);
-	void setProcessor(VideoProcessor proc);
+	void processFrame(String source, BufferedImage data);
+	void setVProcessor(VideoProcessor proc);
 }

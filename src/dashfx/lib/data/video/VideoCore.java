@@ -19,6 +19,8 @@ package dashfx.lib.data.video;
 import dashfx.lib.data.DataEndpoint;
 import dashfx.lib.data.DataInitDescriptor;
 import dashfx.lib.data.DataProcessor;
+import dashfx.lib.data.InitInfo;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,24 +32,30 @@ public class VideoCore
 {
 	private ArrayList<DataInitDescriptor<VideoEndpoint>> endpoints = new ArrayList<>();
 	private HashMap<String, ChainableVideoPipe> pipes = new HashMap<>();
+	private VideoProcessor r; // TODO: list
 
-	//void addVideoFilter(VideoProcessor r);
+	void setVideoFilter(VideoProcessor r)
+	{
+		this.r = r;
+		r.setVProcessor(new MonitorPipe(null));
+	}
+
 	public void mountVideoEndpoint(DataInitDescriptor<VideoEndpoint> r)
 	{
 		ChainableVideoPipe pipe = new ChainableVideoPipe();
 		r.reInit();
-		r.getObject().setTarget(pipe);
+		r.getObject().setTarget(new MonitorPipe(r.getMountPoint()));
 		endpoints.add(r);
 		pipes.put(r.getMountPoint(), pipe);
 	}
-	
+
 	public void addViewer(String name, VideoViewer viewer)
 	{
 		ChainableVideoPipe pipe = pipes.get(name);
 		if (pipe != null) // TODO: weakness
 			pipe.addDest(viewer);
 	}
-	
+
 	public void removeViewer(String name, VideoViewer viewer)
 	{
 		ChainableVideoPipe pipe = pipes.get(name);
@@ -63,7 +71,7 @@ public class VideoCore
 	//TODO: fix these
 	public DataInitDescriptor<VideoEndpoint>[] getAllVideoEndpoints()
 	{
-		
+
 		return endpoints.toArray(new DataInitDescriptor[]
 		{
 		});
@@ -81,4 +89,38 @@ public class VideoCore
 		// TODO: don't leave listeners dangling
 	}
 
+	private class MonitorPipe implements VideoPipe, VideoProcessor
+	{
+		String name;
+		MonitorPipe(String pname)
+		{
+			name = pname;
+		}
+
+		@Override
+		public void updateFrame(BufferedImage next)
+		{
+			if (r != null)
+				r.processFrame(name, next);
+		}
+
+		@Override
+		public void processFrame(String source, BufferedImage data)
+		{
+			pipes.get(source).updateFrame(data);
+		}
+
+		@Override
+		public void setVProcessor(VideoProcessor proc)
+		{
+
+		}
+
+		@Override
+		public boolean init(InitInfo info)
+		{
+			return true;
+		}
+
+	}
 }
