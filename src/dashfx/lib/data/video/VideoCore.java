@@ -102,6 +102,8 @@ public class VideoCore
 		{
 			if (r != null)
 				r.processFrame(name, next);
+			else
+				processFrame(name, next);
 		}
 
 		@Override
